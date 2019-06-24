@@ -4,32 +4,46 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private CharacterController controller;
+    public float speed = 0.0f;　　//速度
+    private Rigidbody rb;         //Rigidbody
+    Vector3 velocity = Vector3.zero;  //移動量
 
-    [SerializeField]
-    private float speed = 3.0f;
-    private float gravity = 9.8f;
+    public Transform mainCamera;   //メインカメラ
 
     // Start is called before the first frame update
     void Start()
     {
-        controller = GetComponent<CharacterController>();
+        rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        CalculateMove();
+        //一定間隔で移動
+        float x = Input.GetAxisRaw("Horizontal");
+        float z = Input.GetAxisRaw("Vertical");
+
+        PlayerMove(x, z);
+        PlayerRotate();
+        
     }
 
-    void CalculateMove()
+    void PlayerMove(float x, float z)
     {
-        float horizontallnput = Input.GetAxis("Horizontal");
-        float verticallnput = Input.GetAxis("Vertical");
-        Vector3 direction = new Vector3(horizontallnput, 0, verticallnput);
-        Vector3 velocity = direction * speed;
-        velocity.y -= gravity;
-        velocity = transform.transform.TransformDirection(velocity);
-        controller.Move(velocity * Time.deltaTime);
+        //XとZへの力がどちらも0でないとき
+        if (x != 0 || z != 0)
+        {
+            //移動
+            velocity.Set(x, 0, z);
+            velocity = velocity.normalized * speed * Time.deltaTime;
+            velocity = transform.rotation * velocity;
+            rb.MovePosition(transform.position + velocity);
+        }
+    }
+
+    
+    void PlayerRotate()
+    {
+        transform.rotation = Quaternion.Euler(0.0f, mainCamera.transform.localEulerAngles.y, 0.0f);
     }
 }
