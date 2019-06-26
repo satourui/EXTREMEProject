@@ -483,6 +483,10 @@ PrefabInstance:
       propertyPath: m_Center.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1700900738, guid: 2c2d5b21863f2c74191df65c5aad94fd, type: 3}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 92045617}
     m_RemovedComponents:
     - {fileID: 4129201793167350849, guid: 2c2d5b21863f2c74191df65c5aad94fd, type: 3}
     - {fileID: 5620193237953917340, guid: 2c2d5b21863f2c74191df65c5aad94fd, type: 3}
@@ -852,6 +856,11 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7554929479061129453, guid: 46200f668cad2e441bbca8359b4431ee,
+        type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7554929479061689788, guid: 46200f668cad2e441bbca8359b4431ee,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -876,6 +885,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7554929479317199856, guid: 46200f668cad2e441bbca8359b4431ee,
+        type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7554929479325056758, guid: 46200f668cad2e441bbca8359b4431ee,
         type: 3}
