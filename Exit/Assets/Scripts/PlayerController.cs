@@ -19,12 +19,26 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //一定間隔で移動
-        float x = Input.GetAxisRaw("Horizontal");
-        float z = Input.GetAxisRaw("Vertical");
+        //コントローラーが接続されているかどうか調べる
+        var controllerNames = Input.GetJoystickNames();
+        //接続されていなかったらキーボードの入力を参考にする 　先頭の文字が空白なら～
+        if(controllerNames[0] == "")
+        {
+            //一定間隔で移動
+            float x = Input.GetAxisRaw("Horizontal");
+            float z = Input.GetAxisRaw("Vertical");
+            PlayerMove(x, z);
+            PlayerRotate();
+        }
+        else　　//接続されていたらパッド操作に切り替える
+        {
+            //一定間隔で移動
+            float x = Input.GetAxisRaw("L_Stick_Hori");
+            float z = Input.GetAxisRaw("L_Stick_Verti");
+            PlayerMove(x, z);
+            PlayerRotate();
+        }
 
-        PlayerMove(x, z);
-        PlayerRotate();
         
     }
 
