@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class EnemyMovement : MonoBehaviour
 {
     [SerializeField,Header("速さ")]
-    public float speed = 1;
+    public float speed = 1.0f;
     [SerializeField, Header("Playerのオブジェ")]
     public Transform target;
     [SerializeField, Header("ついていく？")]

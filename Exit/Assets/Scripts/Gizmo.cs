@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Gizmo : MonoBehaviour
 {
-    public float gizmoSize = 0.3f;
-    public Color gizmoColor = Color.yellow;
+    public float gizmoSize = 0.3f;//ギズモサイズ
+    public Color gizmoColor = Color.yellow;//ギズモカラー
 
     private void OnDrawGizmos()
     {
