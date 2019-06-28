@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     Vector3 velocity = Vector3.zero;  //移動量
 
     public Transform mainCamera;   //メインカメラ
+    
 
     // Start is called before the first frame update
     void Start()
@@ -39,7 +40,7 @@ public class PlayerController : MonoBehaviour
             PlayerRotate();
         }
 
-        
+        FlashLightSwicthing();
     }
 
     void PlayerMove(float x, float z)
@@ -59,5 +60,18 @@ public class PlayerController : MonoBehaviour
     void PlayerRotate()
     {
         transform.rotation = Quaternion.Euler(0.0f, mainCamera.transform.localEulerAngles.y, 0.0f);
+    }
+
+    void FlashLightSwicthing()
+    {
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            GameObject flashLight = GameObject.Find("FlashLight");
+
+            if (flashLight == null)
+                return;
+
+            flashLight.GetComponent<FlashLightController>().LightSwitching();
+        }
     }
 }
