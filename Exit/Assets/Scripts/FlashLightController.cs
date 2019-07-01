@@ -12,16 +12,24 @@ public class FlashLightController : MonoBehaviour
     void Start()
     {
         lightComponent = GetComponent<Light>();
-        lightIntensity = lightComponent.intensity;
-        lightOnFlag = true;
+        lightIntensity = lightComponent.intensity;  //インベントリで設定されている明るさを保存
+        lightOnFlag = false;  //最初は点いていない状態
     }
     
 
     void Update()
     {
-        //transform.localRotation = GameObject.Find("Camera").transform.localRotation;
-        //transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, 0f);
-        
+        //ライトが点いている状態なら
+        if (lightOnFlag)
+        {
+            lightComponent.intensity = lightIntensity;
+        }
+
+        //ライトが点いていないなら
+        else
+        {
+            lightComponent.intensity = 0;
+        }
     }
     
 
@@ -29,14 +37,13 @@ public class FlashLightController : MonoBehaviour
     {
         if (lightOnFlag == false)
         {
-            lightComponent.intensity = lightIntensity;
             lightOnFlag = true;
         }
 
         else
         {
-            lightComponent.intensity = 0;
             lightOnFlag = false;
         }
+        
     }
 }

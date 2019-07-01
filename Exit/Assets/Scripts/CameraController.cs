@@ -20,7 +20,7 @@ public class CameraController : MonoBehaviour
     public float minRotateX = 0;
     public float maxRotateX = 0;
 
-    private string[] contllorerName;
+    private string[] controllerName;
 
     void Start()
     {
@@ -29,11 +29,11 @@ public class CameraController : MonoBehaviour
         //angle = transform.localEulerAngles.x;
         roteuler = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, 0f);  //親オブジェクトのオイラー角取得
     }
+    
 
-    // Update is called once per frame
     void Update()
     {
-        contllorerName = Input.GetJoystickNames();
+        controllerName = Input.GetJoystickNames();
         CameraMouseRotation();
 
         transform.position = target.transform.position + offset;
@@ -41,7 +41,14 @@ public class CameraController : MonoBehaviour
 
     private void CameraMouseRotation()
     {
-        if (contllorerName[0] == "")
+
+        //Unityを起動してから1度もパッドを接続しないで実行すると
+        //配列の大きさが0になりエラーになるのでとりあえずreturnで返す
+        if (controllerName.Length == 0)
+            return;
+
+
+        if (controllerName[0] == "")
         {
             float rotateX = Input.GetAxis("Mouse X");
             float rotateY = Input.GetAxis("Mouse Y");
