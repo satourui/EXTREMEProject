@@ -58,10 +58,14 @@ public class PlayerController : MonoBehaviour
             PlayerRotate();
 
             //Xボタン
-            if (Input.GetKeyDown(KeyCode.JoystickButton2))
-            {
+            //if (Input.GetKeyDown(KeyCode.JoystickButton2))
+            //{
                 FlashLightSwicthing();
-            }
+            //}
+
+            //float switchingNum = Input.GetAxisRaw("LightSwitch");
+            //if (switchingNum > 0)
+
         }
 
         
@@ -93,7 +97,15 @@ public class PlayerController : MonoBehaviour
         if (flashLight == null)
             return;
 
-        flashLight.GetComponent<FlashLightController>().LightSwitching();
+        if (Input.GetKeyDown(KeyCode.JoystickButton2))
+            flashLight.GetComponent<FlashLightController>().LightSwitching();
 
+
+        float switchingNum = Input.GetAxisRaw("LightSwitch");
+        if (switchingNum > 0)
+            flashLight.GetComponent<FlashLightController>().SwitchOn();
+
+        else if(switchingNum<0)
+            flashLight.GetComponent<FlashLightController>().SwitchOff();
     }
 }
