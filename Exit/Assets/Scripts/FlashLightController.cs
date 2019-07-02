@@ -44,6 +44,24 @@ public class FlashLightController : MonoBehaviour
         {
             lightOnFlag = false;
         }
-        
+
+        //十字キー
+        //float switchingNum = Input.GetAxisRaw("LightSwitch");
+        //if (switchingNum > 0)
+        //    lightOnFlag = true;
+
+        //else if (switchingNum < 0)
+        //    lightOnFlag = false;
+
+    }
+
+    public void SwitchOn()
+    {
+        lightOnFlag = true;
+    }
+
+    public void SwitchOff()
+    {
+        lightOnFlag = false;
     }
 }
