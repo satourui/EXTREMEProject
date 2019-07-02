@@ -42,10 +42,10 @@ public class PlayerController : MonoBehaviour
             PlayerRotate();
 
 
-            if (Input.GetKeyDown(KeyCode.Z))
-            {
+            //if (Input.GetKeyDown(KeyCode.Z))
+            //{
                 FlashLightSwicthing();
-            }
+            //}
         }
 
         //パッド操作
@@ -97,7 +97,8 @@ public class PlayerController : MonoBehaviour
         if (flashLight == null)
             return;
 
-        if (Input.GetKeyDown(KeyCode.JoystickButton2))
+        if (Input.GetKeyDown(KeyCode.JoystickButton2)
+            ||Input.GetKeyDown(KeyCode.Z))
             flashLight.GetComponent<FlashLightController>().LightSwitching();
 
 
