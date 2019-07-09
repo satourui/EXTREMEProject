@@ -7,77 +7,76 @@ public class PlayerController : MonoBehaviour
     public float speed = 0.0f;　　//速度
     private Rigidbody rb;         //Rigidbody
     Vector3 velocity = Vector3.zero;  //移動量
+    PlayerState state;
+
+    string[] messages;  //オブジェクトの文字情報を保存するための配列
+    TalkText text;
+    int currentMessageNum;  //現在読んでいるメッセージの(ページ?)番号
+
+    GameObject selectObj;  //プレイヤーが選択しているオブジェクト
 
     public Transform mainCamera;   //メインカメラ
+    public GameObject flashLight;  //懐中電灯
 
+    public PlayerState State { get => state; set => state = value; }
+    public GameObject SelectObj { get => selectObj; set => selectObj = value; }
 
-    // Start is called before the first frame update
+    public enum PlayerState
+    {
+        Normal,
+        Talk,
+    }
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        state = PlayerState.Normal;
+        text = GameObject.Find("TextUI").GetComponent<TalkText>();
+        currentMessageNum = 0;
     }
 
-    // Update is called once per frame
+
     void Update()
     {
-        //コントローラーが接続されているかどうか調べる
-        var controllerNames = Input.GetJoystickNames();
 
+        PlayerMove();
+        PlayerRotate();
+        FlashLightSwicthing();
 
-        //Unityを起動してから1度もパッドを接続しないで実行すると
-        //配列の大きさが0になりエラーになるのでとりあえずreturnで返す
-        if (controllerNames.Length == 0)
-            return;
-
-
-
-        //接続されていなかったらキーボードの入力を参考にする 　先頭の文字が空白なら～
-        //キーボード操作
-        if (controllerNames[0] == "")
+        if (state == PlayerState.Normal)
         {
-            //一定間隔で移動
-            float x = Input.GetAxisRaw("Horizontal");
-            float z = Input.GetAxisRaw("Vertical");
-            PlayerMove(x, z);
-            PlayerRotate();
-
-
-            //if (Input.GetKeyDown(KeyCode.Z))
-            //{
-                FlashLightSwicthing();
-            //}
+            SelectObject();
         }
 
-        //パッド操作
-        else　　//接続されていたらパッド操作に切り替える
+        else if (state == PlayerState.Talk)
         {
-            //一定間隔で移動
-            float x = Input.GetAxisRaw("L_Stick_Hori");
-            float z = Input.GetAxisRaw("L_Stick_Verti");
-            PlayerMove(x, z);
-            PlayerRotate();
-
-            //Xボタン
-            //if (Input.GetKeyDown(KeyCode.JoystickButton2))
-            //{
-                FlashLightSwicthing();
-            //}
-
-            //float switchingNum = Input.GetAxisRaw("LightSwitch");
-            //if (switchingNum > 0)
-
+            TextReading();
         }
-
-        
     }
 
-    void PlayerMove(float x, float z)
+    void PlayerMove()
     {
+        //キーボード移動
+        float mouse_x = Input.GetAxisRaw("Horizontal");
+        float mouse_z = Input.GetAxisRaw("Vertical");
         //XとZへの力がどちらも0でないとき
-        if (x != 0 || z != 0)
+        if (mouse_x != 0 || mouse_z != 0)
         {
             //移動
-            velocity.Set(x, 0, z);
+            velocity.Set(mouse_x, 0, mouse_z);
+            velocity = velocity.normalized * speed * Time.deltaTime;
+            velocity = transform.rotation * velocity;
+            rb.MovePosition(transform.position + velocity);
+        }
+
+        //パッド移動
+        float pad_X = Input.GetAxisRaw("L_Stick_Hori");
+        float pad_Z = Input.GetAxisRaw("L_Stick_Verti");
+        //XとZへの力がどちらも0でないとき
+        if (pad_X != 0 || pad_Z != 0)
+        {
+            //移動
+            velocity.Set(pad_X, 0, pad_Z);
             velocity = velocity.normalized * speed * Time.deltaTime;
             velocity = transform.rotation * velocity;
             rb.MovePosition(transform.position + velocity);
@@ -92,21 +91,86 @@ public class PlayerController : MonoBehaviour
 
     void FlashLightSwicthing()
     {
-        GameObject flashLight = GameObject.Find("FlashLight");
+        //懐中電灯を検索
+        //GameObject flashLight = GameObject.Find("FlashLight");
 
+        //無かったらreturn
         if (flashLight == null)
             return;
 
-        if (Input.GetKeyDown(KeyCode.JoystickButton2)
-            ||Input.GetKeyDown(KeyCode.Z))
+
+        //ライトのスイッチを変更する条件
+        if (Input.GetKeyDown(KeyCode.Z)
+            || Input.GetKeyDown(KeyCode.JoystickButton2))
+        {
             flashLight.GetComponent<FlashLightController>().LightSwitching();
+        }
 
-
+        //パッドの十字キーが上下のどちらかに入力されているか取得(上なら+,下なら-)
         float switchingNum = Input.GetAxisRaw("LightSwitch");
+
+        //上なら
         if (switchingNum > 0)
             flashLight.GetComponent<FlashLightController>().SwitchOn();
 
-        else if(switchingNum<0)
+        //下なら
+        else if (switchingNum < 0)
             flashLight.GetComponent<FlashLightController>().SwitchOff();
+    }
+
+    void SelectObject()
+    {
+        if (Input.GetKeyDown(KeyCode.JoystickButton0) ||
+            Input.GetKeyDown(KeyCode.Space))
+        {
+
+            if (selectObj == null)
+                return;
+
+            text.Messages = selectObj.GetComponent<PlacedObj>().Messages;
+
+            if (selectObj.GetComponent<PlacedObjParameter>().TalkObj)
+            {
+                text.TextShow();
+                currentMessageNum = 0;
+                text.TextChange(currentMessageNum);
+            }
+            state = PlayerState.Talk;
+        }
+        
+    }
+
+    void TextReading()
+    {
+        //テキストUIのメッセージ配列の大きさを取得
+        var messageLength = text.Messages.Length;
+        text.CurrentMessageCount++;
+        //メッセージが最後の文でなければ
+        if (currentMessageNum < messageLength - 1)
+        {
+            if (Input.GetKeyDown(KeyCode.JoystickButton0) ||
+                Input.GetKeyDown(KeyCode.Space) ||
+                text.CurrentMessageCount > text.NextMessageCount)
+            {
+                currentMessageNum++;
+                text.TextChange(currentMessageNum);
+                text.CurrentMessageCount = 0;
+            }
+        }
+
+        else
+        {
+            if (Input.GetKeyDown(KeyCode.JoystickButton0) ||
+                Input.GetKeyDown(KeyCode.Space)||
+                text.CurrentMessageCount > text.NextMessageCount)
+            {
+                //text.TextClose();
+                text.text.text = selectObj.GetComponent<PlacedObj>().SelectMessage;
+                State = PlayerState.Normal;
+                currentMessageNum = 0;
+                text.CurrentMessageCount = 0;
+            }
+        }
+        
     }
 }
