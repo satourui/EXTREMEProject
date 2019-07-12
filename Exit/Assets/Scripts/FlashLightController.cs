@@ -9,18 +9,20 @@ public class FlashLightController : MonoBehaviour
     float lightIntensity; //明るさの強度
     bool lightOnFlag;  //ライトが点いていればtrue
 
+    public bool LightOnFlag { get => lightOnFlag; set => lightOnFlag = value; }
+
     void Start()
     {
         lightComponent = GetComponent<Light>();
         lightIntensity = lightComponent.intensity;  //インベントリで設定されている明るさを保存
-        lightOnFlag = false;  //最初は点いていない状態
+        LightOnFlag = false;  //最初は点いていない状態
     }
     
 
     void Update()
     {
         //ライトが点いている状態なら
-        if (lightOnFlag)
+        if (LightOnFlag)
         {
             lightComponent.intensity = lightIntensity;
         }
@@ -35,14 +37,14 @@ public class FlashLightController : MonoBehaviour
 
     public void LightSwitching()
     {
-        if (lightOnFlag == false)
+        if (LightOnFlag == false)
         {
-            lightOnFlag = true;
+            LightOnFlag = true;
         }
 
         else
         {
-            lightOnFlag = false;
+            LightOnFlag = false;
         }
 
         //十字キー
@@ -57,11 +59,11 @@ public class FlashLightController : MonoBehaviour
 
     public void SwitchOn()
     {
-        lightOnFlag = true;
+        LightOnFlag = true;
     }
 
     public void SwitchOff()
     {
-        lightOnFlag = false;
+        LightOnFlag = false;
     }
 }

@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rb;         //Rigidbody
     Vector3 velocity = Vector3.zero;  //移動量
     PlayerState state;
+    
 
     string[] messages;  //オブジェクトの文字情報を保存するための配列
     TalkText text;
@@ -164,11 +165,15 @@ public class PlayerController : MonoBehaviour
                 Input.GetKeyDown(KeyCode.Space)||
                 text.CurrentMessageCount > text.NextMessageCount)
             {
-                //text.TextClose();
                 text.text.text = selectObj.GetComponent<PlacedObj>().SelectMessage;
                 State = PlayerState.Normal;
                 currentMessageNum = 0;
                 text.CurrentMessageCount = 0;
+            }
+
+            if (selectObj.GetComponent<PlacedObjParameter>().ItemDropObj)
+            {
+
             }
         }
         
