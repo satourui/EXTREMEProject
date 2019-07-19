@@ -53,6 +53,7 @@ public class PlayerController : MonoBehaviour
         {
             TextReading();
         }
+        
     }
 
     void PlayerMove()
@@ -73,6 +74,7 @@ public class PlayerController : MonoBehaviour
         //パッド移動
         float pad_X = Input.GetAxisRaw("L_Stick_Hori");
         float pad_Z = Input.GetAxisRaw("L_Stick_Verti");
+
         //XとZへの力がどちらも0でないとき
         if (pad_X != 0 || pad_Z != 0)
         {
@@ -128,54 +130,100 @@ public class PlayerController : MonoBehaviour
             if (selectObj == null)
                 return;
 
-            text.Messages = selectObj.GetComponent<PlacedObj>().Messages;
-
-            if (selectObj.GetComponent<PlacedObjParameter>().TalkObj)
+            if (selectObj.GetComponent<PlacedObjParameter>().ChangeMessage_Flag)
             {
-                text.TextShow();
-                currentMessageNum = 0;
-                text.TextChange(currentMessageNum);
+                selectObj.GetComponent<ChangeMessageObj>().ChangeMessage();
             }
+
             state = PlayerState.Talk;
+
+            text.Messages = selectObj.GetComponent<PlacedObj>().Messages;
+            text.TextChange(0);
+            //if (selectObj.GetComponent<PlacedObjParameter>().TalkObj)
+            //{
+            //    if (selectObj.GetComponent<PlacedObjParameter>().ChangeMessage_Flag)
+            //        selectObj.GetComponent<ChangeMessageObj>().ChangeMessage();
+
+            //    text.Messages = selectObj.GetComponent<PlacedObj>().Messages;
+
+            //    //text.TextShow();
+            //    //currentMessageNum = 0;
+            //    //text.TextChange(currentMessageNum);
+            //    text.TextReading();
+            //}
+
+            //state = PlayerState.Talk;
+
+            if (!selectObj.GetComponent<PlacedObjParameter>().TalkObj)
+            {
+                text.Messages = selectObj.GetComponent<PlacedObj>().Messages;
+                text.TextChange(0);
+            }
         }
         
     }
 
     void TextReading()
     {
+        if (Input.GetKeyDown(KeyCode.JoystickButton0) ||
+            Input.GetKeyDown(KeyCode.Space))
+        {
+            //text.Messages = selectObj.GetComponent<PlacedObj>().Messages;
+
+            if (selectObj.GetComponent<PlacedObjParameter>().TalkObj)
+            {
+                //if (selectObj.GetComponent<PlacedObjParameter>().ChangeMessage_Flag)
+                //{
+                //    selectObj.GetComponent<ChangeMessageObj>().ChangeMessage();
+                //}
+                //text.TextShow();
+                //currentMessageNum = 0;
+                //text.TextChange(currentMessageNum);
+                text.TextReading();
+            }
+
+            else
+            {
+                state = PlayerState.Normal;
+            }
+        }
+
         //テキストUIのメッセージ配列の大きさを取得
-        var messageLength = text.Messages.Length;
-        text.CurrentMessageCount++;
+        //var messageLength = text.Messages.Length;
+        //text.CurrentMessageCount++;
         //メッセージが最後の文でなければ
-        if (currentMessageNum < messageLength - 1)
-        {
-            if (Input.GetKeyDown(KeyCode.JoystickButton0) ||
-                Input.GetKeyDown(KeyCode.Space) ||
-                text.CurrentMessageCount > text.NextMessageCount)
-            {
-                currentMessageNum++;
-                text.TextChange(currentMessageNum);
-                text.CurrentMessageCount = 0;
-            }
-        }
+        ////if (currentMessageNum < messageLength - 1)
+        //{
+        //    if (Input.GetKeyDown(KeyCode.JoystickButton0) ||
+        //        Input.GetKeyDown(KeyCode.Space)
+        //        //||
+        //        //text.CurrentMessageCount > text.NextMessageCount
+        //        )
+        //    {
+        //        //currentMessageNum++;
+        //        //text.TextChange(currentMessageNum);
+        //        //text.CurrentMessageCount = 0;
+        //        //text.TextReading();
+        //    }
+        //}
 
-        else
-        {
-            if (Input.GetKeyDown(KeyCode.JoystickButton0) ||
-                Input.GetKeyDown(KeyCode.Space)||
-                text.CurrentMessageCount > text.NextMessageCount)
-            {
-                text.text.text = selectObj.GetComponent<PlacedObj>().SelectMessage;
-                State = PlayerState.Normal;
-                currentMessageNum = 0;
-                text.CurrentMessageCount = 0;
-            }
+        //else
+        //{
+        //    if (Input.GetKeyDown(KeyCode.JoystickButton0) ||
+        //        Input.GetKeyDown(KeyCode.Space)||
+        //        text.CurrentMessageCount > text.NextMessageCount)
+        //    {
+        //        text.text.text = selectObj.GetComponent<PlacedObj>().SelectMessage;
+        //        State = PlayerState.Normal;
+        //        currentMessageNum = 0;
+        //        text.CurrentMessageCount = 0;
+        //    }
 
-            if (selectObj.GetComponent<PlacedObjParameter>().ItemDropObj)
-            {
+        //    if (selectObj.GetComponent<PlacedObjParameter>().FlagChangeObj)
+        //    {
+        //        selectObj.GetComponent<FlagChangeObj>().FlagOn();
+        //    }
+        //}
 
-            }
-        }
-        
     }
 }
