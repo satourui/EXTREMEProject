@@ -28,39 +28,41 @@ public class ObjectJudge : MonoBehaviour
     {
         if (pc.State == PlayerController.PlayerState.Normal)
         {
-            var pi = currentObj.GetComponent<PlacedObj>();
+            var po = currentObj.GetComponent<PlacedObj>();
             //pi.HitFlag = true;
             var tt = textObj.GetComponent<TalkText>();
             //tt.Messages = pi.Messages;
-            tt.text.text = pi.SelectMessage;
+            //tt.text.text = po.SelectMessage;
+            tt.SelectMessage = po.SelectMessage;
             //tt.ShowFlag = true;
             tt.TextShow();
+            tt.SelectObj = currentObj;
             pc.SelectObj = currentObj;
         }
     }
 
     void TalkReset()
     {
-        
         var tt = textObj.GetComponent<TalkText>();
-        tt.ShowFlag = false;
+        //tt.ShowFlag = false;
         tt.TextClose();
         currentObj = null;
         pc.SelectObj = currentObj;
-        //pc.State = PlayerController.PlayerState.Normal;
+        tt.CurrentMessagePage = 0;
+        pc.State = PlayerController.PlayerState.Normal;
     }
     
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         var obj = other.gameObject;
-        var itemParameter = obj.GetComponent<PlacedObjParameter>();
-        if (itemParameter == null)
+        var objParameter = obj.GetComponent<PlacedObjParameter>();
+        if (objParameter == null)
             return;
 
         currentObj = obj;
 
-        //if (itemParameter.TalkObj)
+        //if (objParameter.TalkObj)
         {
             TalkPreparation();
         }
@@ -70,8 +72,8 @@ public class ObjectJudge : MonoBehaviour
     {
         var obj = other.gameObject;
 
-        var itemParameter = obj.GetComponent<PlacedObjParameter>();
-        if (itemParameter == null)
+        var objParameter = obj.GetComponent<PlacedObjParameter>();
+        if (objParameter == null)
             return;
 
         //if (itemParameter.TalkObj)
