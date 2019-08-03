@@ -4,10 +4,18 @@ using UnityEngine;
 
 public class DoorChaild : MonoBehaviour
 {
+    public enum RL
+    {
+        R,L
+    };
+
+    public RL rL;
+
+    public bool b;
     // Start is called before the first frame update
     void Start()
     {
-        
+        b = false;
     }
 
     // Update is called once per frame
@@ -16,5 +24,19 @@ public class DoorChaild : MonoBehaviour
         
     }
 
+    private void OnTriggerStay(Collider o)
+    {
+        if(o.tag=="Enemy")
+        {
+            b = true;
+        }
+    }
 
+    private void OnTriggerExit(Collider c)
+    {
+        if (c.tag == "Enemy")
+        {
+            b = false;
+        }
+    }
 }
