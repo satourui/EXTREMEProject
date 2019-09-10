@@ -12,13 +12,12 @@ GameObject:
   - component: {fileID: 2218356161809029617}
   - component: {fileID: 1242498862000517831}
   - component: {fileID: 2218356161809029631}
-  - component: {fileID: 2218356161809029625}
   - component: {fileID: 7313616250694955307}
   - component: {fileID: 2218356161809029629}
   - component: {fileID: 2218356161809029627}
   - component: {fileID: 2218356161809029626}
   m_Layer: 0
-  m_Name: Enemy 1
+  m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -83,19 +82,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!135 &2218356161809029625
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2218356161809029618}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 3
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!195 &7313616250694955307
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -133,6 +119,7 @@ MonoBehaviour:
   speed: 1
   target: {fileID: 0}
   isActive: 0
+  chaceDistance: 0
 --- !u!114 &2218356161809029627
 MonoBehaviour:
   m_ObjectHideFlags: 0
