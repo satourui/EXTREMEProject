@@ -130,6 +130,13 @@ public class PlayerController : MonoBehaviour
             if (selectObj == null)
                 return;
 
+            if (selectObj.GetComponent<PlacedObjParameter>().AnimationObj)
+            {
+                selectObj.GetComponent<AnimationObj>().StartAnimation();
+                return;
+            }
+
+
             if (selectObj.GetComponent<PlacedObjParameter>().ChangeMessage_Flag)
             {
                 selectObj.GetComponent<ChangeMessageObj>().ChangeMessage();
