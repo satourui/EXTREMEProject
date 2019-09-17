@@ -137,10 +137,10 @@ public class PlayerController : MonoBehaviour
             }
 
 
-            if (selectObj.GetComponent<PlacedObjParameter>().ChangeMessage_Flag)
-            {
-                selectObj.GetComponent<ChangeMessageObj>().ChangeMessage();
-            }
+            //if (selectObj.GetComponent<PlacedObjParameter>().ChangeMessageObj)
+            //{
+            //    selectObj.GetComponent<ChangeMessageObj>().ChangeMessage();
+            //}
 
             state = PlayerState.Talk;
 
@@ -161,7 +161,8 @@ public class PlayerController : MonoBehaviour
 
             //state = PlayerState.Talk;
 
-            if (!selectObj.GetComponent<PlacedObjParameter>().TalkObj)
+            if (/*!selectObj.GetComponent<PlacedObjParameter>().TalkObj*/
+                !selectObj.GetComponent<PlacedObj>().IsSelect)
             {
                 text.Messages = selectObj.GetComponent<PlacedObj>().Messages;
                 text.TextChange(0);
@@ -177,7 +178,8 @@ public class PlayerController : MonoBehaviour
         {
             //text.Messages = selectObj.GetComponent<PlacedObj>().Messages;
 
-            if (selectObj.GetComponent<PlacedObjParameter>().TalkObj)
+            if (/*selectObj.GetComponent<PlacedObjParameter>().TalkObj*/
+                selectObj.GetComponent<PlacedObj>().IsSelect)
             {
                 //if (selectObj.GetComponent<PlacedObjParameter>().ChangeMessage_Flag)
                 //{

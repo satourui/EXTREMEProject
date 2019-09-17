@@ -278,34 +278,10 @@ PrefabInstance:
       propertyPath: flashLight
       value: 
       objectReference: {fileID: 843558177}
-    - target: {fileID: 1174367597, guid: 2c2d5b21863f2c74191df65c5aad94fd, type: 3}
-      propertyPath: m_Size.z
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1174367597, guid: 2c2d5b21863f2c74191df65c5aad94fd, type: 3}
-      propertyPath: m_Center.z
-      value: 1.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 1174367597, guid: 2c2d5b21863f2c74191df65c5aad94fd, type: 3}
-      propertyPath: m_Size.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1174367597, guid: 2c2d5b21863f2c74191df65c5aad94fd, type: 3}
-      propertyPath: m_Size.x
-      value: 0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 1174367598, guid: 2c2d5b21863f2c74191df65c5aad94fd, type: 3}
       propertyPath: m_camera
       value: 
       objectReference: {fileID: 2034179003}
-    - target: {fileID: 1174367596, guid: 2c2d5b21863f2c74191df65c5aad94fd, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.324
-      objectReference: {fileID: 0}
-    - target: {fileID: 1174367596, guid: 2c2d5b21863f2c74191df65c5aad94fd, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.4
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2c2d5b21863f2c74191df65c5aad94fd, type: 3}
 --- !u!1 &170076733
@@ -815,10 +791,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22bece4dad567dd41b23b45a90ffcdcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  talkObj: 1
+  onceObj: 0
+  changeMessageObj: 1
   itemDropObj: 0
   flagChangeObj: 0
-  changeMessage_Flag: 1
   animationObj: 0
 --- !u!114 &763906962
 MonoBehaviour:
@@ -837,8 +813,6 @@ MonoBehaviour:
   - "\u9375\u304C\u304B\u304B\u3063\u3066\u3044\u308B"
   - 2
   - 3
-  afterMessages:
-  - "\u958B\u3044\u3066\u3044\u308B"
 --- !u!65 &763906963
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -923,7 +897,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b6a9c4c54cd8c447900024467696713, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  afterSelect: 0
+  forFlag: 1
+  select: 0
+  mainText: 1
   flagName: GetKey
+  selectMessage: 
   changeMessages:
   - "\u9375\u3092\u4F7F\u3063\u305F"
   deleteTextObj: 1
@@ -1222,8 +1201,6 @@ MonoBehaviour:
   messages:
   - "\u7BB1\u3092\u958B\u3051\u305F"
   - "\u9375\u3092\u5165\u624B\u3057\u305F"
-  afterMessages:
-  - "\u4F55\u3082\u6B8B\u3063\u3066\u3044\u306A\u3044"
 --- !u!114 &947586525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1236,11 +1213,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22bece4dad567dd41b23b45a90ffcdcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  talkObj: 1
+  onceObj: 0
+  changeMessageObj: 0
   itemDropObj: 0
   flagChangeObj: 1
-  changeMessage_Flag: 0
-  animationObj: 1
+  animationObj: 0
 --- !u!114 &947586526
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1405,10 +1382,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22bece4dad567dd41b23b45a90ffcdcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  talkObj: 1
+  onceObj: 0
+  changeMessageObj: 0
   itemDropObj: 0
   flagChangeObj: 0
-  changeMessage_Flag: 0
   animationObj: 0
 --- !u!114 &1075438139
 MonoBehaviour:
@@ -1425,7 +1402,6 @@ MonoBehaviour:
   selectMessage: "\u53D6\u308B"
   messages:
   - "\u9375\u3092\u53D6\u5F97"
-  afterMessages: []
 --- !u!1001 &1229828442
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3010,17 +2986,17 @@ PrefabInstance:
     - target: {fileID: 2846638301352678679, guid: d54f16cea18de0f40be60028bc8aebd6,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2846638301352678679, guid: d54f16cea18de0f40be60028bc8aebd6,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2846638301352678679, guid: d54f16cea18de0f40be60028bc8aebd6,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2846638301352678679, guid: d54f16cea18de0f40be60028bc8aebd6,
         type: 3}
@@ -3052,61 +3028,6 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 1548371867}
-    - target: {fileID: 2846638299649605822, guid: d54f16cea18de0f40be60028bc8aebd6,
-        type: 3}
-      propertyPath: m_CullingMask.m_Bits
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 2846638299649605822, guid: d54f16cea18de0f40be60028bc8aebd6,
-        type: 3}
-      propertyPath: m_Lightmapping
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 2846638299649605822, guid: d54f16cea18de0f40be60028bc8aebd6,
-        type: 3}
-      propertyPath: m_Shadows.m_Type
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2846638299649605822, guid: d54f16cea18de0f40be60028bc8aebd6,
-        type: 3}
-      propertyPath: m_Shadows.m_Resolution
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2846638299649605822, guid: d54f16cea18de0f40be60028bc8aebd6,
-        type: 3}
-      propertyPath: m_RenderMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2846638299649605822, guid: d54f16cea18de0f40be60028bc8aebd6,
-        type: 3}
-      propertyPath: m_Type
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2846638299649605822, guid: d54f16cea18de0f40be60028bc8aebd6,
-        type: 3}
-      propertyPath: m_Range
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 2846638300289068684, guid: d54f16cea18de0f40be60028bc8aebd6,
-        type: 3}
-      propertyPath: m_CullingMask.m_Bits
-      value: 1335
-      objectReference: {fileID: 0}
-    - target: {fileID: 2846638300289068685, guid: d54f16cea18de0f40be60028bc8aebd6,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 2846638299649605821, guid: d54f16cea18de0f40be60028bc8aebd6,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.52
-      objectReference: {fileID: 0}
-    - target: {fileID: 2846638299649605821, guid: d54f16cea18de0f40be60028bc8aebd6,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.694
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d54f16cea18de0f40be60028bc8aebd6, type: 3}
 --- !u!1001 &5998980571814909498

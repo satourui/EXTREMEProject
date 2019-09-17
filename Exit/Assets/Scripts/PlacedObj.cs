@@ -10,17 +10,19 @@ public class PlacedObj : MonoBehaviour
     [SerializeField , Header("選択中に表示されるメッセージ")]
     private string[] messages;
 
-    [SerializeField, Header("選択後に永続的に表示されるメッセージ")]
-    private string[] afterMessages;
+    //[SerializeField, Header("選択後に永続的に表示されるメッセージ")]
+    //private string[] afterMessages;
 
-
-    public string[] Messages { get => messages; set => messages = value; }
     public string SelectMessage { get => selectMessage; set => selectMessage = value; }
-    public string[] AfterMessages { get => afterMessages; }
+    public string[] Messages { get => messages; set => messages = value; }
+    //public string[] AfterMessages { get => afterMessages; }
+    public bool IsSelect { get => isSelect; set => isSelect = value; }
+
+    private bool isSelect;  //選択できる状態ならtrue
 
     void Start()
     {
-
+        isSelect = true;
     }
 
     
@@ -31,7 +33,7 @@ public class PlacedObj : MonoBehaviour
 
     public void ChangeEndMessage()
     {
-        messages = afterMessages;
+        //messages = afterMessages;
     }
 
     public void MessageDelete()

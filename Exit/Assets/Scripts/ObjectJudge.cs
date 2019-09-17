@@ -40,6 +40,11 @@ public class ObjectJudge : MonoBehaviour
             tt.TextShow();
             tt.SelectObj = currentObj;
             pc.SelectObj = currentObj;
+
+            if (po.GetComponent<PlacedObjParameter>().ChangeMessageObj)
+            {
+                po.GetComponent<ChangeMessageObj>().ChangeMessage();
+            }
         }
     }
 
@@ -65,6 +70,7 @@ public class ObjectJudge : MonoBehaviour
         currentObj = obj;
 
         //if (objParameter.TalkObj)
+        if(obj.GetComponent<PlacedObj>().IsSelect)
         {
             TalkPreparation();
         }
