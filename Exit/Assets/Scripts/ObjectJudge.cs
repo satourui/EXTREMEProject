@@ -10,6 +10,8 @@ public class ObjectJudge : MonoBehaviour
 
     PlayerController pc;
 
+    public GameObject m_camera;
+
     void Start()
     {
         textObj = GameObject.Find("TextUI");
@@ -19,7 +21,7 @@ public class ObjectJudge : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        transform.transform.rotation = m_camera.transform.transform.rotation;
     }
 
     
