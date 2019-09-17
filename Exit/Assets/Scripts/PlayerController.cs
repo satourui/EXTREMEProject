@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    //音声再生
+    private AudioSource sound01;
+    private AudioSource sound02;
     public float speed = 0.0f;　　//速度
     private Rigidbody rb;         //Rigidbody
     Vector3 velocity = Vector3.zero;  //移動量
@@ -34,6 +37,11 @@ public class PlayerController : MonoBehaviour
         state = PlayerState.Normal;
         text = GameObject.Find("TextUI").GetComponent<TalkText>();
         currentMessageNum = 0;
+        //音声ファイルをコンポーネントして変数に格納する
+        AudioSource[] audioSources = GetComponents<AudioSource>();
+        sound01 = audioSources[0];
+        sound02 = audioSources[1];
+
     }
 
 
@@ -107,6 +115,7 @@ public class PlayerController : MonoBehaviour
             || Input.GetKeyDown(KeyCode.JoystickButton2))
         {
             flashLight.GetComponent<FlashLightController>().LightSwitching();
+            sound01.PlayOneShot(sound01.clip);
         }
 
         //パッドの十字キーが上下のどちらかに入力されているか取得(上なら+,下なら-)
