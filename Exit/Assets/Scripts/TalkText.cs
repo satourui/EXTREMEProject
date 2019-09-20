@@ -81,27 +81,35 @@ public class TalkText : MonoBehaviour
             {
                 CurrentMessagePage = 0;
 
+                var objParameter = selectObj.GetComponent<PlacedObjParameter>();
+
+                //選んだオブジェクトが1度しか選択できないオブジェクトなら
+                if (objParameter.OnceObj)
+                {
+                    selectObj.GetComponent<PlacedObj>().IsSelect = false;
+                }
+
                 //選んだオブジェクトがフラグによってメッセージが変化するオブジェクトではなかったら
-                if (!selectObj.GetComponent<PlacedObjParameter>().ChangeMessage_Flag)
+                //if (!objParameter.ChangeMessage_Flag)
                 {
                     //selectObj.GetComponent<PlacedObj>().ChangeEndMessage();
 
                 }
                 //選んだオブジェクトがフラグによってメッセージが変化するオブジェクトなら
-                if (selectObj.GetComponent<PlacedObjParameter>().ChangeMessage_Flag)
+                if (objParameter.ChangeMessageObj)
                 {
                     selectObj.GetComponent<ChangeMessageObj>().LockText();
                 }
 
                 //選んだオブジェクトがフラグによってメッセージが変化しないなら
-                if (!selectObj.GetComponent<PlacedObjParameter>().ChangeMessage_Flag)
+                //if (!objParameter.ChangeMessage_Flag)
                 {
-                    selectObj.GetComponent<PlacedObj>().MessageDelete();
-                    selectObj.GetComponent<PlacedObjParameter>().TalkObj = false;
+                    //selectObj.GetComponent<PlacedObj>().MessageDelete();
+                    //selectObj.GetComponent<PlacedObjParameter>().TalkObj = false;
                 }
 
                 //選んだオブジェクトがフラグを変更するオブジェクトなら
-                if (selectObj.GetComponent<PlacedObjParameter>().FlagChangeObj)
+                if (objParameter.FlagChangeObj)
                 {
                     selectObj.GetComponent<FlagChangeObj>().FlagOn();
                 }

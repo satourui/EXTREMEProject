@@ -4,10 +4,22 @@ using UnityEngine;
 
 public class ChangeMessageObj : MonoBehaviour
 {
+    
+    [Header("メッセージが変わる条件")]
+    public bool afterSelect;  //選択後
+    public bool forFlag;      //フラグによって
+
+    [Header("メッセージを変える場所")]
+    public bool select;  //選択
+    public bool mainText; //本文
+
     [SerializeField, Header("このフラグがtrueならメッセージを変える")]
     private string flagName;
 
-    [SerializeField, Header("変更時に1度だけ現れるメッセージ")]
+    [SerializeField, Header("変更後のセレクト文")]
+    private string selectMessage;
+
+    [SerializeField, Header("変更後の本文")]
     private string[] changeMessages;
 
     [SerializeField, Header("FlagNameがtrueならもうテキストを表示しない")]
@@ -32,8 +44,17 @@ public class ChangeMessageObj : MonoBehaviour
     {
         if (flagManager.flags[flagName])
         {
-            GetComponent<PlacedObj>().Messages = changeMessages;
-            GetComponent<PlacedObjParameter>().ChangeMessage_Flag = false;
+            if (select)
+            {
+                GetComponent<PlacedObj>().SelectMessage = selectMessage;
+            }
+
+            if (mainText)
+            {
+                GetComponent<PlacedObj>().Messages = changeMessages;
+            }
+            
+            //GetComponent<PlacedObjParameter>().ChangeMessage_Flag = false;
         }
     }
 
@@ -41,7 +62,8 @@ public class ChangeMessageObj : MonoBehaviour
     {
         if (deleteTextObj && flagManager.flags[flagName])
         {
-            GetComponent<PlacedObjParameter>().TalkObj = false;
+            //GetComponent<PlacedObjParameter>().TalkObj = false;
+            GetComponent<PlacedObj>().IsSelect = false;
         }
     }
 }
