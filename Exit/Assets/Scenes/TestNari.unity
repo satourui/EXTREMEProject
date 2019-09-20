@@ -1298,6 +1298,7 @@ GameObject:
   - component: {fileID: 947586529}
   - component: {fileID: 947586524}
   - component: {fileID: 947586525}
+  - component: {fileID: 947586523}
   - component: {fileID: 947586526}
   - component: {fileID: 947586527}
   - component: {fileID: 947586528}
@@ -1383,6 +1384,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &947586523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 947586518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b6a9c4c54cd8c447900024467696713, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  afterSelect: 1
+  forFlag: 0
+  select: 1
+  mainText: 0
+  flagName: 
+  selectMessage: "\u9589\u3081\u308B"
+  changeMessages: []
+  deleteTextObj: 0
 --- !u!114 &947586524
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1396,9 +1417,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectMessage: "\u958B\u3051\u308B"
-  messages:
-  - "\u7BB1\u3092\u958B\u3051\u305F"
-  - "\u9375\u3092\u5165\u624B\u3057\u305F"
+  messages: []
 --- !u!114 &947586525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1412,10 +1431,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onceObj: 0
-  changeMessageObj: 0
+  changeMessageObj: 1
   itemDropObj: 0
-  flagChangeObj: 1
-  animationObj: 0
+  flagChangeObj: 0
+  animationObj: 1
 --- !u!114 &947586526
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1423,7 +1442,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 947586518}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1cdc304912babe549b9517675cd38380, type: 3}
   m_Name: 
@@ -1489,6 +1508,7 @@ GameObject:
   - component: {fileID: 1075438135}
   - component: {fileID: 1075438139}
   - component: {fileID: 1075438138}
+  - component: {fileID: 1075438140}
   m_Layer: 0
   m_Name: Key
   m_TagString: Untagged
@@ -1583,7 +1603,7 @@ MonoBehaviour:
   onceObj: 0
   changeMessageObj: 0
   itemDropObj: 0
-  flagChangeObj: 0
+  flagChangeObj: 1
   animationObj: 0
 --- !u!114 &1075438139
 MonoBehaviour:
@@ -1600,6 +1620,19 @@ MonoBehaviour:
   selectMessage: "\u53D6\u308B"
   messages:
   - "\u9375\u3092\u53D6\u5F97"
+--- !u!114 &1075438140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1075438133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cdc304912babe549b9517675cd38380, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flagName: GetKey
 --- !u!1001 &1229828442
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -43,7 +43,7 @@ public class ObjectJudge : MonoBehaviour
 
             if (po.GetComponent<PlacedObjParameter>().ChangeMessageObj)
             {
-                po.GetComponent<ChangeMessageObj>().ChangeMessage();
+                po.GetComponent<ChangeMessageObj>().ChangeMessage_Flag();
             }
         }
     }

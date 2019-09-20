@@ -69,8 +69,7 @@ public class TalkText : MonoBehaviour
         {
             //messages = selectObj.GetComponent<PlacedObj>().Messages;
             maxMessagePage = messages.Length;
-
-            if (CurrentMessagePage < MaxMessagePage-1)
+            if (CurrentMessagePage < MaxMessagePage - 1 )
             {
                 CurrentMessagePage++;
                 TextChange(CurrentMessagePage);
@@ -96,10 +95,10 @@ public class TalkText : MonoBehaviour
 
                 }
                 //選んだオブジェクトがフラグによってメッセージが変化するオブジェクトなら
-                if (objParameter.ChangeMessageObj)
-                {
-                    selectObj.GetComponent<ChangeMessageObj>().LockText();
-                }
+                //if (objParameter.ChangeMessageObj)
+                //{
+                //    selectObj.GetComponent<ChangeMessageObj>().LockText();
+                //}
 
                 //選んだオブジェクトがフラグによってメッセージが変化しないなら
                 //if (!objParameter.ChangeMessage_Flag)
@@ -114,14 +113,20 @@ public class TalkText : MonoBehaviour
                     selectObj.GetComponent<FlagChangeObj>().FlagOn();
                 }
 
-                
+                if (objParameter.ChangeMessageObj)
+                {
+                    if (selectObj.GetComponent<ChangeMessageObj>().afterSelect)
+                    {
+                        selectObj.GetComponent<ChangeMessageObj>().ChangeLoopMessage();
+                    }
+                }
 
                 TextClose();
 
                 GameObject.Find("Player").GetComponent<PlayerController>().State = PlayerController.PlayerState.Normal;
 
-                
-                
+
+
             }
         }
     }
