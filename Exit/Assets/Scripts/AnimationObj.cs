@@ -7,13 +7,15 @@ public class AnimationObj : MonoBehaviour
     Animator animator;
     public string parameterName;
     bool isAnime;                      //アニメーションできる状態ならtrue
-    public int animeTiming;  //テキストの何行目にアニメーションするか
+    private int animeTiming;  //テキストの何行目にアニメーションするか
+
+    public int AnimeTiming { get => animeTiming;}
 
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
-        isAnime = false;
+        isAnime = true;
     }
 
     // Update is called once per frame
@@ -22,7 +24,7 @@ public class AnimationObj : MonoBehaviour
         
     }
 
-    public void StartAnimation()
+    public void LoopAnimation()
     {
         if (isAnime)
         {
@@ -37,4 +39,6 @@ public class AnimationObj : MonoBehaviour
         }
 
     }
+
+   
 }

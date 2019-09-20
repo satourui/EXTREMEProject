@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    //音声再生
-    private AudioSource sound01;
-    private AudioSource sound02;
     public float speed = 0.0f;　　//速度
     private Rigidbody rb;         //Rigidbody
     Vector3 velocity = Vector3.zero;  //移動量
@@ -21,6 +18,10 @@ public class PlayerController : MonoBehaviour
 
     public Transform mainCamera;   //メインカメラ
     public GameObject flashLight;  //懐中電灯
+
+    //音声再生
+    private AudioSource sound01;
+    private AudioSource sound02;
 
     public PlayerState State { get => state; set => state = value; }
     public GameObject SelectObj { get => selectObj; set => selectObj = value; }
@@ -135,14 +136,12 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.JoystickButton0) ||
             Input.GetKeyDown(KeyCode.Space))
         {
-
             if (selectObj == null)
                 return;
 
             if (selectObj.GetComponent<PlacedObjParameter>().AnimationObj)
             {
-                selectObj.GetComponent<AnimationObj>().StartAnimation();
-                return;
+                selectObj.GetComponent<AnimationObj>().LoopAnimation();
             }
 
 
@@ -151,10 +150,10 @@ public class PlayerController : MonoBehaviour
             //    selectObj.GetComponent<ChangeMessageObj>().ChangeMessage();
             //}
 
-            state = PlayerState.Talk;
+            
 
-            text.Messages = selectObj.GetComponent<PlacedObj>().Messages;
-            text.TextChange(0);
+            //text.Messages = selectObj.GetComponent<PlacedObj>().Messages;
+           
             //if (selectObj.GetComponent<PlacedObjParameter>().TalkObj)
             //{
             //    if (selectObj.GetComponent<PlacedObjParameter>().ChangeMessage_Flag)
@@ -168,16 +167,20 @@ public class PlayerController : MonoBehaviour
             //    text.TextReading();
             //}
 
-            //state = PlayerState.Talk;
+            
 
-            if (/*!selectObj.GetComponent<PlacedObjParameter>().TalkObj*/
-                !selectObj.GetComponent<PlacedObj>().IsSelect)
+            text.Messages = selectObj.GetComponent<PlacedObj>().Messages;
+            if (text.Messages.Length != 0)
             {
-                text.Messages = selectObj.GetComponent<PlacedObj>().Messages;
+                state = PlayerState.Talk;
                 text.TextChange(0);
             }
+            else
+            {
+                selectObj.GetComponent<ChangeMessageObj>().ChangeLoopMessage();
+            }
         }
-        
+
     }
 
     void TextReading()

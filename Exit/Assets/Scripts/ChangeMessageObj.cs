@@ -22,6 +22,7 @@ public class ChangeMessageObj : MonoBehaviour
     [SerializeField, Header("変更後の本文")]
     private string[] changeMessages;
 
+
     [SerializeField, Header("FlagNameがtrueならもうテキストを表示しない")]
     private bool deleteTextObj;
 
@@ -40,21 +41,49 @@ public class ChangeMessageObj : MonoBehaviour
         
     }
 
-    public void ChangeMessage()
+    /// <summary>
+    /// フラグよってメッセージを変える
+    /// </summary>
+    public void ChangeMessage_Flag()
     {
-        if (flagManager.flags[flagName])
+        //フラグによって
+        if(forFlag)
         {
+            //フラグがtrueなら
+            if (flagManager.flags[flagName])
+            {
+                if (select)
+                {
+                    GetComponent<PlacedObj>().SelectMessage = selectMessage;
+                }
+
+                if (mainText)
+                {
+                    GetComponent<PlacedObj>().Messages = changeMessages;
+                }
+            }
+        }
+        
+    }
+
+    public void ChangeLoopMessage()
+    {
+        if (afterSelect)
+        {
+            var po = GetComponent<PlacedObj>();
             if (select)
             {
-                GetComponent<PlacedObj>().SelectMessage = selectMessage;
+                string temporaryMessage = po.SelectMessage;
+                po.SelectMessage = selectMessage;
+                selectMessage = temporaryMessage;
             }
 
             if (mainText)
             {
-                GetComponent<PlacedObj>().Messages = changeMessages;
+                string[] temporaryMessages = po.Messages;
+                po.Messages = changeMessages;
+                changeMessages = temporaryMessages;
             }
-            
-            //GetComponent<PlacedObjParameter>().ChangeMessage_Flag = false;
         }
     }
 
@@ -65,5 +94,10 @@ public class ChangeMessageObj : MonoBehaviour
             //GetComponent<PlacedObjParameter>().TalkObj = false;
             GetComponent<PlacedObj>().IsSelect = false;
         }
+    }
+
+    public void DeleteMainText()
+    {
+        GetComponent<PlacedObj>().Messages = null;
     }
 }
