@@ -22,6 +22,10 @@ public class PlayerController : MonoBehaviour
     public Transform mainCamera;   //メインカメラ
     public GameObject flashLight;  //懐中電灯
 
+    //↓かんが追加
+    public bool isWalk;  //歩いているか
+    //↑
+
     public PlayerState State { get => state; set => state = value; }
     public GameObject SelectObj { get => selectObj; set => selectObj = value; }
 
@@ -40,8 +44,9 @@ public class PlayerController : MonoBehaviour
         //音声ファイルをコンポーネントして変数に格納する
         AudioSource[] audioSources = GetComponents<AudioSource>();
         sound01 = audioSources[0];
-        sound02 = audioSources[1];
+       // sound02 = audioSources[1];
 
+        isWalk = false;  //最初は歩いていない
     }
 
 
@@ -61,7 +66,15 @@ public class PlayerController : MonoBehaviour
         {
             TextReading();
         }
-        
+
+        if (isWalk) //歩いているとき
+        {
+            Debug.Log("歩いた");
+        }
+        else
+        {
+        }
+
     }
 
     void PlayerMove()
@@ -79,6 +92,7 @@ public class PlayerController : MonoBehaviour
             rb.MovePosition(transform.position + velocity);
         }
 
+
         //パッド移動
         float pad_X = Input.GetAxisRaw("L_Stick_Hori");
         float pad_Z = Input.GetAxisRaw("L_Stick_Verti");
@@ -92,6 +106,17 @@ public class PlayerController : MonoBehaviour
             velocity = transform.rotation * velocity;
             rb.MovePosition(transform.position + velocity);
         }
+
+        if(velocity != Vector3.zero)  ///歩いているかどうか
+        {
+            isWalk = true;
+        }
+        else
+        {
+            isWalk = false;
+        }
+
+        velocity = Vector3.zero;
     }
 
 

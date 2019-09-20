@@ -24,14 +24,14 @@ public class Door : MonoBehaviour
     {
         if (door_R.inDoor||!door_L.inDoor)// && chaild.rL == DoorChaild.RL.R)
         {
-            Debug.Log("R");
-            animator.SetBool("OpenR",true);
+           // Debug.Log("R");
+            //animator.SetBool("OpenR",true);
         }
 
         else if (door_L.inDoor||!door_R.inDoor)// && chaild.rL == DoorChaild.RL.R)
         {
-            Debug.Log("L");
-            animator.SetBool("OpenL", true);
+           // Debug.Log("L");
+            //animator.SetBool("OpenL", true);
         }
     }
 }
