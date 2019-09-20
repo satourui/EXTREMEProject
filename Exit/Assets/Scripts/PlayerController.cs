@@ -163,7 +163,7 @@ public class PlayerController : MonoBehaviour
 
             if (selectObj.GetComponent<PlacedObjParameter>().AnimationObj)
             {
-                selectObj.GetComponent<AnimationObj>().StartAnimation();
+                selectObj.GetComponent<AnimationObj>().LoopAnimation();
                 return;
             }
 

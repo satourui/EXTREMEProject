@@ -1016,7 +1016,7 @@ Animator:
   m_GameObject: {fileID: 1311166519}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 3dbc1c86e821f9049bb2a390f93821b5, type: 2}
+  m_Controller: {fileID: 9100000, guid: 9b310364d7be6694eb7a06f7e9e8457a, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -2427,6 +2427,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7313616250694955307, guid: 95f9d02d3e471c8429e27ae3b092de09,
+        type: 3}
+      propertyPath: m_Speed
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 95f9d02d3e471c8429e27ae3b092de09, type: 3}
