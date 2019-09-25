@@ -53,27 +53,19 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-
         PlayerMove();
         PlayerRotate();
         FlashLightSwicthing();
 
         if (state == PlayerState.Normal)
         {
+            
             SelectObject();
         }
 
         else if (state == PlayerState.Talk)
         {
             TextReading();
-        }
-
-        if (isWalk) //歩いているとき
-        {
-            Debug.Log("歩いた");
-        }
-        else
-        {
         }
 
     }
@@ -164,9 +156,15 @@ public class PlayerController : MonoBehaviour
             if (selectObj == null)
                 return;
 
-            if (selectObj.GetComponent<PlacedObjParameter>().AnimationObj)
+            if (selectObj.GetComponent<PlacedObjParameter>().OpenAndCloseObj)
             {
-                selectObj.GetComponent<AnimationObj>().LoopAnimation();
+                //OpenAndCloseObjをもっているなら
+                //if (selectObj.GetComponent<OpenAndCloseObj>())
+                //{
+                //    selectObj.GetComponent<AnimationObj>().LoopAnimation();
+                //}
+                selectObj.GetComponent<OpenAndCloseObj>().LoopAnimation();
+                
             }
 
 
@@ -191,19 +189,31 @@ public class PlayerController : MonoBehaviour
             //    //text.TextChange(currentMessageNum);
             //    text.TextReading();
             //}
-
             
 
             text.Messages = selectObj.GetComponent<PlacedObj>().Messages;
-            if (text.Messages.Length != 0)
+
+            //開け閉めするオブジェクトなら
+            if (selectObj.GetComponent<PlacedObjParameter>().OpenAndCloseObj)
+            {
+                selectObj.GetComponent<OpenAndCloseObj>().ChangeSelectMessage();
+            }
+
+            else if (text.Messages.Length != 0)
             {
                 state = PlayerState.Talk;
                 text.TextChange(0);
             }
-            else
-            {
-                selectObj.GetComponent<ChangeMessageObj>().ChangeLoopMessage();
-            }
+
+            ////本文がない場合
+            //else
+            //{
+            //    var cmObj = selectObj.GetComponent<ChangeMessageObj>();
+            //    if (cmObj == null)
+            //        return;
+
+            //    //cmObj.ChangeLoopMessage();
+            //}
         }
 
     }

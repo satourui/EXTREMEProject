@@ -22,21 +22,14 @@ public class FootSound : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(audioSource.isPlaying);
 
         if (playerController.isWalk)
         {
             audioSource.PlayOneShot(sound1);
-            Debug.Log("なっている");
         }
         else
         {
-           // audioSource.Stop();
+            audioSource.Stop();
         }
-        //if (Input.GetKey(KeyCode.Space))
-        //{
-        //    audioSource.PlayOneShot(sound1);
-        //    Debug.Log("なっている");
-        //}
     }
 }

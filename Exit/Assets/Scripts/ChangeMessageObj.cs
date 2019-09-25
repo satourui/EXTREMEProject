@@ -4,29 +4,40 @@ using UnityEngine;
 
 public class ChangeMessageObj : MonoBehaviour
 {
-    
-    [Header("メッセージが変わる条件")]
+
+    [Header("文が変わる条件")]
     public bool afterSelect;  //選択後
     public bool forFlag;      //フラグによって
 
-    [Header("メッセージを変える場所")]
-    public bool select;  //選択
-    public bool mainText; //本文
+    //[Header("文を変える場所")]
+    //public bool select;  //選択
+    //public bool mainText; //本文
 
-    [SerializeField, Header("このフラグがtrueならメッセージを変える")]
-    private string flagName;
+    [SerializeField, Header("このフラグがtrueなら文を変える")]
+    private string flagName = "";
 
-    [SerializeField, Header("変更後のセレクト文")]
-    private string selectMessage;
+    [SerializeField, Header("フラグがtrueのときに1度だけ表示される本文")]
+    private string[] changeOnceMessages;
 
-    [SerializeField, Header("変更後の本文")]
-    private string[] changeMessages;
+    [SerializeField, Header("フラグ変更後の文が出たらもう文を表示しない")]
+    private bool deleteMessage_Flag;
+
+    //[SerializeField, Header("変更後のセレクト文")]
+    //private string selectMessage = "";
 
 
-    [SerializeField, Header("FlagNameがtrueならもうテキストを表示しない")]
-    private bool deleteTextObj;
+    [SerializeField, Header("本文の交換を繰り返すかどうか(例:電源を入れる/切る)")]
+    private bool endlessSwiching;
 
-    public string[] ChangeMessages { get => changeMessages; set => changeMessages = value; }
+    [SerializeField, Header("変更後のループする本文")]
+    private string[] changeLoopMessages;
+
+
+
+
+    //public string[] ChangeLoopMessages { get => changeLoopMessages; set => changeLoopMessages = value; }
+    //public bool DeleteMessage_Flag { get => deleteMessage_Flag; set => deleteMessage_Flag = value; }
+    //public bool EndlessSwiching { get => endlessSwiching; set => endlessSwiching = value; }
 
     StageFlagManager flagManager;
 
@@ -38,7 +49,6 @@ public class ChangeMessageObj : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
     }
 
     /// <summary>
@@ -47,57 +57,71 @@ public class ChangeMessageObj : MonoBehaviour
     public void ChangeMessage_Flag()
     {
         //フラグによって
-        if(forFlag)
+        if (forFlag)
         {
             //フラグがtrueなら
             if (flagManager.flags[flagName])
             {
-                if (select)
-                {
-                    GetComponent<PlacedObj>().SelectMessage = selectMessage;
-                }
+                //if (select)
+                //{
+                //    GetComponent<PlacedObj>().SelectMessage = selectMessage;
+                //}
 
-                if (mainText)
+                //if (mainText)
                 {
-                    GetComponent<PlacedObj>().Messages = changeMessages;
+                    GetComponent<PlacedObj>().Messages = changeOnceMessages;
                 }
+                //forFlag = false;
+                //afterSelect = true;
+
             }
         }
-        
+
     }
 
-    public void ChangeLoopMessage()
+    //public void ChangeLoopMessage()
+    //{
+    //    if (afterSelect)
+    //    {
+    //        var po = GetComponent<PlacedObj>();
+    //        if (select)
+    //        {
+    //            string temporaryMessage = po.SelectMessage;
+    //            po.SelectMessage = selectMessage;
+    //            selectMessage = temporaryMessage;
+    //        }
+
+    //        if (mainText)
+    //        {
+    //            string[] temporaryMessages = po.Messages;
+    //            po.Messages = changeLoopMessages;
+    //            changeLoopMessages = temporaryMessages;
+    //        }
+    //    }
+    //}
+
+    public void MessageSwicting()
     {
         if (afterSelect)
         {
-            var po = GetComponent<PlacedObj>();
-            if (select)
+            if (endlessSwiching)
             {
-                string temporaryMessage = po.SelectMessage;
-                po.SelectMessage = selectMessage;
-                selectMessage = temporaryMessage;
-            }
-
-            if (mainText)
-            {
+                var po = GetComponent<PlacedObj>();
                 string[] temporaryMessages = po.Messages;
-                po.Messages = changeMessages;
-                changeMessages = temporaryMessages;
+                po.Messages = changeLoopMessages;
+                changeLoopMessages = temporaryMessages;
             }
         }
     }
 
-    public void LockText()
+    public void DeleteMessage()
     {
-        if (deleteTextObj && flagManager.flags[flagName])
+        if (deleteMessage_Flag)
         {
-            //GetComponent<PlacedObjParameter>().TalkObj = false;
-            GetComponent<PlacedObj>().IsSelect = false;
+            if (flagManager.flags[flagName])
+            {
+                GetComponent<PlacedObj>().IsSelect = false;
+            }
         }
-    }
-
-    public void DeleteMainText()
-    {
-        GetComponent<PlacedObj>().Messages = null;
     }
 }
