@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    //音声再生
+    private AudioSource sound;
+
     public float speed = 0.0f;　　//速度
     private Rigidbody rb;         //Rigidbody
     Vector3 velocity = Vector3.zero;  //移動量
@@ -18,13 +21,9 @@ public class PlayerController : MonoBehaviour
 
     public Transform mainCamera;   //メインカメラ
     public GameObject flashLight;  //懐中電灯
-    
-    //音声再生
-    private AudioSource sound01;
-    private AudioSource sound02;
 
     //↓かんが追加
-    public bool isWalk;  //歩いているか
+    public AudioClip[] audioClips = new AudioClip[4];
     //↑
 
     public PlayerState State { get => state; set => state = value; }
@@ -43,11 +42,10 @@ public class PlayerController : MonoBehaviour
         text = GameObject.Find("TextUI").GetComponent<TalkText>();
         currentMessageNum = 0;
         //音声ファイルをコンポーネントして変数に格納する
-        AudioSource[] audioSources = GetComponents<AudioSource>();
-        sound01 = audioSources[0];
-       // sound02 = audioSources[1];
+        sound = GetComponent<AudioSource>();
 
-        isWalk = false;  //最初は歩いていない
+        sound.clip = audioClips[0];
+        //isWalk = false;  //最初は歩いていない
     }
 
 
@@ -67,7 +65,6 @@ public class PlayerController : MonoBehaviour
         {
             TextReading();
         }
-
     }
 
     void PlayerMove()
@@ -83,8 +80,25 @@ public class PlayerController : MonoBehaviour
             velocity = velocity.normalized * speed * Time.deltaTime;
             velocity = transform.rotation * velocity;
             rb.MovePosition(transform.position + velocity);
+
+            SoundOn();
+        }
+        else
+        {
+            //
+            
         }
 
+        //if(Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.W)||
+        //    Input.GetKey(KeyCode.S)|| Input.GetKey(KeyCode.D))
+        //{
+            
+        //    AudioSource.
+        //}
+        //else
+        //{
+            
+        //}
 
         //パッド移動
         float pad_X = Input.GetAxisRaw("L_Stick_Hori");
@@ -99,17 +113,6 @@ public class PlayerController : MonoBehaviour
             velocity = transform.rotation * velocity;
             rb.MovePosition(transform.position + velocity);
         }
-
-        if(velocity != Vector3.zero)  ///歩いているかどうか
-        {
-            isWalk = true;
-        }
-        else
-        {
-            isWalk = false;
-        }
-
-        velocity = Vector3.zero;
     }
 
 
@@ -133,7 +136,7 @@ public class PlayerController : MonoBehaviour
             || Input.GetKeyDown(KeyCode.JoystickButton2))
         {
             flashLight.GetComponent<FlashLightController>().LightSwitching();
-            sound01.PlayOneShot(sound01.clip);
+            sound.PlayOneShot(sound.clip);
         }
 
         //パッドの十字キーが上下のどちらかに入力されているか取得(上なら+,下なら-)
@@ -153,6 +156,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.JoystickButton0) ||
             Input.GetKeyDown(KeyCode.Space))
         {
+
             if (selectObj == null)
                 return;
 
@@ -165,6 +169,7 @@ public class PlayerController : MonoBehaviour
                 //}
                 selectObj.GetComponent<OpenAndCloseObj>().LoopAnimation();
                 
+
             }
 
 
@@ -173,10 +178,10 @@ public class PlayerController : MonoBehaviour
             //    selectObj.GetComponent<ChangeMessageObj>().ChangeMessage();
             //}
 
-            
+            state = PlayerState.Talk;
 
-            //text.Messages = selectObj.GetComponent<PlacedObj>().Messages;
-           
+            text.Messages = selectObj.GetComponent<PlacedObj>().Messages;
+            text.TextChange(0);
             //if (selectObj.GetComponent<PlacedObjParameter>().TalkObj)
             //{
             //    if (selectObj.GetComponent<PlacedObjParameter>().ChangeMessage_Flag)
@@ -215,7 +220,7 @@ public class PlayerController : MonoBehaviour
             //    //cmObj.ChangeLoopMessage();
             //}
         }
-
+        
     }
 
     void TextReading()
@@ -281,5 +286,12 @@ public class PlayerController : MonoBehaviour
         //    }
         //}
 
+        
+    }
+
+    void SoundOn()
+    {
+        //sound.PlayOneShot(audioClips[0]);
+        
     }
 }

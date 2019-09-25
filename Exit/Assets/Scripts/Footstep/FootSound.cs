@@ -4,32 +4,40 @@ using UnityEngine;
 
 public class FootSound : MonoBehaviour
 {
-    public AudioClip sound1;
-    private AudioSource audioSource;
+    AudioSource sounds;
+
+    public AudioClip[] clips = new AudioClip[2];
 
     private PlayerController playerController;
 
-    // Start is called before the first frame update
+    bool b;
+
+    // Use this for initialization
     void Start()
     {
-        audioSource = GetComponent<AudioSource>();
+        sounds = GetComponent<AudioSource>();
 
-        audioSource.clip = sound1;
+        sounds.clip = clips[0];
 
         playerController = GetComponent<PlayerController>();
+
+        sounds.Stop();
+
+        b = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-
-        if (playerController.isWalk)
-        {
-            audioSource.PlayOneShot(sound1);
-        }
-        else
-        {
-            audioSource.Stop();
-        }
+        //if (playerController.isWalk)
+        //{
+        //    //sounds.Play();
+        //    Debug.Log("なっている");
+        //}
+        //else
+        //{
+        //    //sounds.Stop();
+        //    sounds.Play();
+        //} 
     }
 }
