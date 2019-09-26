@@ -22,6 +22,9 @@ public class ChangeMessageObj : MonoBehaviour
     [SerializeField, Header("フラグ変更後の文が出たらもう文を表示しない")]
     private bool deleteMessage_Flag;
 
+    [SerializeField, Header("フラグ変更後、文を繰り返す")]
+    private bool loopMessageEndless;
+
     //[SerializeField, Header("変更後のセレクト文")]
     //private string selectMessage = "";
 
@@ -36,6 +39,8 @@ public class ChangeMessageObj : MonoBehaviour
 
 
     //public string[] ChangeLoopMessages { get => changeLoopMessages; set => changeLoopMessages = value; }
+    //public bool LoopMessageEndless { get => loopMessageEndless; set => loopMessageEndless = value; }
+
     //public bool DeleteMessage_Flag { get => deleteMessage_Flag; set => deleteMessage_Flag = value; }
     //public bool EndlessSwiching { get => endlessSwiching; set => endlessSwiching = value; }
 
@@ -71,7 +76,7 @@ public class ChangeMessageObj : MonoBehaviour
                 {
                     GetComponent<PlacedObj>().Messages = changeOnceMessages;
                 }
-                //forFlag = false;
+                forFlag = false;
                 //afterSelect = true;
 
             }
@@ -123,5 +128,18 @@ public class ChangeMessageObj : MonoBehaviour
                 GetComponent<PlacedObj>().IsSelect = false;
             }
         }
+    }
+
+    public void ChangeLoopMessage_Flag()
+    {
+        if (loopMessageEndless)
+        {
+            if (flagManager.flags[flagName])
+            {
+                var po = GetComponent<PlacedObj>();
+                po.Messages = changeLoopMessages;
+            }
+        }
+        
     }
 }

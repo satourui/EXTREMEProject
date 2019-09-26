@@ -177,11 +177,10 @@ public class PlayerController : MonoBehaviour
             //{
             //    selectObj.GetComponent<ChangeMessageObj>().ChangeMessage();
             //}
+            
 
-            state = PlayerState.Talk;
-
-            text.Messages = selectObj.GetComponent<PlacedObj>().Messages;
-            text.TextChange(0);
+            //text.Messages = selectObj.GetComponent<PlacedObj>().Messages;
+            //text.TextChange(0);
             //if (selectObj.GetComponent<PlacedObjParameter>().TalkObj)
             //{
             //    if (selectObj.GetComponent<PlacedObjParameter>().ChangeMessage_Flag)

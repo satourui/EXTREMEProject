@@ -1101,9 +1101,11 @@ MonoBehaviour:
   changeOnceMessages:
   - "\u9375\u3092\u4F7F\u3063\u305F"
   - "\u6249\u3092\u958B\u3051\u305F"
-  deleteMessage_Flag: 1
+  deleteMessage_Flag: 0
+  loopMessageEndless: 1
   endlessSwiching: 0
-  changeLoopMessages: []
+  changeLoopMessages:
+  - "\u9375\u306F\u958B\u3044\u3066\u3044\u308B"
 --- !u!1 &772149187
 GameObject:
   m_ObjectHideFlags: 0
@@ -1400,6 +1402,7 @@ MonoBehaviour:
   flagName: 
   changeOnceMessages: []
   deleteMessage_Flag: 0
+  loopMessageEndless: 0
   endlessSwiching: 0
   changeLoopMessages: []
 --- !u!114 &947586524
@@ -1428,7 +1431,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22bece4dad567dd41b23b45a90ffcdcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  changeMessageObj: 1
+  changeMessageObj: 0
   itemDropObj: 0
   flagChangeObj: 0
   openAndCloseObj: 1
@@ -3224,6 +3227,7 @@ MonoBehaviour:
   flagName: 
   changeOnceMessages: []
   deleteMessage_Flag: 0
+  loopMessageEndless: 0
   endlessSwiching: 1
   changeLoopMessages:
   - "\u96FB\u6E90\u3092\u5207\u3063\u305F"

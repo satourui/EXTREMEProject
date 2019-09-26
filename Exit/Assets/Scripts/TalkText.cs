@@ -118,21 +118,11 @@ public class TalkText : MonoBehaviour
                 {
                     var cmObj = selectObj.GetComponent<ChangeMessageObj>();
 
-                    //if (cmObj.afterSelect)
-                    {
-                        //selectObj.GetComponent<ChangeMessageObj>().ChangeLoopMessage();
-                        
-                    }
-                    //if (cmObj.DeleteMessage_Flag)
-                    {
-                        cmObj.DeleteMessage();
-                    }
-
-                    //if (cmObj.EndlessSwiching)
-                    {
-                        cmObj.MessageSwicting();
-                    }
-
+                    
+                    cmObj.DeleteMessage();
+                    cmObj.MessageSwicting();
+                    cmObj.ChangeLoopMessage_Flag();
+                    
 
                 }
 
