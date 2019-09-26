@@ -16,6 +16,9 @@ public class PlayerController : MonoBehaviour
 
     GameObject selectObj;  //プレイヤーが選択しているオブジェクト
 
+    private bool menuFlag;  //ポーズメニューが出てるかどうか。
+    private PauseScript pauseScript; //ポーズメニュースクリプト
+
     public Transform mainCamera;   //メインカメラ
     public GameObject flashLight;  //懐中電灯
     
@@ -34,6 +37,7 @@ public class PlayerController : MonoBehaviour
     {
         Normal,
         Talk,
+        Menu
     }
 
     void Start()
@@ -66,6 +70,10 @@ public class PlayerController : MonoBehaviour
         else if (state == PlayerState.Talk)
         {
             TextReading();
+        }
+        else if(state == PlayerState.Menu)
+        {
+            ChangeMenuFlag();
         }
 
         if (isWalk) //歩いているとき
@@ -270,6 +278,11 @@ public class PlayerController : MonoBehaviour
         //        selectObj.GetComponent<FlagChangeObj>().FlagOn();
         //    }
         //}
+
+    }
+
+    void ChangeMenuFlag()
+    {
 
     }
 }
