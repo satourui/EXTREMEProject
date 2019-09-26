@@ -50,13 +50,17 @@ public class ObjectJudge : MonoBehaviour
 
     void TalkReset()
     {
-        var tt = textObj.GetComponent<TalkText>();
-        //tt.ShowFlag = false;
-        tt.TextClose();
-        currentObj = null;
-        pc.SelectObj = currentObj;
-        tt.CurrentMessagePage = 0;
-        pc.State = PlayerController.PlayerState.Normal;
+        if (pc.State == PlayerController.PlayerState.Normal)
+        {
+            var tt = textObj.GetComponent<TalkText>();
+            //tt.ShowFlag = false;
+            tt.TextClose();
+            currentObj = null;
+            pc.SelectObj = currentObj;
+            tt.CurrentMessagePage = 0;
+            //pc.State = PlayerController.PlayerState.Normal;
+        }
+
     }
     
 
@@ -70,7 +74,8 @@ public class ObjectJudge : MonoBehaviour
         currentObj = obj;
 
         //if (objParameter.TalkObj)
-        if(obj.GetComponent<PlacedObj>().IsSelect)
+        //選択できる状態かつ隠されていないオブジェなら
+        if (obj.GetComponent<PlacedObj>().IsSelect && !obj.GetComponent<PlacedObjParameter>().HiddenObj)
         {
             TalkPreparation();
         }

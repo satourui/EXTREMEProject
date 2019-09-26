@@ -83,10 +83,10 @@ public class TalkText : MonoBehaviour
                 var objParameter = selectObj.GetComponent<PlacedObjParameter>();
 
                 //選んだオブジェクトが1度しか選択できないオブジェクトなら
-                if (objParameter.OnceObj)
-                {
-                    selectObj.GetComponent<PlacedObj>().IsSelect = false;
-                }
+                //if (objParameter.OnceObj)
+                //{
+                //    selectObj.GetComponent<PlacedObj>().IsSelect = false;
+                //}
 
                 //選んだオブジェクトがフラグによってメッセージが変化するオブジェクトではなかったら
                 //if (!objParameter.ChangeMessage_Flag)
@@ -113,12 +113,17 @@ public class TalkText : MonoBehaviour
                     selectObj.GetComponent<FlagChangeObj>().FlagOn();
                 }
 
+                //メッセージを変更するオブジェなら
                 if (objParameter.ChangeMessageObj)
                 {
-                    if (selectObj.GetComponent<ChangeMessageObj>().afterSelect)
-                    {
-                        selectObj.GetComponent<ChangeMessageObj>().ChangeLoopMessage();
-                    }
+                    var cmObj = selectObj.GetComponent<ChangeMessageObj>();
+
+                    
+                    cmObj.DeleteMessage();
+                    cmObj.MessageSwicting();
+                    cmObj.ChangeLoopMessage_Flag();
+                    
+
                 }
 
                 TextClose();

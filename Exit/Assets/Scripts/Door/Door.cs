@@ -16,22 +16,19 @@ public class Door : MonoBehaviour
 
         door_L = GetComponentInChildren<Door_L>();
 
-        animator = transform.GetComponent<Animator>();
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (door_R.inDoor||!door_L.inDoor)// && chaild.rL == DoorChaild.RL.R)
+        if (door_R.inDoor&&!door_L.inDoor)
         {
-           // Debug.Log("R");
-            //animator.SetBool("OpenR",true);
+            animator.SetBool("Open1",true);
         }
-
-        else if (door_L.inDoor||!door_R.inDoor)// && chaild.rL == DoorChaild.RL.R)
+        else if (door_L.inDoor&&!door_R.inDoor)
         {
-           // Debug.Log("L");
-            //animator.SetBool("OpenL", true);
+            animator.SetBool("Open2", true);
         }
     }
 }

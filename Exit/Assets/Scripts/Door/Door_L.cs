@@ -5,10 +5,15 @@ using UnityEngine;
 public class Door_L : MonoBehaviour
 {
     public bool inDoor;
+
+    private Animator animator;
+
     // Start is called before the first frame update
     void Start()
     {
         inDoor = false;
+
+        animator = GetComponentInParent<Animator>();
     }
 
     // Update is called once per frame
@@ -17,11 +22,10 @@ public class Door_L : MonoBehaviour
         
     }
 
-    private void OnCollisionStay(Collision c)
+    private void OnTriggerStay(Collider c)
     {
         if (c.gameObject.tag == "Enemy")
         {
-            Debug.Log("当たっている");
             inDoor = true;
         }
     }
@@ -31,6 +35,7 @@ public class Door_L : MonoBehaviour
         if (c.tag == "Enemy")
         {
             inDoor = false;
+            animator.SetBool("Open2", false);
         }
     }
 }
