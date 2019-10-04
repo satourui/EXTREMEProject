@@ -14,7 +14,7 @@ public class ObjectJudge : MonoBehaviour
 
     void Start()
     {
-        textObj = GameObject.Find("TextUI");
+        textObj = GameObject.Find("UI");
         pc = GetComponentInParent<PlayerController>();
     }
 
@@ -75,7 +75,7 @@ public class ObjectJudge : MonoBehaviour
 
         //if (objParameter.TalkObj)
         //選択できる状態かつ隠されていないオブジェなら
-        if (obj.GetComponent<PlacedObj>().IsSelect && !obj.GetComponent<PlacedObjParameter>().HiddenObj)
+        if (obj.GetComponent<PlacedObj>().IsSelect)
         {
             TalkPreparation();
         }

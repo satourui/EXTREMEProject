@@ -3,12 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class ItemDropObj : MonoBehaviour
+public class ItemObj : MonoBehaviour
 {
-    [SerializeField]
+    [SerializeField, Header("アイテムの名前")]
     private string dropItemName;
 
+    [SerializeField, Header("アイテムのアイコン")]
+    private Texture2D itemIcon;
+
     StageFlagManager flagManager;
+
+    public Texture2D ItemIcon { get => itemIcon; set => itemIcon = value; }
 
     void Start()
     {
@@ -23,6 +28,6 @@ public class ItemDropObj : MonoBehaviour
 
     public void ItemGet()
     {
-        
+        GameObject.Find("Player").GetComponent<PlayerController>().ItemList.Add(this.gameObject);
     }
 }

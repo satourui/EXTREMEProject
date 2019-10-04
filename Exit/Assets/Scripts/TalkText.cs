@@ -82,29 +82,9 @@ public class TalkText : MonoBehaviour
 
                 var objParameter = selectObj.GetComponent<PlacedObjParameter>();
 
-                //選んだオブジェクトが1度しか選択できないオブジェクトなら
-                //if (objParameter.OnceObj)
-                //{
-                //    selectObj.GetComponent<PlacedObj>().IsSelect = false;
-                //}
-
-                //選んだオブジェクトがフラグによってメッセージが変化するオブジェクトではなかったら
-                //if (!objParameter.ChangeMessage_Flag)
+                if (objParameter.ItemDropObj)
                 {
-                    //selectObj.GetComponent<PlacedObj>().ChangeEndMessage();
-
-                }
-                //選んだオブジェクトがフラグによってメッセージが変化するオブジェクトなら
-                //if (objParameter.ChangeMessageObj)
-                //{
-                //    selectObj.GetComponent<ChangeMessageObj>().LockText();
-                //}
-
-                //選んだオブジェクトがフラグによってメッセージが変化しないなら
-                //if (!objParameter.ChangeMessage_Flag)
-                {
-                    //selectObj.GetComponent<PlacedObj>().MessageDelete();
-                    //selectObj.GetComponent<PlacedObjParameter>().TalkObj = false;
+                    selectObj.GetComponent<ItemObj>().ItemGet();
                 }
 
                 //選んだオブジェクトがフラグを変更するオブジェクトなら
@@ -117,13 +97,16 @@ public class TalkText : MonoBehaviour
                 if (objParameter.ChangeMessageObj)
                 {
                     var cmObj = selectObj.GetComponent<ChangeMessageObj>();
-
                     
                     cmObj.DeleteMessage();
                     cmObj.MessageSwicting();
                     cmObj.ChangeLoopMessage_Flag();
-                    
+                }
 
+                //隠されているオブジェクトなら
+                if(objParameter.HiddenObj)
+                {
+                    selectObj.GetComponent<HiddenObj>().StopHiding();
                 }
 
                 TextClose();
