@@ -5,89 +5,194 @@ using UnityEngine.UI;
 
 public class TalkText : MonoBehaviour
 {
-    string[] messages;  //表示する文字配列
+    string[] mainMessages = new string[0];  //表示する本文字配列
+    string selectMessage;  //選択できるときに表示されるメッセージ
     public Text text;  //表示するtextUI
-    bool showFlag;    //テキストを表示できる状態ならtrue
     int currentMessagePage;  //現在のメッセージページ
     int maxMessagePage;  //メッセージの最大ページ数
-    string selectMessage;  //選択できるときに表示されるメッセージ
+
+    bool isMessageFade;  //本文のフェードが終わっていたらtrue
+    bool isMessageEnd;  //全ての本文が読み終わっていたらtrue
+
+    Color textColor;
+
+    [SerializeField, Header("次の文字が出てくるまでの時間")]
+    private float nextMessageTime = 0;
+
+    [SerializeField, Header("文字がフェードインするスピード")]
+    private float messageFadeSpeed = 0;
+
 
     GameObject selectObj;  //表示しているテキストの情報を持っているオブジェクト
 
-    [SerializeField]
-    private float nextMessageCount = 0;  //次のテキストに強制的に切り替わる時間
-    float currentMessageCount;  //現在のテキストが表示されてからの時間
 
-    public string[] Messages { get => messages; set => messages = value; }
-    public bool ShowFlag { get => showFlag; set => showFlag = value; }
-    public float CurrentMessageCount { get => currentMessageCount; set => currentMessageCount = value; }
-    public float NextMessageCount { get => nextMessageCount;}
+    public string[] MainMessages { get => mainMessages; set => mainMessages = value; }
     public int CurrentMessagePage { get => currentMessagePage; set => currentMessagePage = value; }
     public int MaxMessagePage { get => maxMessagePage; set => maxMessagePage = value; }
     public string SelectMessage { get => selectMessage; set => selectMessage = value; }
     public GameObject SelectObj { get => selectObj; set => selectObj = value; }
+    public bool IsMessageEnd { get => isMessageEnd; set => isMessageEnd = value; }
 
     void Start()
     {
-        messages = new string[0];
+        //mainMessages = new string[0];
         CurrentMessagePage = 0;
+        textColor = text.GetComponent<Text>().color;
+        textColor.a = 0;
+        isMessageFade = false;
+        IsMessageEnd = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        MessageReading();
     }
 
-    public void TextShow()
+    public void ShowSelectMessage()
     {
         if (selectMessage == null)
             return;
 
-        //if (ShowFlag)
-        {
-            text.text = selectMessage;
-            text.gameObject.SetActive(true);
-            //GameObject.Find("Player").GetComponent<PlayerController>().State = PlayerController.PlayerState.Talk;
-        }
+        text.text = selectMessage;
+        text.gameObject.SetActive(true);
     }
 
     public void TextClose()
     {
         text.gameObject.SetActive(false);
-        //GameObject.Find("Player").GetComponent<PlayerController>().State = PlayerController.PlayerState.Normal;
     }
 
     public void TextChange(int index)
     {
-        text.text = messages[index];
+        text.text = mainMessages[index];
     }
 
-    public void TextReading()
+    public IEnumerator TextReading()
     {
-        //if (selectObj.GetComponent<PlacedObjParameter>().TalkObj)
+        //int messageCount = 0;
+        //text.text = "";
+
+        maxMessagePage = mainMessages.Length;
+        if (CurrentMessagePage < MaxMessagePage - 0)
         {
-            //messages = selectObj.GetComponent<PlacedObj>().Messages;
-            maxMessagePage = messages.Length;
-            if (CurrentMessagePage < MaxMessagePage - 1 )
+
+            textColor.a = 0;
+            text.color = textColor;
+
+            //while (mainMessages[currentMessagePage].Length > messageCount)
+            //{
+            //    text.text += mainMessages[currentMessagePage][messageCount];
+            //    messageCount++;
+            //    yield return new WaitForSeconds(nextMessageTime);
+            //}
+
+            TextChange(CurrentMessagePage);
+            while (textColor.a <= 1)
             {
-                CurrentMessagePage++;
-                TextChange(CurrentMessagePage);
+                textColor.a += messageFadeSpeed;
+                text.color = textColor;
+                yield return new WaitForSeconds(0.2f);
+            }
+            CurrentMessagePage++;
+            //TextChange(CurrentMessagePage);
+        }
+
+        //メッセージを読み終わった後の処理
+        else
+        {
+            CurrentMessagePage = 0;
+
+            var objParameter = selectObj.GetComponent<PlacedObjParameter>();
+
+            //選んだオブジェクトがアイテムを落とすオブジェクトなら
+            if (objParameter.ItemDropObj)
+            {
+                var io = selectObj.GetComponent<ItemObj>();
+                io.ItemGet();
+                io.DeleteObject();
             }
 
-            //メッセージを読み終わった後の処理
-            else
+            //フラグを変更するオブジェクトなら
+            if (objParameter.FlagChangeObj)
             {
-                CurrentMessagePage = 0;
+                selectObj.GetComponent<FlagChangeObj>().FlagOn();
+            }
+
+            //メッセージを変更するオブジェなら
+            if (objParameter.ChangeMessageObj)
+            {
+                var cmObj = selectObj.GetComponent<ChangeMessageObj>();
+
+                cmObj.DeleteMessage();
+                cmObj.MessageSwicting();
+                cmObj.ChangeLoopMessage_Flag();
+            }
+
+            //隠されているオブジェクトなら
+            if (objParameter.HiddenObj)
+            {
+                selectObj.GetComponent<HiddenObj>().StopHiding();
+            }
+
+            TextClose();
+
+            GameObject.Find("Player").GetComponent<PlayerController>().State = PlayerController.PlayerState.Normal;
+
+
+
+        }
+    }
+
+    void MessageReading()
+    {
+        if (IsMessageEnd)
+        {
+            return;
+        }
+
+        maxMessagePage = mainMessages.Length;
+        text.color = textColor;
+        TextChange(CurrentMessagePage);
+
+        //まだ文がフェード中
+        if (!isMessageFade)
+        {
+            textColor.a += messageFadeSpeed;
+
+            
+            if (Input.GetKeyDown(KeyCode.JoystickButton0) ||
+                Input.GetKeyDown(KeyCode.Space))
+            {
+                isMessageFade = true;
+            }
+
+            
+        }
+
+        //フェードが修了
+        else
+        {
+            textColor.a = 0;
+            CurrentMessagePage++;
+            isMessageFade = false;
+
+            //本文を全て読んだら
+            if (CurrentMessagePage > maxMessagePage - 1)
+            {
+                Start();
 
                 var objParameter = selectObj.GetComponent<PlacedObjParameter>();
 
+                //選んだオブジェクトがアイテムを落とすオブジェクトなら
                 if (objParameter.ItemDropObj)
                 {
-                    selectObj.GetComponent<ItemObj>().ItemGet();
+                    var io = selectObj.GetComponent<ItemObj>();
+                    io.ItemGet();
+                    io.DeleteObject();
                 }
 
-                //選んだオブジェクトがフラグを変更するオブジェクトなら
+                //フラグを変更するオブジェクトなら
                 if (objParameter.FlagChangeObj)
                 {
                     selectObj.GetComponent<FlagChangeObj>().FlagOn();
@@ -97,14 +202,14 @@ public class TalkText : MonoBehaviour
                 if (objParameter.ChangeMessageObj)
                 {
                     var cmObj = selectObj.GetComponent<ChangeMessageObj>();
-                    
+
                     cmObj.DeleteMessage();
                     cmObj.MessageSwicting();
                     cmObj.ChangeLoopMessage_Flag();
                 }
 
                 //隠されているオブジェクトなら
-                if(objParameter.HiddenObj)
+                if (objParameter.HiddenObj)
                 {
                     selectObj.GetComponent<HiddenObj>().StopHiding();
                 }
@@ -112,10 +217,12 @@ public class TalkText : MonoBehaviour
                 TextClose();
 
                 GameObject.Find("Player").GetComponent<PlayerController>().State = PlayerController.PlayerState.Normal;
-
-
-
             }
         }
+    }
+
+    public void TextInvisible()
+    {
+        textColor.a = 0;
     }
 }

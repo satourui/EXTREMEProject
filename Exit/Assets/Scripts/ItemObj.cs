@@ -11,6 +11,9 @@ public class ItemObj : MonoBehaviour
     [SerializeField, Header("アイテムのアイコン")]
     private Texture2D itemIcon;
 
+    [SerializeField, Header("アイテム獲得後オブジェクトを消すならtrue")]
+    private bool isDeleteObject;
+
     StageFlagManager flagManager;
 
     public Texture2D ItemIcon { get => itemIcon; set => itemIcon = value; }
@@ -29,5 +32,13 @@ public class ItemObj : MonoBehaviour
     public void ItemGet()
     {
         GameObject.Find("Player").GetComponent<PlayerController>().ItemList.Add(this.gameObject);
+    }
+
+    public void DeleteObject()
+    {
+        if (isDeleteObject)
+        {
+            gameObject.SetActive(false);
+        }
     }
 }

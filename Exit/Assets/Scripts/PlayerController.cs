@@ -12,16 +12,16 @@ public class PlayerController : MonoBehaviour
     Vector3 velocity = Vector3.zero;  //移動量
     PlayerState state;
     
-
+    //テキスト処理関連
     string[] messages;  //オブジェクトの文字情報を保存するための配列
     TalkText text;
     int currentMessageNum;  //現在読んでいるメッセージの(ページ?)番号
-
     GameObject selectObj;  //プレイヤーが選択しているオブジェクト
 
     private bool menuFlag;  //ポーズメニューが出てるかどうか。
     private PauseScript pauseScript; //ポーズメニュースクリプト
 
+    //アイテムリスト関連
     public List<GameObject> itemList = new List<GameObject>();  //持っているアイテムリスト
     private int itemNum = 0;  //何番目のアイテムか
     private int itemQuantity = 0;  //アイテムの所持数
@@ -78,7 +78,7 @@ public class PlayerController : MonoBehaviour
 
         else if (state == PlayerState.Talk)
         {
-            TextReading();
+            //TextReading();
         }
         else if(state == PlayerState.Menu)
         {
@@ -180,23 +180,27 @@ public class PlayerController : MonoBehaviour
             if (selectObj == null)
                 return;
 
-            if (selectObj.GetComponent<PlacedObjParameter>().OpenAndCloseObj)
-            {
-                selectObj.GetComponent<OpenAndCloseObj>().LoopAnimation();
-            }
+            //if (selectObj.GetComponent<PlacedObjParameter>().OpenAndCloseObj)
+            //{
+            //    selectObj.GetComponent<OpenAndCloseObj>().LoopAnimation();
+            //}
             
-            text.Messages = selectObj.GetComponent<PlacedObj>().Messages;
+            text.MainMessages = selectObj.GetComponent<PlacedObj>().Messages;
 
             //開け閉めするオブジェクトなら
             if (selectObj.GetComponent<PlacedObjParameter>().OpenAndCloseObj)
             {
+                selectObj.GetComponent<OpenAndCloseObj>().LoopAnimation();
                 selectObj.GetComponent<OpenAndCloseObj>().ChangeSelectMessage();
             }
 
-            else if (text.Messages.Length != 0)
+            else if (text.MainMessages.Length != 0)
             {
                 state = PlayerState.Talk;
-                text.TextChange(0);
+                //text.TextChange(0);
+                //text.StartCoroutine("TextReading");
+                text.IsMessageEnd = false;
+                text.TextInvisible();
             }
             
         }
@@ -208,19 +212,11 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.JoystickButton0) ||
             Input.GetKeyDown(KeyCode.Space))
         {
-            //text.Messages = selectObj.GetComponent<PlacedObj>().Messages;
 
-            if (/*selectObj.GetComponent<PlacedObjParameter>().TalkObj*/
-                selectObj.GetComponent<PlacedObj>().IsSelect)
+            if (selectObj.GetComponent<PlacedObj>().IsSelect)
             {
-                //if (selectObj.GetComponent<PlacedObjParameter>().ChangeMessage_Flag)
-                //{
-                //    selectObj.GetComponent<ChangeMessageObj>().ChangeMessage();
-                //}
-                //text.TextShow();
-                //currentMessageNum = 0;
-                //text.TextChange(currentMessageNum);
-                text.TextReading();
+
+                text.StartCoroutine("TextReading");
             }
 
             else

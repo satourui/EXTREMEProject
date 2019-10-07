@@ -31,13 +31,9 @@ public class ObjectJudge : MonoBehaviour
         if (pc.State == PlayerController.PlayerState.Normal)
         {
             var po = currentObj.GetComponent<PlacedObj>();
-            //pi.HitFlag = true;
             var tt = textObj.GetComponent<TalkText>();
-            //tt.Messages = pi.Messages;
-            //tt.text.text = po.SelectMessage;
             tt.SelectMessage = po.SelectMessage;
-            //tt.ShowFlag = true;
-            tt.TextShow();
+            tt.ShowSelectMessage();
             tt.SelectObj = currentObj;
             pc.SelectObj = currentObj;
 
@@ -53,12 +49,10 @@ public class ObjectJudge : MonoBehaviour
         if (pc.State == PlayerController.PlayerState.Normal)
         {
             var tt = textObj.GetComponent<TalkText>();
-            //tt.ShowFlag = false;
             tt.TextClose();
             currentObj = null;
             pc.SelectObj = currentObj;
             tt.CurrentMessagePage = 0;
-            //pc.State = PlayerController.PlayerState.Normal;
         }
 
     }
