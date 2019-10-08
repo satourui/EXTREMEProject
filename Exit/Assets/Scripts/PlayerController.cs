@@ -51,7 +51,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         state = PlayerState.Normal;
-        text = GameObject.Find("UI").GetComponent<TalkText>();
+        text = GameObject.Find("GamePlayUI").GetComponent<TalkText>();
         currentMessageNum = 0;
         //音声ファイルをコンポーネントして変数に格納する
         sound = GetComponent<AudioSource>();

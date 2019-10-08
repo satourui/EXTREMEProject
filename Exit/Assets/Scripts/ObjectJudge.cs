@@ -14,7 +14,7 @@ public class ObjectJudge : MonoBehaviour
 
     void Start()
     {
-        textObj = GameObject.Find("UI");
+        textObj = GameObject.Find("GamePlayUI");
         pc = GetComponentInParent<PlayerController>();
     }
 
