@@ -34,7 +34,10 @@ public class CameraController : MonoBehaviour
     void Update()
     {
         //controllerName = Input.GetJoystickNames();
-        CameraMouseRotation();
+        //if (target.GetComponent<PlayerController>().State == PlayerController.PlayerState.Normal)
+        {
+            CameraMouseRotation();
+        }
 
         transform.position = target.transform.position + offset;
     }

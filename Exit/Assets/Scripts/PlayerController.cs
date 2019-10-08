@@ -12,35 +12,46 @@ public class PlayerController : MonoBehaviour
     Vector3 velocity = Vector3.zero;  //移動量
     PlayerState state;
     
-
+    //テキスト処理関連
     string[] messages;  //オブジェクトの文字情報を保存するための配列
     TalkText text;
     int currentMessageNum;  //現在読んでいるメッセージの(ページ?)番号
-
     GameObject selectObj;  //プレイヤーが選択しているオブジェクト
+
+    private bool menuFlag;  //ポーズメニューが出てるかどうか。
+    private PauseScript pauseScript; //ポーズメニュースクリプト
+
+    //アイテムリスト関連
+    public List<GameObject> itemList = new List<GameObject>();  //持っているアイテムリスト
+    private int itemNum = 0;  //何番目のアイテムか
+    private int itemQuantity = 0;  //アイテムの所持数
+
 
     public Transform mainCamera;   //メインカメラ
     public GameObject flashLight;  //懐中電灯
 
     //↓かんが追加
-    //public bool isWalk;  //歩いているか
     public AudioClip[] audioClips = new AudioClip[4];
     //↑
 
     public PlayerState State { get => state; set => state = value; }
     public GameObject SelectObj { get => selectObj; set => selectObj = value; }
+    public List<GameObject> ItemList { get => itemList; set => itemList = value; }
+    public int ItemNum { get => itemNum; set => itemNum = value; }
+    public int ItemQuantity { get => itemQuantity; }
 
     public enum PlayerState
     {
         Normal,
         Talk,
+        Menu
     }
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         state = PlayerState.Normal;
-        text = GameObject.Find("TextUI").GetComponent<TalkText>();
+        text = GameObject.Find("GamePlayUI").GetComponent<TalkText>();
         currentMessageNum = 0;
         //音声ファイルをコンポーネントして変数に格納する
         sound = GetComponent<AudioSource>();
@@ -52,6 +63,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        itemQuantity = itemList.Count;  //アイテムの数を取得
 
         PlayerMove();
         PlayerRotate();
@@ -59,13 +71,20 @@ public class PlayerController : MonoBehaviour
 
         if (state == PlayerState.Normal)
         {
+            
             SelectObject();
+            ItemChange();
         }
 
         else if (state == PlayerState.Talk)
         {
-            TextReading();
+            //TextReading();
         }
+        else if(state == PlayerState.Menu)
+        {
+            ChangeMenuFlag();
+        }
+
     }
 
     void PlayerMove()
@@ -161,43 +180,29 @@ public class PlayerController : MonoBehaviour
             if (selectObj == null)
                 return;
 
-            if (selectObj.GetComponent<PlacedObjParameter>().AnimationObj)
+            //if (selectObj.GetComponent<PlacedObjParameter>().OpenAndCloseObj)
+            //{
+            //    selectObj.GetComponent<OpenAndCloseObj>().LoopAnimation();
+            //}
+            
+            text.MainMessages = selectObj.GetComponent<PlacedObj>().Messages;
+
+            //開け閉めするオブジェクトなら
+            if (selectObj.GetComponent<PlacedObjParameter>().OpenAndCloseObj)
             {
-                selectObj.GetComponent<AnimationObj>().LoopAnimation();
-                return;
+                selectObj.GetComponent<OpenAndCloseObj>().LoopAnimation();
+                selectObj.GetComponent<OpenAndCloseObj>().ChangeSelectMessage();
             }
 
-
-            //if (selectObj.GetComponent<PlacedObjParameter>().ChangeMessageObj)
-            //{
-            //    selectObj.GetComponent<ChangeMessageObj>().ChangeMessage();
-            //}
-
-            state = PlayerState.Talk;
-
-            text.Messages = selectObj.GetComponent<PlacedObj>().Messages;
-            text.TextChange(0);
-            //if (selectObj.GetComponent<PlacedObjParameter>().TalkObj)
-            //{
-            //    if (selectObj.GetComponent<PlacedObjParameter>().ChangeMessage_Flag)
-            //        selectObj.GetComponent<ChangeMessageObj>().ChangeMessage();
-
-            //    text.Messages = selectObj.GetComponent<PlacedObj>().Messages;
-
-            //    //text.TextShow();
-            //    //currentMessageNum = 0;
-            //    //text.TextChange(currentMessageNum);
-            //    text.TextReading();
-            //}
-
-            //state = PlayerState.Talk;
-
-            if (/*!selectObj.GetComponent<PlacedObjParameter>().TalkObj*/
-                !selectObj.GetComponent<PlacedObj>().IsSelect)
+            else if (text.MainMessages.Length != 0)
             {
-                text.Messages = selectObj.GetComponent<PlacedObj>().Messages;
-                text.TextChange(0);
+                state = PlayerState.Talk;
+                //text.TextChange(0);
+                //text.StartCoroutine("TextReading");
+                text.IsMessageEnd = false;
+                text.TextInvisible();
             }
+            
         }
         
     }
@@ -207,19 +212,11 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.JoystickButton0) ||
             Input.GetKeyDown(KeyCode.Space))
         {
-            //text.Messages = selectObj.GetComponent<PlacedObj>().Messages;
 
-            if (/*selectObj.GetComponent<PlacedObjParameter>().TalkObj*/
-                selectObj.GetComponent<PlacedObj>().IsSelect)
+            if (selectObj.GetComponent<PlacedObj>().IsSelect)
             {
-                //if (selectObj.GetComponent<PlacedObjParameter>().ChangeMessage_Flag)
-                //{
-                //    selectObj.GetComponent<ChangeMessageObj>().ChangeMessage();
-                //}
-                //text.TextShow();
-                //currentMessageNum = 0;
-                //text.TextChange(currentMessageNum);
-                text.TextReading();
+
+                text.StartCoroutine("TextReading");
             }
 
             else
@@ -227,44 +224,6 @@ public class PlayerController : MonoBehaviour
                 state = PlayerState.Normal;
             }
         }
-
-        //テキストUIのメッセージ配列の大きさを取得
-        //var messageLength = text.Messages.Length;
-        //text.CurrentMessageCount++;
-        //メッセージが最後の文でなければ
-        ////if (currentMessageNum < messageLength - 1)
-        //{
-        //    if (Input.GetKeyDown(KeyCode.JoystickButton0) ||
-        //        Input.GetKeyDown(KeyCode.Space)
-        //        //||
-        //        //text.CurrentMessageCount > text.NextMessageCount
-        //        )
-        //    {
-        //        //currentMessageNum++;
-        //        //text.TextChange(currentMessageNum);
-        //        //text.CurrentMessageCount = 0;
-        //        //text.TextReading();
-        //    }
-        //}
-
-        //else
-        //{
-        //    if (Input.GetKeyDown(KeyCode.JoystickButton0) ||
-        //        Input.GetKeyDown(KeyCode.Space)||
-        //        text.CurrentMessageCount > text.NextMessageCount)
-        //    {
-        //        text.text.text = selectObj.GetComponent<PlacedObj>().SelectMessage;
-        //        State = PlayerState.Normal;
-        //        currentMessageNum = 0;
-        //        text.CurrentMessageCount = 0;
-        //    }
-
-        //    if (selectObj.GetComponent<PlacedObjParameter>().FlagChangeObj)
-        //    {
-        //        selectObj.GetComponent<FlagChangeObj>().FlagOn();
-        //    }
-        //}
-
         
     }
 
@@ -272,5 +231,43 @@ public class PlayerController : MonoBehaviour
     {
         //sound.PlayOneShot(audioClips[0]);
         
+    }
+
+    void ChangeMenuFlag()
+    {
+
+    }
+
+    void ItemChange()
+    {
+        //アイテム所持数が0ならreturn
+        if (itemQuantity == 0)
+            return;
+
+        //マウスホイールの大きさ取得
+        float mouseScrollWheel = Input.GetAxis("Mouse ScrollWheel");
+
+
+        if (mouseScrollWheel < 0 ||
+            Input.GetKeyDown(KeyCode.Joystick1Button4))
+        {
+            if (itemNum == 0)
+            {
+                itemNum = itemQuantity - 1;
+                return;
+            }
+            itemNum--;
+        }
+
+        else if (mouseScrollWheel > 0 ||
+                 Input.GetKeyDown(KeyCode.Joystick1Button5))
+        {
+            if (itemNum == itemQuantity - 1)
+            {
+                itemNum = 0;
+                return;
+            }
+            itemNum++;
+        }
     }
 }
