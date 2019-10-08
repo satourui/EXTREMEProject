@@ -6,7 +6,10 @@ public class HiddenObj : MonoBehaviour
 {
     [SerializeField, Header("覆っているオブジェクト")]
     public GameObject coveringObj; //覆っているオブジェクト
-    
+
+    private bool isHidden = false;  //隠れていたらtrue
+
+    public bool IsHidden { get => isHidden; set => isHidden = value; }
 
     void Start()
     {
@@ -22,12 +25,24 @@ public class HiddenObj : MonoBehaviour
 
         if (ocObj.IsOpen)
         {
-            GetComponent<PlacedObjParameter>().HiddenObj = false;
+            //GetComponent<PlacedObjParameter>().HiddenObj = false;
+            GetComponent<PlacedObj>().IsSelect = true;
+            isHidden = false;
         }
 
         else
         {
-            GetComponent<PlacedObjParameter>().HiddenObj = true;
+            //GetComponent<PlacedObjParameter>().HiddenObj = true;
+            GetComponent<PlacedObj>().IsSelect = false;
+            isHidden = true;
+        }
+    }
+
+    public void StopHiding()
+    {
+        if (!isHidden)
+        {
+            GetComponent<PlacedObjParameter>().HiddenObj = false;
         }
     }
 }

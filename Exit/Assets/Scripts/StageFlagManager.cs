@@ -18,6 +18,9 @@ public class StageFlagManager : MonoBehaviour
         {
             flags.Add(flagName, false);
         }
+
+        //とりあえずここでマウスカーソルの削除
+        Cursor.visible = false;
         
     }
     
