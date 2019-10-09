@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class FlagChangeObj : MonoBehaviour
 {
-    [SerializeField,Header("リンクするフラグの名前")]
-    private string flagName;
+    [SerializeField, Header("リンクするフラグの名前")]
+    private string flagName = "";
 
     [SerializeField, Header("フラグを変更してお役御免ならtrue")]
-    private bool isDead;
+    private bool isDead = false;
 
-    StageFlagManager flagManager;
+    GamePlayManager gameManager;
 
     void Start()
     {
-        flagManager = GameObject.FindGameObjectWithTag("FlagManager").GetComponent<StageFlagManager>();
+        gameManager = GameObject.Find("GamePlayManager").GetComponent<GamePlayManager>();
     }
 
     // Update is called once per frame
@@ -25,7 +25,7 @@ public class FlagChangeObj : MonoBehaviour
 
     public void FlagOn()
     {
-        flagManager.FlagOn(flagName);
+        gameManager.FlagOn(flagName);
         if (isDead)
         {
             Destroy(gameObject);
