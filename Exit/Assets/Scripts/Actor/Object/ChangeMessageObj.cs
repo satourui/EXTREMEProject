@@ -6,8 +6,8 @@ public class ChangeMessageObj : MonoBehaviour
 {
 
     [Header("文が変わる条件")]
-    public bool afterSelect;  //選択後
-    public bool forFlag;      //フラグによって
+    public bool afterSelect = false;  //選択後
+    public bool forFlag = false;      //フラグによって
 
     //[Header("文を変える場所")]
     //public bool select;  //選択
@@ -16,44 +16,44 @@ public class ChangeMessageObj : MonoBehaviour
     [SerializeField, Header("このフラグがtrueなら文を変える")]
     private string flagName = "";
 
-    [SerializeField, Header("フラグがtrueのときに1度だけ表示される本文")]
-    private string[] changeOnceMessages;
+    //[SerializeField, Header("フラグがtrueのときに1度だけ表示される本文")]
+    //private string[] changeOnceMessages = new string[0];
 
-    [SerializeField, Header("フラグ変更後の文が出たらもう文を表示しない")]
-    private bool deleteMessage_Flag;
+    //[SerializeField, Header("フラグ変更後の文が出たらもう文を表示しない")]
+    //private bool deleteMessage_Flag = false;
 
     [SerializeField, Header("フラグ変更後、文を繰り返す")]
-    private bool loopMessageEndless;
+    private bool loopMessageEndless = false;
 
     //[SerializeField, Header("変更後のセレクト文")]
     //private string selectMessage = "";
 
 
     [SerializeField, Header("本文の交換を繰り返すかどうか(例:電源を入れる/切る)")]
-    private bool endlessSwiching;
+    private bool endlessSwiching = false;
 
     [SerializeField, Header("変更後のループする本文")]
-    private string[] changeLoopMessages;
+    private string[] changeLoopMessages = new string[0];
 
 
+    private bool isMessageChange = false;  //メッセージが変更できるならtrue
+    
 
+    GamePlayManager gameManager;
+    PlacedObj placedObj;
 
-    //public string[] ChangeLoopMessages { get => changeLoopMessages; set => changeLoopMessages = value; }
-    //public bool LoopMessageEndless { get => loopMessageEndless; set => loopMessageEndless = value; }
-
-    //public bool DeleteMessage_Flag { get => deleteMessage_Flag; set => deleteMessage_Flag = value; }
-    //public bool EndlessSwiching { get => endlessSwiching; set => endlessSwiching = value; }
-
-    StageFlagManager flagManager;
+    public bool IsMessageChange { get => isMessageChange; set => isMessageChange = value; }
 
     void Start()
     {
-        flagManager = GameObject.FindGameObjectWithTag("FlagManager").GetComponent<StageFlagManager>();
+        gameManager = GameObject.Find("GamePlayManager").GetComponent<GamePlayManager>();
+        placedObj = GetComponent<PlacedObj>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        MessageChange();
     }
 
     /// <summary>
@@ -65,7 +65,7 @@ public class ChangeMessageObj : MonoBehaviour
         if (forFlag)
         {
             //フラグがtrueなら
-            if (flagManager.flags[flagName])
+            if (gameManager.flags[flagName])
             {
                 //if (select)
                 //{
@@ -74,7 +74,7 @@ public class ChangeMessageObj : MonoBehaviour
 
                 //if (mainText)
                 {
-                    GetComponent<PlacedObj>().Messages = changeOnceMessages;
+                    placedObj.Messages = changeLoopMessages;
                 }
                 forFlag = false;
                 //afterSelect = true;
@@ -111,19 +111,23 @@ public class ChangeMessageObj : MonoBehaviour
         {
             if (endlessSwiching)
             {
-                var po = GetComponent<PlacedObj>();
-                string[] temporaryMessages = po.Messages;
-                po.Messages = changeLoopMessages;
+                string[] temporaryMessages = placedObj.Messages;
+                placedObj.Messages = changeLoopMessages;
                 changeLoopMessages = temporaryMessages;
+            }
+
+            else
+            {
+                isMessageChange = true;
             }
         }
     }
 
     public void DeleteMessage()
     {
-        if (deleteMessage_Flag)
+        //if (deleteMessage_Flag)
         {
-            if (flagManager.flags[flagName])
+            if (gameManager.flags[flagName])
             {
                 GetComponent<PlacedObj>().IsSelect = false;
             }
@@ -134,12 +138,20 @@ public class ChangeMessageObj : MonoBehaviour
     {
         if (loopMessageEndless)
         {
-            if (flagManager.flags[flagName])
+            if (gameManager.flags[flagName])
             {
-                var po = GetComponent<PlacedObj>();
-                po.Messages = changeLoopMessages;
+                //placedObj.Messages = changeLoopMessages;
+                isMessageChange = true;
             }
         }
         
+    }
+
+    public void MessageChange()
+    {
+        if (isMessageChange)
+        {
+            placedObj.Messages = changeLoopMessages;
+        }
     }
 }

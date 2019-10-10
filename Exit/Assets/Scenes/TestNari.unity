@@ -486,7 +486,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dropItemName: stick1
   itemIcon: {fileID: 10912, guid: 0000000000000000f000000000000000, type: 0}
-  isDeleteObject: 0
+  itemMessages:
+  - "\u7D75\u3092\u30DC\u30ED\u30DC\u30ED\u306B\u3057\u305F"
+  anytime: 0
+  forFlag: 0
+  frontObj: 1
+  flagName: 
+  targetObj: {fileID: 1427048820}
+  isDeleteObject: 1
 --- !u!114 &277636847
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1152,10 +1159,6 @@ MonoBehaviour:
   afterSelect: 0
   forFlag: 1
   flagName: GetKey
-  changeOnceMessages:
-  - "\u9375\u3092\u4F7F\u3063\u305F"
-  - "\u6249\u3092\u958B\u3051\u305F"
-  deleteMessage_Flag: 0
   loopMessageEndless: 1
   endlessSwiching: 0
   changeLoopMessages:
@@ -1308,7 +1311,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &869694759
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1454,8 +1457,6 @@ MonoBehaviour:
   afterSelect: 0
   forFlag: 0
   flagName: 
-  changeOnceMessages: []
-  deleteMessage_Flag: 0
   loopMessageEndless: 0
   endlessSwiching: 0
   changeLoopMessages: []
@@ -1536,6 +1537,53 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parameterName: open
   nextSelectMessage: "\u9589\u3081\u308B"
+--- !u!1 &980154256
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 980154258}
+  - component: {fileID: 980154257}
+  m_Layer: 0
+  m_Name: GamePlayManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &980154257
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 980154256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be6b5ba5d090e8e4492a8613fd4f5066, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flagNames:
+  - PlayerDead
+  - GetKey
+  - BreakPicture
+--- !u!4 &980154258
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 980154256}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.5653007, y: 3.7009451, z: 2.784203}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 17
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1075438133
 GameObject:
   m_ObjectHideFlags: 0
@@ -1552,6 +1600,7 @@ GameObject:
   - component: {fileID: 1075438138}
   - component: {fileID: 1075438140}
   - component: {fileID: 1075438141}
+  - component: {fileID: 1075438142}
   m_Layer: 0
   m_Name: Key
   m_TagString: Untagged
@@ -1567,7 +1616,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1075438133}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.72, z: 0}
+  m_LocalPosition: {x: 0, y: -1, z: 0}
   m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_Children: []
   m_Father: {fileID: 947586522}
@@ -1644,8 +1693,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   changeMessageObj: 0
-  itemDropObj: 0
-  flagChangeObj: 1
+  itemDropObj: 1
+  flagChangeObj: 0
   openAndCloseObj: 0
   hiddenObj: 1
 --- !u!114 &1075438139
@@ -1670,7 +1719,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1075438133}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1cdc304912babe549b9517675cd38380, type: 3}
   m_Name: 
@@ -1690,6 +1739,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coveringObj: {fileID: 947586518}
+--- !u!114 &1075438142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1075438133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87d10122b0c6ff342b1686f362af65e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dropItemName: Key
+  itemIcon: {fileID: 2800000, guid: e237c37714c954f4d941811223bb9e45, type: 3}
+  itemMessages:
+  - "\u9375\u3092\u958B\u3051\u305F"
+  anytime: 0
+  forFlag: 0
+  frontObj: 1
+  flagName: 
+  targetObj: {fileID: 763906960}
+  isDeleteObject: 1
 --- !u!1001 &1229828442
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2067,6 +2138,7 @@ GameObject:
   - component: {fileID: 1427048823}
   - component: {fileID: 1427048822}
   - component: {fileID: 1427048821}
+  - component: {fileID: 1427048827}
   m_Layer: 0
   m_Name: Picture
   m_TagString: Untagged
@@ -2086,7 +2158,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22bece4dad567dd41b23b45a90ffcdcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  changeMessageObj: 0
+  changeMessageObj: 1
   itemDropObj: 0
   flagChangeObj: 0
   openAndCloseObj: 0
@@ -2178,6 +2250,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1427048827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1427048820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b6a9c4c54cd8c447900024467696713, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  afterSelect: 0
+  forFlag: 0
+  flagName: 
+  loopMessageEndless: 0
+  endlessSwiching: 0
+  changeLoopMessages:
+  - "\u30DC\u30ED\u30DC\u30ED\u306B\u306A\u3063\u3066\u3044\u308B"
 --- !u!1 &1454997923
 GameObject:
   m_ObjectHideFlags: 0
@@ -3279,8 +3370,6 @@ MonoBehaviour:
   afterSelect: 1
   forFlag: 0
   flagName: 
-  changeOnceMessages: []
-  deleteMessage_Flag: 0
   loopMessageEndless: 0
   endlessSwiching: 1
   changeLoopMessages:
@@ -3435,6 +3524,7 @@ GameObject:
   - component: {fileID: 2065724989}
   - component: {fileID: 2065724988}
   - component: {fileID: 2065724987}
+  - component: {fileID: 2065724994}
   m_Layer: 0
   m_Name: Stick (1)
   m_TagString: Untagged
@@ -3456,6 +3546,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dropItemName: stick2
   itemIcon: {fileID: 10910, guid: 0000000000000000f000000000000000, type: 0}
+  itemMessages:
+  - "\u632F\u3063\u305F"
+  anytime: 1
+  forFlag: 0
+  frontObj: 0
+  flagName: 
+  targetObj: {fileID: 0}
   isDeleteObject: 0
 --- !u!114 &2065724988
 MonoBehaviour:
@@ -3469,7 +3566,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22bece4dad567dd41b23b45a90ffcdcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  changeMessageObj: 0
+  changeMessageObj: 1
   itemDropObj: 1
   flagChangeObj: 0
   openAndCloseObj: 0
@@ -3562,6 +3659,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 45, y: 0, z: 0}
+--- !u!114 &2065724994
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2065724986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b6a9c4c54cd8c447900024467696713, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  afterSelect: 1
+  forFlag: 0
+  flagName: 
+  loopMessageEndless: 0
+  endlessSwiching: 0
+  changeLoopMessages:
+  - "\u4F55\u3082\u306A\u3044"
 --- !u!4 &2071838731 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8598100929511200732, guid: ec640aff4476e024ca77529a358a122c,
