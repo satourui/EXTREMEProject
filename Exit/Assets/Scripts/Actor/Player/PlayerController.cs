@@ -65,9 +65,13 @@ public class PlayerController : MonoBehaviour
     {
         itemQuantity = itemList.Count;  //アイテムの数を取得
 
-        PlayerMove();
-        PlayerRotate();
-        FlashLightSwicthing();
+        //ポーズメニュー時は動けないようにする
+        if(state != PlayerState.Menu)
+        {
+            PlayerMove();
+            PlayerRotate();
+            FlashLightSwicthing();
+        }
 
         if (state == PlayerState.Normal)
         {
