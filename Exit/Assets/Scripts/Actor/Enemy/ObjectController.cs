@@ -15,6 +15,8 @@ public class ObjectController : MonoBehaviour
 
     private int targetIndex = 0;//targetのIndex
 
+    private EnemyMovement enemyMovement;//playerが死んだら用
+
     private Vector3 CurretTargetPosition
     {
         get
@@ -32,10 +34,18 @@ public class ObjectController : MonoBehaviour
     {
         navAgent = GetComponent<NavMeshAgent>();
         navAgent.destination = CurretTargetPosition;
+
+        enemyMovement = GetComponent<EnemyMovement>();//playerが死んだら用
     }
 
     private void Update()
     {
+        //↓敵の動きを止めたいとき
+        //if(enemyMovement.isPlayerDead)　　
+        //{
+        //    return; 
+        //}
+
         if (navAgent.remainingDistance <= destinationThreshold)
         {
             targetIndex = (targetIndex + 1) % targets.Length;

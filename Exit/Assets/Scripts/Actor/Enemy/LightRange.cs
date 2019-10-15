@@ -24,8 +24,6 @@ public class LightRange : MonoBehaviour
 
         var tan = Mathf.Tan(a * (Mathf.PI / 180.0f));
 
-
-
     }
 
     // Update is called once per frame

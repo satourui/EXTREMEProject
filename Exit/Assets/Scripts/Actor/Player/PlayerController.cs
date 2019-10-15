@@ -32,6 +32,10 @@ public class PlayerController : MonoBehaviour
 
     //↓かんが追加
     public AudioClip[] audioClips = new AudioClip[4];
+    public bool isWalk;
+    private Rigidbody rigid;
+
+    public bool isDead;//playerが死んだ
     //↑
 
     public PlayerState State { get => state; set => state = value; }
@@ -44,7 +48,7 @@ public class PlayerController : MonoBehaviour
     {
         Normal,
         Talk,
-        Menu
+        Menu,
     }
 
     void Start()
@@ -57,12 +61,22 @@ public class PlayerController : MonoBehaviour
         sound = GetComponent<AudioSource>();
 
         sound.clip = audioClips[0];
-        //isWalk = false;  //最初は歩いていない
+        isWalk = false;  //最初は歩いていない
+        isDead = false;  //死んだかどうか
+        rigid = GetComponent<Rigidbody>();
     }
 
 
     void Update()
     {
+
+        if (isDead)
+        {
+            rigid.angularDrag = 100;  //敵とぶつかったら無理やりとめる
+
+            return;
+        }
+
         itemQuantity = itemList.Count;  //アイテムの数を取得
 
         PlayerMove();
@@ -89,6 +103,7 @@ public class PlayerController : MonoBehaviour
 
     void PlayerMove()
     {
+        isWalk = false;
         //キーボード移動
         float mouse_x = Input.GetAxisRaw("Horizontal");
         float mouse_z = Input.GetAxisRaw("Vertical");
@@ -102,23 +117,10 @@ public class PlayerController : MonoBehaviour
             rb.MovePosition(transform.position + velocity);
 
             SoundOn();
-        }
-        else
-        {
-            //
-            
+
+            isWalk = true;
         }
 
-        //if(Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.W)||
-        //    Input.GetKey(KeyCode.S)|| Input.GetKey(KeyCode.D))
-        //{
-            
-        //    AudioSource.
-        //}
-        //else
-        //{
-            
-        //}
 
         //パッド移動
         float pad_X = Input.GetAxisRaw("L_Stick_Hori");
@@ -132,6 +134,8 @@ public class PlayerController : MonoBehaviour
             velocity = velocity.normalized * speed * Time.deltaTime;
             velocity = transform.rotation * velocity;
             rb.MovePosition(transform.position + velocity);
+
+            isWalk = true;
         }
     }
 
@@ -229,8 +233,7 @@ public class PlayerController : MonoBehaviour
 
     void SoundOn()
     {
-        //sound.PlayOneShot(audioClips[0]);
-        
+        //sound.PlayOneShot(audioClips[0]);        
     }
 
     void ChangeMenuFlag()
@@ -268,6 +271,14 @@ public class PlayerController : MonoBehaviour
                 return;
             }
             itemNum++;
+        }
+    }
+
+    private void OnCollisionStay(Collision col)
+    {
+        if(col.transform.tag == "Enemy")
+        {
+            isDead = true;
         }
     }
 }

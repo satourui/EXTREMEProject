@@ -24,7 +24,7 @@ public class Door_R : MonoBehaviour
 
     private void OnTriggerStay(Collider c)
     {
-        if (c.gameObject.tag == "Enemy")
+        if (c.gameObject.tag == "Enemy" || c.gameObject.tag == "Player")
         {
             inDoor = true;
         }
@@ -32,7 +32,7 @@ public class Door_R : MonoBehaviour
 
     private void OnTriggerExit(Collider c)
     {
-        if (c.tag == "Enemy")
+        if (c.tag == "Enemy"||c.tag == "Player")
         {
             inDoor = false;
             animator.SetBool("Open1", false);

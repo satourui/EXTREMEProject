@@ -16,6 +16,7 @@ public class SearchCharacter : MonoBehaviour
 
     private void OnTriggerStay(Collider col)
     {
+
         if(col.tag == "Player")
         {
             Debug.DrawLine(transform.position +
