@@ -52,7 +52,7 @@ public class ItemObj : MonoBehaviour
 
         if (forFlag)
         {
-            if (gameManager.flags[flagName])
+            if (gameManager.currentStageFlags[flagName])
             {
                 isUse = true;
             }

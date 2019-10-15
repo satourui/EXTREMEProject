@@ -1566,10 +1566,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be6b5ba5d090e8e4492a8613fd4f5066, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flagNames:
-  - PlayerDead
-  - GetKey
-  - BreakPicture
+  stageNames:
+  - Stage1
+  - Stage2
+  stageFlagList:
+  - flags:
+    - GetKey
+    - a
+    - b
+  - flags:
+    - b
+    - c
+  clearFlagList:
+  - b
+  - b
 --- !u!4 &980154258
 Transform:
   m_ObjectHideFlags: 0
@@ -1902,11 +1912,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2218356161809029631, guid: 95f9d02d3e471c8429e27ae3b092de09,
-        type: 3}
-      propertyPath: m_Constraints
-      value: 80
-      objectReference: {fileID: 0}
     - target: {fileID: 2218356161809029629, guid: 95f9d02d3e471c8429e27ae3b092de09,
         type: 3}
       propertyPath: target
@@ -1952,14 +1957,19 @@ PrefabInstance:
       propertyPath: targets.Array.data[3]
       value: 
       objectReference: {fileID: 1838415180}
-    - target: {fileID: 2218356161809029625, guid: 95f9d02d3e471c8429e27ae3b092de09,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7313616250694955307, guid: 95f9d02d3e471c8429e27ae3b092de09,
         type: 3}
       propertyPath: m_AutoBraking
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2218356161809029631, guid: 95f9d02d3e471c8429e27ae3b092de09,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 2218356161809029625, guid: 95f9d02d3e471c8429e27ae3b092de09,
+        type: 3}
+      propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []

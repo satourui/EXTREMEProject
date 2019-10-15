@@ -81,7 +81,7 @@ public class PlayerController : MonoBehaviour
 
         else if (state == PlayerState.Talk)
         {
-            //TextReading();
+
         }
         else if(state == PlayerState.Menu)
         {
