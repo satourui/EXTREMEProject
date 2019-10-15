@@ -60,19 +60,19 @@ public class TitleManager : MonoBehaviour
     {
         #region カーソルオンオフに関する処理(死ぬほどコードが汚く見辛いので訂正できるならよろしくお願いします)
 
-        ////マウスカーソルのオン キーボードを押したときにオフにする
-        //if (Input.GetAxis("Mouse X") > 0.1f || Input.GetAxis("Mouse X") < -0.1f
-        //    || Input.GetAxis("Mouse Y") > 0.1f || Input.GetAxis("Mouse Y") < -0.1f)
-        //{
-        //    Cursor.visible = true;
-        //    SelectUI.SetActive(false);
-        //}
-        //if (Input.GetKeyDown(KeyCode.W)||Input.GetKeyDown(KeyCode.S)||
-        //    Input.GetKeyDown(KeyCode.UpArrow)||Input.GetKeyDown(KeyCode.DownArrow))
-        //{
-        //    Cursor.visible = false;
-        //    SelectUI.SetActive(true);
-        //}
+        //マウスカーソルのオン キーボードを押したときにオフにする
+        if (Input.GetAxis("Mouse X") > 0.1f || Input.GetAxis("Mouse X") < -0.1f
+            || Input.GetAxis("Mouse Y") > 0.1f || Input.GetAxis("Mouse Y") < -0.1f)
+        {
+            Cursor.visible = true;
+            selectUI.SetActive(false);
+        }
+        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.S) ||
+            Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            Cursor.visible = false;
+            selectUI.SetActive(true);
+        }
 
 
         ////上キーとWを押したときにポジションを変えようとした跡地
