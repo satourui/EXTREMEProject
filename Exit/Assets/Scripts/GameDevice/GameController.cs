@@ -27,4 +27,9 @@ public class GameController : MonoBehaviour
             Quit();
         }
     }
+
+    public void GameEnd()
+    {
+        Quit();
+    }
 }

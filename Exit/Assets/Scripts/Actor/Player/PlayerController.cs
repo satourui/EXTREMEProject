@@ -11,11 +11,10 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rb;         //Rigidbody
     Vector3 velocity = Vector3.zero;  //移動量
     PlayerState state;
-    
+
     //テキスト処理関連
-    string[] messages;  //オブジェクトの文字情報を保存するための配列
+    //string[] messages = new string[0];  //オブジェクトの文字情報を保存するための配列
     TalkText text;
-    int currentMessageNum;  //現在読んでいるメッセージの(ページ?)番号
     GameObject selectObj;  //プレイヤーが選択しているオブジェクト
 
     private bool menuFlag;  //ポーズメニューが出てるかどうか。
@@ -56,7 +55,6 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         state = PlayerState.Normal;
         text = GameObject.Find("GamePlayUI").GetComponent<TalkText>();
-        currentMessageNum = 0;
         //音声ファイルをコンポーネントして変数に格納する
         sound = GetComponent<AudioSource>();
 
@@ -79,20 +77,25 @@ public class PlayerController : MonoBehaviour
 
         itemQuantity = itemList.Count;  //アイテムの数を取得
 
-        PlayerMove();
-        PlayerRotate();
-        FlashLightSwicthing();
+        //ポーズメニュー時は動けないようにする
+        if(state != PlayerState.Menu)
+        {
+            PlayerMove();
+            PlayerRotate();
+            FlashLightSwicthing();
+        }
 
         if (state == PlayerState.Normal)
         {
             
             SelectObject();
             ItemChange();
+            UseItem();
         }
 
         else if (state == PlayerState.Talk)
         {
-            //TextReading();
+
         }
         else if(state == PlayerState.Menu)
         {
@@ -178,7 +181,8 @@ public class PlayerController : MonoBehaviour
     void SelectObject()
     {
         if (Input.GetKeyDown(KeyCode.JoystickButton0) ||
-            Input.GetKeyDown(KeyCode.Space))
+            /*Input.GetKeyDown(KeyCode.Space)*/
+            Input.GetMouseButtonDown(0))
         {
 
             if (selectObj == null)
@@ -201,9 +205,7 @@ public class PlayerController : MonoBehaviour
             else if (text.MainMessages.Length != 0)
             {
                 state = PlayerState.Talk;
-                //text.TextChange(0);
-                //text.StartCoroutine("TextReading");
-                text.IsMessageEnd = false;
+                text.IsTalk = true;
                 text.TextInvisible();
             }
             
@@ -211,25 +213,7 @@ public class PlayerController : MonoBehaviour
         
     }
 
-    void TextReading()
-    {
-        if (Input.GetKeyDown(KeyCode.JoystickButton0) ||
-            Input.GetKeyDown(KeyCode.Space))
-        {
-
-            if (selectObj.GetComponent<PlacedObj>().IsSelect)
-            {
-
-                text.StartCoroutine("TextReading");
-            }
-
-            else
-            {
-                state = PlayerState.Normal;
-            }
-        }
-        
-    }
+    
 
     void SoundOn()
     {
@@ -254,24 +238,52 @@ public class PlayerController : MonoBehaviour
         if (mouseScrollWheel < 0 ||
             Input.GetKeyDown(KeyCode.Joystick1Button4))
         {
-            if (itemNum == 0)
-            {
-                itemNum = itemQuantity - 1;
-                return;
-            }
-            itemNum--;
+            ItemNumDown();
         }
 
         else if (mouseScrollWheel > 0 ||
                  Input.GetKeyDown(KeyCode.Joystick1Button5))
         {
-            if (itemNum == itemQuantity - 1)
-            {
-                itemNum = 0;
-                return;
-            }
-            itemNum++;
+            ItemNumUp();
         }
+    }
+
+    void UseItem()
+    {
+        //アイテム所持数が0ならreturn
+        if (itemQuantity == 0)
+            return;
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            itemList[itemNum].GetComponent<ItemObj>().UseItem();
+        }
+    }
+
+    public void ItemDelete(int num)
+    {
+        itemList.RemoveAt(num);
+        itemNum = 0;
+    }
+
+    public void ItemNumUp()
+    {
+        if (itemNum == itemQuantity - 1)
+        {
+            itemNum = 0;
+            return;
+        }
+        itemNum++;
+    }
+
+    public void ItemNumDown()
+    {
+        if (itemNum == 0)
+        {
+            itemNum = itemQuantity - 1;
+            return;
+        }
+        itemNum--;
     }
 
     private void OnCollisionStay(Collision col)

@@ -12,12 +12,10 @@ public class TalkText : MonoBehaviour
     int maxMessagePage;  //メッセージの最大ページ数
 
     bool isMessageFade;  //本文のフェードが終わっていたらtrue
-    bool isMessageEnd;  //全ての本文が読み終わっていたらtrue
+    bool isTalk;  //本文を読んでいるならtrue
 
     Color textColor;
-
-    [SerializeField, Header("次の文字が出てくるまでの時間")]
-    private float nextMessageTime = 0;
+    
 
     [SerializeField, Header("文字がフェードインするスピード")]
     private float messageFadeSpeed = 0;
@@ -31,7 +29,7 @@ public class TalkText : MonoBehaviour
     public int MaxMessagePage { get => maxMessagePage; set => maxMessagePage = value; }
     public string SelectMessage { get => selectMessage; set => selectMessage = value; }
     public GameObject SelectObj { get => selectObj; set => selectObj = value; }
-    public bool IsMessageEnd { get => isMessageEnd; set => isMessageEnd = value; }
+    public bool IsTalk { get => isTalk; set => isTalk = value; }
 
     void Start()
     {
@@ -40,7 +38,7 @@ public class TalkText : MonoBehaviour
         textColor = text.GetComponent<Text>().color;
         textColor.a = 0;
         isMessageFade = false;
-        IsMessageEnd = true;
+        IsTalk = false;
     }
 
     // Update is called once per frame
@@ -58,8 +56,14 @@ public class TalkText : MonoBehaviour
         text.gameObject.SetActive(true);
     }
 
+    public void TextActive()
+    {
+        text.gameObject.SetActive(true);
+    }
+
     public void TextClose()
     {
+        text.text = "";
         text.gameObject.SetActive(false);
     }
 
@@ -67,86 +71,11 @@ public class TalkText : MonoBehaviour
     {
         text.text = mainMessages[index];
     }
-
-    public IEnumerator TextReading()
-    {
-        //int messageCount = 0;
-        //text.text = "";
-
-        maxMessagePage = mainMessages.Length;
-        if (CurrentMessagePage < MaxMessagePage - 0)
-        {
-
-            textColor.a = 0;
-            text.color = textColor;
-
-            //while (mainMessages[currentMessagePage].Length > messageCount)
-            //{
-            //    text.text += mainMessages[currentMessagePage][messageCount];
-            //    messageCount++;
-            //    yield return new WaitForSeconds(nextMessageTime);
-            //}
-
-            TextChange(CurrentMessagePage);
-            while (textColor.a <= 1)
-            {
-                textColor.a += messageFadeSpeed;
-                text.color = textColor;
-                yield return new WaitForSeconds(0.2f);
-            }
-            CurrentMessagePage++;
-            //TextChange(CurrentMessagePage);
-        }
-
-        //メッセージを読み終わった後の処理
-        else
-        {
-            CurrentMessagePage = 0;
-
-            var objParameter = selectObj.GetComponent<PlacedObjParameter>();
-
-            //選んだオブジェクトがアイテムを落とすオブジェクトなら
-            if (objParameter.ItemDropObj)
-            {
-                var io = selectObj.GetComponent<ItemObj>();
-                io.ItemGet();
-                io.DeleteObject();
-            }
-
-            //フラグを変更するオブジェクトなら
-            if (objParameter.FlagChangeObj)
-            {
-                selectObj.GetComponent<FlagChangeObj>().FlagOn();
-            }
-
-            //メッセージを変更するオブジェなら
-            if (objParameter.ChangeMessageObj)
-            {
-                var cmObj = selectObj.GetComponent<ChangeMessageObj>();
-
-                cmObj.DeleteMessage();
-                cmObj.MessageSwicting();
-                cmObj.ChangeLoopMessage_Flag();
-            }
-
-            //隠されているオブジェクトなら
-            if (objParameter.HiddenObj)
-            {
-                selectObj.GetComponent<HiddenObj>().StopHiding();
-            }
-
-            TextClose();
-
-            GameObject.Find("Player").GetComponent<PlayerController>().State = PlayerController.PlayerState.Normal;
-
-
-
-        }
-    }
+    
 
     void MessageReading()
     {
-        if (IsMessageEnd)
+        if (!IsTalk)
         {
             return;
         }
@@ -162,7 +91,7 @@ public class TalkText : MonoBehaviour
 
             
             if (Input.GetKeyDown(KeyCode.JoystickButton0) ||
-                Input.GetKeyDown(KeyCode.Space))
+                Input.GetMouseButtonDown(0))
             {
                 isMessageFade = true;
             }
@@ -202,8 +131,7 @@ public class TalkText : MonoBehaviour
                 if (objParameter.ChangeMessageObj)
                 {
                     var cmObj = selectObj.GetComponent<ChangeMessageObj>();
-
-                    cmObj.DeleteMessage();
+                    
                     cmObj.MessageSwicting();
                     cmObj.ChangeLoopMessage_Flag();
                 }
@@ -213,6 +141,7 @@ public class TalkText : MonoBehaviour
                 {
                     selectObj.GetComponent<HiddenObj>().StopHiding();
                 }
+                
 
                 TextClose();
 

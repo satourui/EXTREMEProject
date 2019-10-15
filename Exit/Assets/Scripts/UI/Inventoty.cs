@@ -20,11 +20,20 @@ public class Inventoty : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (player.ItemQuantity == 0)
-            return;
+        if(player.State==PlayerController.PlayerState.Normal)
+        {
+            //アイテムを持っていなければ
+            if (player.ItemQuantity == 0)
+            {
+                image.gameObject.SetActive(false);
+                return;
+            }
+
+            image.gameObject.SetActive(true);
+            Texture2D texture = itemList[player.ItemNum].GetComponent<ItemObj>().ItemIcon;
+            sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
+            image.sprite = sprite;
+        }
         
-        Texture2D texture = itemList[player.ItemNum].GetComponent<ItemObj>().ItemIcon;
-        sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
-        image.sprite = sprite;
     }
 }
