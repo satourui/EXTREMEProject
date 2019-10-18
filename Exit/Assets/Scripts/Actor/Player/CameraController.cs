@@ -22,12 +22,19 @@ public class CameraController : MonoBehaviour
 
     //private string[] controllerName;
 
+    [SerializeField]
+    public GameObject gameManager;
+    [SerializeField]
+    public PauseScript pauseScript;
+
     void Start()
     {
         offset = transform.position - target.transform.position;
 
         //angle = transform.localEulerAngles.x;
         roteuler = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, 0f);  //親オブジェクトのオイラー角取得
+
+        pauseScript = gameManager.GetComponent<PauseScript>();
     }
     
 
@@ -35,6 +42,7 @@ public class CameraController : MonoBehaviour
     {
         //controllerName = Input.GetJoystickNames();
         //if (target.GetComponent<PlayerController>().State == PlayerController.PlayerState.Normal)
+        if (pauseScript.GetPlayerflag())
         {
             CameraMouseRotation();
         }

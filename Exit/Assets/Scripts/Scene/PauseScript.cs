@@ -4,22 +4,20 @@ using UnityEngine;
 
 public class PauseScript : MonoBehaviour
 {
-    [SerializeField]
-    //ポーズした時に表示するUIのプレハブを入れてください
+    [SerializeField,Header("ポーズ画面に表示するUIを入れてください")]
     private GameObject pauseUIPrefab;
-    [SerializeField]
-    //オプション画面UIのプレハブを入れてください
+    [SerializeField,Header("オプション画面UIを入れてください")]
     private GameObject optionUIPrefab;
-
-    //プレイヤーコントローラのNum変数用
-    private PlayerController pc;
+    
     //ポーズ表示非表示フラグ
     private bool Changeflag;
+    private bool playerAciveflag;
 
     // Start is called before the first frame update
     void Start()
     {
         Changeflag = false;
+        playerAciveflag = true;
     }
 
     // Update is called once per frame
@@ -32,11 +30,13 @@ public class PauseScript : MonoBehaviour
                 pauseUIPrefab.SetActive(false);
                 optionUIPrefab.SetActive(false);
                 Changeflag = false;
+                playerAciveflag = true;
             }
             else if (!Changeflag)
             {
                 pauseUIPrefab.SetActive(true);
                 Changeflag = true;
+                playerAciveflag = false;
             }
         }
 
@@ -45,6 +45,7 @@ public class PauseScript : MonoBehaviour
     public void Return()
     {
         Changeflag = false;
+        playerAciveflag = true;
         pauseUIPrefab.SetActive(false);
         optionUIPrefab.SetActive(false);
     }
@@ -65,6 +66,11 @@ public class PauseScript : MonoBehaviour
     {
         pauseUIPrefab.SetActive(true);
         optionUIPrefab.SetActive(false);
+    }
+
+    public bool GetPlayerflag()
+    {
+        return playerAciveflag;
     }
 
     /// <summary>

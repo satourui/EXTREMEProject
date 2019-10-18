@@ -6,7 +6,6 @@ public class PlayerController : MonoBehaviour
 {
     //音声再生
     private AudioSource sound;
-
     public float speed = 0.0f;　　//速度
     private Rigidbody rb;         //Rigidbody
     Vector3 velocity = Vector3.zero;  //移動量
@@ -18,7 +17,6 @@ public class PlayerController : MonoBehaviour
     GameObject selectObj;  //プレイヤーが選択しているオブジェクト
 
     private bool menuFlag;  //ポーズメニューが出てるかどうか。
-    private PauseScript pauseScript; //ポーズメニュースクリプト
 
     //アイテムリスト関連
     public List<GameObject> itemList = new List<GameObject>();  //持っているアイテムリスト
@@ -29,14 +27,21 @@ public class PlayerController : MonoBehaviour
     public Transform mainCamera;   //メインカメラ
     public GameObject flashLight;  //懐中電灯
 
-    //↓かんが追加
+    //↓かんが追加したバギギメデカマラ美少年たち
     public AudioClip[] audioClips = new AudioClip[4];
     public bool isWalk;
     private Rigidbody rigid;
 
     public bool isDead;//playerが死んだ
     //↑
+    
+    //↓るいが追加した
+    [SerializeField, Header("ゲームマネージャー")]
+    public GameObject gameManager;
+    [SerializeField, Header("ポーズスクリプトが入っているゲームマネージャー")]
+    public PauseScript pauseScript;
 
+    //↑
     public PlayerState State { get => state; set => state = value; }
     public GameObject SelectObj { get => selectObj; set => selectObj = value; }
     public List<GameObject> ItemList { get => itemList; set => itemList = value; }
@@ -62,6 +67,8 @@ public class PlayerController : MonoBehaviour
         isWalk = false;  //最初は歩いていない
         isDead = false;  //死んだかどうか
         rigid = GetComponent<Rigidbody>();
+
+        pauseScript = gameManager.GetComponent<PauseScript>();
     }
 
 
@@ -76,18 +83,29 @@ public class PlayerController : MonoBehaviour
         }
 
         itemQuantity = itemList.Count;  //アイテムの数を取得
-
+        //ポーズ関連
         //ポーズメニュー時は動けないようにする
-        if(state != PlayerState.Menu)
+        if (state != PlayerState.Menu)
         {
             PlayerMove();
             PlayerRotate();
             FlashLightSwicthing();
+            if (!pauseScript.GetPlayerflag())
+            {
+                state = PlayerState.Menu;
+                Cursor.visible = true;
+            }
         }
+        else if (pauseScript.GetPlayerflag())
+        {
+            state = PlayerState.Normal;
+            Cursor.visible = false;
+        }
+
 
         if (state == PlayerState.Normal)
         {
-            
+
             SelectObject();
             ItemChange();
             UseItem();
@@ -96,10 +114,6 @@ public class PlayerController : MonoBehaviour
         else if (state == PlayerState.Talk)
         {
 
-        }
-        else if(state == PlayerState.Menu)
-        {
-            ChangeMenuFlag();
         }
 
     }
@@ -192,7 +206,7 @@ public class PlayerController : MonoBehaviour
             //{
             //    selectObj.GetComponent<OpenAndCloseObj>().LoopAnimation();
             //}
-            
+
             text.MainMessages = selectObj.GetComponent<PlacedObj>().Messages;
 
             //開け閉めするオブジェクトなら
@@ -208,21 +222,16 @@ public class PlayerController : MonoBehaviour
                 text.IsTalk = true;
                 text.TextInvisible();
             }
-            
+
         }
-        
+
     }
 
-    
+
 
     void SoundOn()
     {
         //sound.PlayOneShot(audioClips[0]);        
-    }
-
-    void ChangeMenuFlag()
-    {
-
     }
 
     void ItemChange()
@@ -288,7 +297,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionStay(Collision col)
     {
-        if(col.transform.tag == "Enemy")
+        if (col.transform.tag == "Enemy")
         {
             isDead = true;
         }
