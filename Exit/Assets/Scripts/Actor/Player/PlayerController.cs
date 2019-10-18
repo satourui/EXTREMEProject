@@ -27,8 +27,10 @@ public class PlayerController : MonoBehaviour
     public Transform mainCamera;   //メインカメラ
     public GameObject flashLight;  //懐中電灯
 
-    //↓かんが追加したバギギメデカマラ美少年たち
     public AudioClip[] audioClips = new AudioClip[4];
+    //↓かんが追加
+    public AudioClip[] audioClips;
+    private AudioSource audioSource;
     public bool isWalk;
     private Rigidbody rigid;
 
@@ -64,6 +66,7 @@ public class PlayerController : MonoBehaviour
         sound = GetComponent<AudioSource>();
 
         sound.clip = audioClips[0];
+        audioSource = GetComponent<AudioSource>();
         isWalk = false;  //最初は歩いていない
         isDead = false;  //死んだかどうか
         rigid = GetComponent<Rigidbody>();
@@ -133,7 +136,7 @@ public class PlayerController : MonoBehaviour
             velocity = transform.rotation * velocity;
             rb.MovePosition(transform.position + velocity);
 
-            SoundOn();
+            SoundWalk();
 
             isWalk = true;
         }
@@ -177,6 +180,7 @@ public class PlayerController : MonoBehaviour
             || Input.GetKeyDown(KeyCode.JoystickButton2))
         {
             flashLight.GetComponent<FlashLightController>().LightSwitching();
+            audioSource.clip = audioClips[0];
             sound.PlayOneShot(sound.clip);
         }
 
@@ -229,9 +233,9 @@ public class PlayerController : MonoBehaviour
 
 
 
-    void SoundOn()
+    void SoundWalk()
     {
-        //sound.PlayOneShot(audioClips[0]);        
+        audioSource.clip = audioClips[1]; 
     }
 
     void ItemChange()
