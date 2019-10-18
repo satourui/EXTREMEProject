@@ -6,7 +6,6 @@ public class PlayerController : MonoBehaviour
 {
     //音声再生
     private AudioSource sound;
-
     public float speed = 0.0f;　　//速度
     private Rigidbody rb;         //Rigidbody
     Vector3 velocity = Vector3.zero;  //移動量
@@ -18,7 +17,6 @@ public class PlayerController : MonoBehaviour
     GameObject selectObj;  //プレイヤーが選択しているオブジェクト
 
     private bool menuFlag;  //ポーズメニューが出てるかどうか。
-    private PauseScript pauseScript; //ポーズメニュースクリプト
 
     //アイテムリスト関連
     public List<GameObject> itemList = new List<GameObject>();  //持っているアイテムリスト
@@ -29,14 +27,22 @@ public class PlayerController : MonoBehaviour
     private Transform mainCamera;   //メインカメラ
     private FlashLightController flashLight;  //懐中電灯
 
-    //↓かんが追加
     public AudioClip[] audioClips = new AudioClip[4];
+    //↓かんが追加
+    private AudioSource audioSource;
     public bool isWalk;
     private Rigidbody rigid;
 
     public bool isDead;//playerが死んだ
     //↑
+    
+    //↓るいが追加した
+    [SerializeField, Header("ゲームマネージャー")]
+    public GameObject gameManager;
+    [SerializeField, Header("ポーズスクリプトが入っているゲームマネージャー")]
+    public PauseScript pauseScript;
 
+    //↑
     public PlayerState State { get => state; set => state = value; }
     public GameObject SelectObj { get => selectObj; set => selectObj = value; }
     public List<GameObject> ItemList { get => itemList; set => itemList = value; }
@@ -66,9 +72,12 @@ public class PlayerController : MonoBehaviour
         sound = GetComponent<AudioSource>();
 
         sound.clip = audioClips[0];
+        audioSource = GetComponent<AudioSource>();
         isWalk = false;  //最初は歩いていない
         isDead = false;  //死んだかどうか
         rigid = GetComponent<Rigidbody>();
+
+        pauseScript = gameManager.GetComponent<PauseScript>();
     }
 
 
@@ -83,18 +92,29 @@ public class PlayerController : MonoBehaviour
         }
 
         itemQuantity = itemList.Count;  //アイテムの数を取得
-
+        //ポーズ関連
         //ポーズメニュー時は動けないようにする
-        if(state != PlayerState.Menu)
+        if (state != PlayerState.Menu)
         {
             PlayerMove();
             PlayerRotate();
             FlashLightSwicthing();
+            if (!pauseScript.GetPlayerflag())
+            {
+                state = PlayerState.Menu;
+                Cursor.visible = true;
+            }
         }
+        else if (pauseScript.GetPlayerflag())
+        {
+            state = PlayerState.Normal;
+            Cursor.visible = false;
+        }
+
 
         if (state == PlayerState.Normal)
         {
-            
+
             SelectObject();
             ItemChange();
             UseItem();
@@ -103,10 +123,6 @@ public class PlayerController : MonoBehaviour
         else if (state == PlayerState.Talk)
         {
 
-        }
-        else if(state == PlayerState.Menu)
-        {
-            ChangeMenuFlag();
         }
 
     }
@@ -126,7 +142,7 @@ public class PlayerController : MonoBehaviour
             velocity = transform.rotation * velocity;
             rb.MovePosition(transform.position + velocity);
 
-            SoundOn();
+            SoundWalk();
 
             isWalk = true;
         }
@@ -170,6 +186,9 @@ public class PlayerController : MonoBehaviour
             || Input.GetKeyDown(KeyCode.JoystickButton2))
         {
             flashLight.LightSwitching();
+
+            audioSource.clip = audioClips[0];
+
             sound.PlayOneShot(sound.clip);
         }
 
@@ -199,7 +218,7 @@ public class PlayerController : MonoBehaviour
             //{
             //    selectObj.GetComponent<OpenAndCloseObj>().LoopAnimation();
             //}
-            
+
             text.MainMessages = selectObj.GetComponent<PlacedObj>().Messages;
 
             //開け閉めするオブジェクトなら
@@ -215,21 +234,16 @@ public class PlayerController : MonoBehaviour
                 text.IsTalk = true;
                 text.TextInvisible();
             }
-            
+
         }
-        
+
     }
 
-    
 
-    void SoundOn()
+
+    void SoundWalk()
     {
-        //sound.PlayOneShot(audioClips[0]);        
-    }
-
-    void ChangeMenuFlag()
-    {
-
+        audioSource.clip = audioClips[1]; 
     }
 
     void ItemChange()
@@ -295,7 +309,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionStay(Collision col)
     {
-        if(col.transform.tag == "Enemy")
+        if (col.transform.tag == "Enemy")
         {
             isDead = true;
         }

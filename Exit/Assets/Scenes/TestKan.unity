@@ -2190,6 +2190,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 916918834505910681, guid: 54b2221b0abe3ac4f9d515f0d3d9016b,
         type: 3}
+      propertyPath: audioClips.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 916918834505910681, guid: 54b2221b0abe3ac4f9d515f0d3d9016b,
+        type: 3}
       propertyPath: mainCamera
       value: 
       objectReference: {fileID: 1709728811}
@@ -2198,11 +2203,31 @@ PrefabInstance:
       propertyPath: flashLight
       value: 
       objectReference: {fileID: 704526044}
+    - target: {fileID: 916918834505910681, guid: 54b2221b0abe3ac4f9d515f0d3d9016b,
+        type: 3}
+      propertyPath: audioClips.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 9bfc1eed7c7ed1149b3130e665deb702, type: 3}
+    - target: {fileID: 916918834505910681, guid: 54b2221b0abe3ac4f9d515f0d3d9016b,
+        type: 3}
+      propertyPath: audioClips.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: d8404c5213edd9c4db8edb15f2b125f6, type: 3}
     - target: {fileID: 916918833288924002, guid: 54b2221b0abe3ac4f9d515f0d3d9016b,
         type: 3}
       propertyPath: m_camera
       value: 
       objectReference: {fileID: 182188788}
+    - target: {fileID: 916918834505910683, guid: 54b2221b0abe3ac4f9d515f0d3d9016b,
+        type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 916918834505910685, guid: 54b2221b0abe3ac4f9d515f0d3d9016b,
+        type: 3}
+      propertyPath: se.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: b0c7b143935f917429deed40b347e3c7, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 54b2221b0abe3ac4f9d515f0d3d9016b, type: 3}
 --- !u!1001 &6370103444349196102
@@ -2297,5 +2322,20 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 1736290670}
+    - target: {fileID: 6370103445377407766, guid: f483673ed278c854a9873bc3e60f6632,
+        type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6370103445377407766, guid: f483673ed278c854a9873bc3e60f6632,
+        type: 3}
+      propertyPath: Mute
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6370103445377407767, guid: f483673ed278c854a9873bc3e60f6632,
+        type: 3}
+      propertyPath: se.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f483673ed278c854a9873bc3e60f6632, type: 3}
