@@ -10,12 +10,13 @@ public class ObjectJudge : MonoBehaviour
 
     PlayerController pc;
 
-    public GameObject m_camera;
+    private GameObject m_camera;
 
     void Start()
     {
         textObj = GameObject.Find("GamePlayUI");
         pc = GetComponentInParent<PlayerController>();
+        m_camera = GetComponentInParent<PlayerController>().MainCamera.gameObject;
     }
 
     // Update is called once per frame

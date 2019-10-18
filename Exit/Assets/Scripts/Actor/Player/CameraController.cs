@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    public Transform target;  //カメラのターゲット
+    private Transform target;  //カメラのターゲット
 
-    private Vector3 offset;  //カメラとターゲットの差分
+    [Header("playerとカメラの位置の差分")]
+    public Vector3 offset = Vector3.zero;  //カメラとターゲットの差分
 
     public float sensitivity = 0;  //カメラ感度
 
@@ -24,8 +25,8 @@ public class CameraController : MonoBehaviour
 
     void Start()
     {
-        offset = transform.position - target.transform.position;
-
+        target = GameObject.FindGameObjectWithTag("Player").transform;
+        transform.position = target.transform.position + offset;
         //angle = transform.localEulerAngles.x;
         roteuler = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, 0f);  //親オブジェクトのオイラー角取得
     }
@@ -58,6 +59,7 @@ public class CameraController : MonoBehaviour
         //transform.RotateAround(transform.position, Vector3.up, angle.x);
         roteuler = new Vector3(Mathf.Clamp(roteuler.x - mouse_RotateY, minRotateX, maxRotateX), roteuler.y + mouse_RotateX, 0f);  //Mathf.Clampで角度制限
         transform.localEulerAngles = roteuler;
+
 
 
         //パッド処理
