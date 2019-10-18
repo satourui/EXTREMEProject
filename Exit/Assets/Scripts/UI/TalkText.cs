@@ -145,8 +145,9 @@ public class TalkText : MonoBehaviour
 
                 TextClose();
 
-                GameObject.Find("Player").GetComponent<PlayerController>().State = PlayerController.PlayerState.Normal;
+                GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().State = PlayerController.PlayerState.Normal;
             }
+            
         }
     }
 

@@ -62,7 +62,7 @@ public class ItemObj : MonoBehaviour
 
     public void ItemGet()
     {
-        GameObject.Find("Player").GetComponent<PlayerController>().ItemList.Add(this.gameObject);
+        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().ItemList.Add(this.gameObject);
         GetComponent<PlacedObjParameter>().ItemDropObj = false;
     }
 
@@ -81,7 +81,7 @@ public class ItemObj : MonoBehaviour
         if (isUse)
         {
             talkText.MainMessages = itemMessages;
-            var player = GameObject.Find("Player").GetComponent<PlayerController>();
+            var player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
             player.State = PlayerController.PlayerState.Talk;
             player.ItemDelete(player.ItemNum);
             talkText.TextActive();

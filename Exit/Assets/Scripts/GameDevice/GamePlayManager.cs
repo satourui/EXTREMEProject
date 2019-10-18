@@ -30,8 +30,16 @@ public class GamePlayManager : MonoBehaviour
     private List<string> clearFlagList = new List<string>();  //各ステージでクリア条件になるフラグの名前
 
     public Dictionary<string, bool> currentStageFlags = new Dictionary<string, bool>();  //フラグを管理するためのDictionary
-    
-    
+
+    //player関連
+    private GameObject player;
+
+    [SerializeField, Header("各ステージのplayerの初期位置")]
+    private List<Vector3> playerInitPosList = new List<Vector3>();
+
+    private Vector3 playerSpawnPos = Vector3.zero;
+
+
     private bool isStageClear = false;  //ステージをクリアしたら
     
     private bool isPlayerDead = false;  //playerが死んでいたらtrue
@@ -82,6 +90,9 @@ public class GamePlayManager : MonoBehaviour
         IsPlayerDead = false;
 
         IsPause = false;
+
+        var playerPrefab = (GameObject)Resources.Load("Prefabs/Player");
+        player = Instantiate(playerPrefab, playerInitPosList[stageNum], Quaternion.identity);
     }
 
     void Update()
@@ -145,6 +156,11 @@ public class GamePlayManager : MonoBehaviour
     }
 
     void GameOver()
+    {
+
+    }
+
+    void PlayerRespawn()
     {
 
     }
