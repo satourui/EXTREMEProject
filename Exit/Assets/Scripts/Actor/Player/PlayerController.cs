@@ -29,7 +29,6 @@ public class PlayerController : MonoBehaviour
 
     public AudioClip[] audioClips = new AudioClip[4];
     //↓かんが追加
-    public AudioClip[] audioClips;
     private AudioSource audioSource;
     public bool isWalk;
     private Rigidbody rigid;
