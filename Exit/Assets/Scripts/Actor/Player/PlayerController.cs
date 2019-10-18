@@ -36,13 +36,8 @@ public class PlayerController : MonoBehaviour
     public bool isDead;//playerが死んだ
     //↑
     
-    //↓るいが追加した
-    [SerializeField, Header("ゲームマネージャー")]
-    public GameObject gameManager;
-    [SerializeField, Header("ポーズスクリプトが入っているゲームマネージャー")]
-    public PauseScript pauseScript;
-
-    //↑
+    
+    
     public PlayerState State { get => state; set => state = value; }
     public GameObject SelectObj { get => selectObj; set => selectObj = value; }
     public List<GameObject> ItemList { get => itemList; set => itemList = value; }
@@ -77,7 +72,7 @@ public class PlayerController : MonoBehaviour
         isDead = false;  //死んだかどうか
         rigid = GetComponent<Rigidbody>();
 
-        pauseScript = gameManager.GetComponent<PauseScript>();
+        //pauseScript = gameManager.GetComponent<PauseScript>();
     }
 
 
@@ -99,17 +94,17 @@ public class PlayerController : MonoBehaviour
             PlayerMove();
             PlayerRotate();
             FlashLightSwicthing();
-            if (!pauseScript.GetPlayerflag())
-            {
-                state = PlayerState.Menu;
-                Cursor.visible = true;
-            }
+            //if (!pauseScript.GetPlayerflag())
+            //{
+            //    state = PlayerState.Menu;
+            //    Cursor.visible = true;
+            //}
         }
-        else if (pauseScript.GetPlayerflag())
-        {
-            state = PlayerState.Normal;
-            Cursor.visible = false;
-        }
+        //else if (pauseScript.GetPlayerflag())
+        //{
+        //    state = PlayerState.Normal;
+        //    Cursor.visible = false;
+        //}
 
 
         if (state == PlayerState.Normal)
