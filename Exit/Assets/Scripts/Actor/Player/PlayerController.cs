@@ -9,14 +9,12 @@ public class PlayerController : MonoBehaviour
     public float speed = 0.0f;　　//速度
     private Rigidbody rb;         //Rigidbody
     Vector3 velocity = Vector3.zero;  //移動量
-    PlayerState state;
+    //PlayerState state;
 
     //テキスト処理関連
     //string[] messages = new string[0];  //オブジェクトの文字情報を保存するための配列
     TalkText text;
     GameObject selectObj;  //プレイヤーが選択しているオブジェクト
-
-    private bool menuFlag;  //ポーズメニューが出てるかどうか。
 
     //アイテムリスト関連
     public List<GameObject> itemList = new List<GameObject>();  //持っているアイテムリスト
@@ -38,24 +36,17 @@ public class PlayerController : MonoBehaviour
     
     
     
-    public PlayerState State { get => state; set => state = value; }
     public GameObject SelectObj { get => selectObj; set => selectObj = value; }
     public List<GameObject> ItemList { get => itemList; set => itemList = value; }
     public int ItemNum { get => itemNum; set => itemNum = value; }
     public int ItemQuantity { get => itemQuantity; }
     public Transform MainCamera { get => mainCamera; set => mainCamera = value; }
-
-    public enum PlayerState
-    {
-        Normal,
-        Talk,
-        Menu,
-    }
+    
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        state = PlayerState.Normal;
+
         text = GameObject.Find("GamePlayUI").GetComponent<TalkText>();
         flashLight = GetComponentInChildren<FlashLightController>();
 
@@ -71,13 +62,12 @@ public class PlayerController : MonoBehaviour
         isWalk = false;  //最初は歩いていない
         isDead = false;  //死んだかどうか
         rigid = GetComponent<Rigidbody>();
-
-        //pauseScript = gameManager.GetComponent<PauseScript>();
     }
 
 
     void Update()
     {
+        var state = GamePlayManager.instance.State;
 
         if (isDead)
         {
@@ -87,39 +77,30 @@ public class PlayerController : MonoBehaviour
         }
 
         itemQuantity = itemList.Count;  //アイテムの数を取得
-        //ポーズ関連
-        //ポーズメニュー時は動けないようにする
-        if (state != PlayerState.Menu)
+
+
+        if (state == GamePlayManager.GameState.Play)
         {
             PlayerMove();
             PlayerRotate();
             FlashLightSwicthing();
-            //if (!pauseScript.GetPlayerflag())
-            //{
-            //    state = PlayerState.Menu;
-            //    Cursor.visible = true;
-            //}
-        }
-        //else if (pauseScript.GetPlayerflag())
-        //{
-        //    state = PlayerState.Normal;
-        //    Cursor.visible = false;
-        //}
-
-
-        if (state == PlayerState.Normal)
-        {
-
             SelectObject();
             ItemChange();
             UseItem();
+            
         }
 
-        else if (state == PlayerState.Talk)
+        else if (state == GamePlayManager.GameState.Talk)
+        {
+            text.MessageReading();
+        }
+
+        else if (state == GamePlayManager.GameState.Pause)
         {
 
         }
-
+        
+            
     }
 
     void PlayerMove()
@@ -202,17 +183,21 @@ public class PlayerController : MonoBehaviour
     void SelectObject()
     {
         if (Input.GetKeyDown(KeyCode.JoystickButton0) ||
-            /*Input.GetKeyDown(KeyCode.Space)*/
             Input.GetMouseButtonDown(0))
         {
 
             if (selectObj == null)
                 return;
 
-            //if (selectObj.GetComponent<PlacedObjParameter>().OpenAndCloseObj)
-            //{
-            //    selectObj.GetComponent<OpenAndCloseObj>().LoopAnimation();
-            //}
+            if (selectObj.GetComponent<PlacedObjParameter>().GoalObj)
+            {
+                if (GamePlayManager.instance.IsStageClearFlag)
+                {
+                    GamePlayManager.instance.GoalCheck();
+                    return;
+                }
+            }
+
 
             text.MainMessages = selectObj.GetComponent<PlacedObj>().Messages;
 
@@ -222,10 +207,12 @@ public class PlayerController : MonoBehaviour
                 selectObj.GetComponent<OpenAndCloseObj>().LoopAnimation();
                 selectObj.GetComponent<OpenAndCloseObj>().ChangeSelectMessage();
             }
+            
 
             else if (text.MainMessages.Length != 0)
             {
-                state = PlayerState.Talk;
+                //state = PlayerState.Talk;
+                GamePlayManager.instance.State = GamePlayManager.GameState.Talk;
                 text.IsTalk = true;
                 text.TextInvisible();
             }
@@ -269,6 +256,7 @@ public class PlayerController : MonoBehaviour
         //アイテム所持数が0ならreturn
         if (itemQuantity == 0)
             return;
+        
 
         if (Input.GetMouseButtonDown(1))
         {
@@ -301,6 +289,8 @@ public class PlayerController : MonoBehaviour
         }
         itemNum--;
     }
+
+    
 
     private void OnCollisionStay(Collision col)
     {
