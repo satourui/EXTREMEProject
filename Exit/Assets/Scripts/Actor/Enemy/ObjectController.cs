@@ -41,10 +41,10 @@ public class ObjectController : MonoBehaviour
     private void Update()
     {
         //↓敵の動きを止めたいとき
-        //if(enemyMovement.isPlayerDead)　　
-        //{
-        //    return; 
-        //}
+        if (enemyMovement.state == EnemyMovement.EnemyState.Idle)
+        {
+            return;
+        }
 
         if (navAgent.remainingDistance <= destinationThreshold)
         {
