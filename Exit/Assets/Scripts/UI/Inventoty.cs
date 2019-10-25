@@ -13,7 +13,7 @@ public class Inventoty : MonoBehaviour
     void Start()
     {
         image = GameObject.Find("CurrentItem").GetComponent<Image>();
-        player = GameObject.Find("Player").GetComponent<PlayerController>();
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         itemList = player.ItemList;
     }
 

@@ -6,7 +6,6 @@ public class PlayerController : MonoBehaviour
 {
     //音声再生
     private AudioSource sound;
-
     public float speed = 0.0f;　　//速度
     private Rigidbody rb;         //Rigidbody
     Vector3 velocity = Vector3.zero;  //移動量
@@ -18,7 +17,6 @@ public class PlayerController : MonoBehaviour
     GameObject selectObj;  //プレイヤーが選択しているオブジェクト
 
     private bool menuFlag;  //ポーズメニューが出てるかどうか。
-    private PauseScript pauseScript; //ポーズメニュースクリプト
 
     //アイテムリスト関連
     public List<GameObject> itemList = new List<GameObject>();  //持っているアイテムリスト
@@ -26,23 +24,26 @@ public class PlayerController : MonoBehaviour
     private int itemQuantity = 0;  //アイテムの所持数
 
 
-    public Transform mainCamera;   //メインカメラ
-    public GameObject flashLight;  //懐中電灯
+    private Transform mainCamera;   //メインカメラ
+    private FlashLightController flashLight;  //懐中電灯
 
+    public AudioClip[] audioClips = new AudioClip[4];
     //↓かんが追加
-    public AudioClip[] audioClips;
     private AudioSource audioSource;
     public bool isWalk;
     private Rigidbody rigid;
 
     public bool isDead;//playerが死んだ
     //↑
-
+    
+    
+    
     public PlayerState State { get => state; set => state = value; }
     public GameObject SelectObj { get => selectObj; set => selectObj = value; }
     public List<GameObject> ItemList { get => itemList; set => itemList = value; }
     public int ItemNum { get => itemNum; set => itemNum = value; }
     public int ItemQuantity { get => itemQuantity; }
+    public Transform MainCamera { get => mainCamera; set => mainCamera = value; }
 
     public enum PlayerState
     {
@@ -56,6 +57,12 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         state = PlayerState.Normal;
         text = GameObject.Find("GamePlayUI").GetComponent<TalkText>();
+        flashLight = GetComponentInChildren<FlashLightController>();
+
+        var m_camera = (GameObject)Resources.Load("Prefabs/Camera");
+        MainCamera = Instantiate(m_camera, transform.position, Quaternion.identity).transform;
+        
+
         //音声ファイルをコンポーネントして変数に格納する
         sound = GetComponent<AudioSource>();
 
@@ -64,6 +71,8 @@ public class PlayerController : MonoBehaviour
         isWalk = false;  //最初は歩いていない
         isDead = false;  //死んだかどうか
         rigid = GetComponent<Rigidbody>();
+
+        //pauseScript = gameManager.GetComponent<PauseScript>();
     }
 
 
@@ -78,18 +87,29 @@ public class PlayerController : MonoBehaviour
         }
 
         itemQuantity = itemList.Count;  //アイテムの数を取得
-
+        //ポーズ関連
         //ポーズメニュー時は動けないようにする
-        if(state != PlayerState.Menu)
+        if (state != PlayerState.Menu)
         {
             PlayerMove();
             PlayerRotate();
             FlashLightSwicthing();
+            //if (!pauseScript.GetPlayerflag())
+            //{
+            //    state = PlayerState.Menu;
+            //    Cursor.visible = true;
+            //}
         }
+        //else if (pauseScript.GetPlayerflag())
+        //{
+        //    state = PlayerState.Normal;
+        //    Cursor.visible = false;
+        //}
+
 
         if (state == PlayerState.Normal)
         {
-            
+
             SelectObject();
             ItemChange();
             UseItem();
@@ -98,10 +118,6 @@ public class PlayerController : MonoBehaviour
         else if (state == PlayerState.Talk)
         {
 
-        }
-        else if(state == PlayerState.Menu)
-        {
-            ChangeMenuFlag();
         }
 
     }
@@ -147,7 +163,7 @@ public class PlayerController : MonoBehaviour
 
     void PlayerRotate()
     {
-        transform.rotation = Quaternion.Euler(0.0f, mainCamera.transform.localEulerAngles.y, 0.0f);
+        transform.rotation = Quaternion.Euler(0.0f, MainCamera.transform.localEulerAngles.y, 0.0f);
     }
 
     void FlashLightSwicthing()
@@ -164,8 +180,10 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Z)
             || Input.GetKeyDown(KeyCode.JoystickButton2))
         {
-            flashLight.GetComponent<FlashLightController>().LightSwitching();
+            flashLight.LightSwitching();
+
             audioSource.clip = audioClips[0];
+
             sound.PlayOneShot(sound.clip);
         }
 
@@ -174,11 +192,11 @@ public class PlayerController : MonoBehaviour
 
         //上なら
         if (switchingNum > 0)
-            flashLight.GetComponent<FlashLightController>().SwitchOn();
+            flashLight.SwitchOn();
 
         //下なら
         else if (switchingNum < 0)
-            flashLight.GetComponent<FlashLightController>().SwitchOff();
+            flashLight.SwitchOff();
     }
 
     void SelectObject()
@@ -195,7 +213,7 @@ public class PlayerController : MonoBehaviour
             //{
             //    selectObj.GetComponent<OpenAndCloseObj>().LoopAnimation();
             //}
-            
+
             text.MainMessages = selectObj.GetComponent<PlacedObj>().Messages;
 
             //開け閉めするオブジェクトなら
@@ -211,21 +229,16 @@ public class PlayerController : MonoBehaviour
                 text.IsTalk = true;
                 text.TextInvisible();
             }
-            
+
         }
-        
+
     }
 
-    
+
 
     void SoundWalk()
     {
         audioSource.clip = audioClips[1]; 
-    }
-
-    void ChangeMenuFlag()
-    {
-
     }
 
     void ItemChange()
@@ -291,7 +304,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionStay(Collision col)
     {
-        if(col.transform.tag == "Enemy")
+        if (col.transform.tag == "Enemy")
         {
             isDead = true;
         }
