@@ -7,8 +7,9 @@ public class EnemyMovement : MonoBehaviour
 {
     [SerializeField,Header("速さ")]
     public float speed = 1.0f;
-    [SerializeField, Header("Playerのオブジェ")]
-    public Transform target;
+
+    private Transform target;
+
     [SerializeField, Header("ついていく？")]
     public bool isActive = false;
 
@@ -40,7 +41,9 @@ public class EnemyMovement : MonoBehaviour
 
         animator = GetComponent<Animator>();
 
-        playerController = GameObject.Find("Player").GetComponent<PlayerController>();//Playerのスクリプト
+        target = GameObject.FindGameObjectWithTag("Player").transform;
+
+        playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();//Playerのスクリプト
 
         isPlayerDead = false;
     }
