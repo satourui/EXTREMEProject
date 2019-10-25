@@ -20,7 +20,8 @@ public class Inventoty : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(player.State==PlayerController.PlayerState.Normal)
+        if(/*player.State==PlayerController.PlayerState.Normal*/
+            GamePlayManager.instance.State==GamePlayManager.GameState.Play)
         {
             //アイテムを持っていなければ
             if (player.ItemQuantity == 0)

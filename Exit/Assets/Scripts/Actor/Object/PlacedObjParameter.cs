@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class PlacedObjParameter : MonoBehaviour
 {
-    //[SerializeField, Header("1度しか選択できないオブジェ")]
-    //private bool onceObj = false;  //一度しか選択できないオブジェクトならtrue
+
+    [SerializeField, Header("ゴール用のオブジェクト(アタッチスクリプトなし)")]
+    private bool goalObj = false;
 
     [SerializeField, Header("ループするメッセージが変わるオブジェ")]
     private bool changeMessageObj = false;  //メッセージが変わるオブジェ
@@ -29,4 +30,5 @@ public class PlacedObjParameter : MonoBehaviour
     public bool FlagChangeObj { get => flagChangeObj; set => flagChangeObj = value; }
     public bool OpenAndCloseObj { get => openAndCloseObj; set => openAndCloseObj = value; }
     public bool HiddenObj { get => hiddenObj; set => hiddenObj = value; }
+    public bool GoalObj { get => goalObj; set => goalObj = value; }
 }

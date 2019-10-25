@@ -37,7 +37,7 @@ public class ItemObj : MonoBehaviour
 
     void Start()
     {
-        gameManager = GameObject.Find("GamePlayManager").GetComponent<GamePlayManager>();
+        gameManager = GamePlayManager.instance;
         isUse = false;
         talkText = GameObject.Find("GamePlayUI").GetComponent<TalkText>();
     }
@@ -52,7 +52,7 @@ public class ItemObj : MonoBehaviour
 
         if (forFlag)
         {
-            if (gameManager.currentStageFlags[flagName])
+            if (gameManager.CurrentStageFlags[flagName])
             {
                 isUse = true;
             }
@@ -82,7 +82,8 @@ public class ItemObj : MonoBehaviour
         {
             talkText.MainMessages = itemMessages;
             var player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-            player.State = PlayerController.PlayerState.Talk;
+            //player.State = PlayerController.PlayerState.Talk;
+            GamePlayManager.instance.State = GamePlayManager.GameState.Talk;
             player.ItemDelete(player.ItemNum);
             talkText.TextActive();
             talkText.TextInvisible();

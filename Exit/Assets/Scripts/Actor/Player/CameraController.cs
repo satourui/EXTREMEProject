@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    private Transform target;  //カメラのターゲット
+    private Transform player;  //カメラのターゲット
 
     [Header("playerとカメラの位置の差分")]
     public Vector3 offset = Vector3.zero;  //カメラとターゲットの差分
@@ -30,8 +30,8 @@ public class CameraController : MonoBehaviour
 
     void Start()
     {
-        target = GameObject.FindGameObjectWithTag("Player").transform;
-        transform.position = target.transform.position + offset;
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+        transform.position = player.transform.position + offset;
         //angle = transform.localEulerAngles.x;
         roteuler = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, 0f);  //親オブジェクトのオイラー角取得
 
@@ -44,11 +44,13 @@ public class CameraController : MonoBehaviour
         //controllerName = Input.GetJoystickNames();
         //if (target.GetComponent<PlayerController>().State == PlayerController.PlayerState.Normal)
         //if (pauseScript.GetPlayerflag())
+
+        if(GamePlayManager.instance.State==GamePlayManager.GameState.Play)
         {
             CameraMouseRotation();
         }
 
-        transform.position = target.transform.position + offset;
+        transform.position = player.transform.position + offset;
     }
 
     private void CameraMouseRotation()

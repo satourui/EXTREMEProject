@@ -27,6 +27,17 @@ public class EnemyMovement : MonoBehaviour
     private PlayerController playerController;//playerの操作
     public bool isPlayerDead;
 
+    //2019/10/15
+    private Vector3 currentTargetPos;
+
+    //2019/10/18
+    [SerializeField, Header("見失ったらとどまる時間")]
+    public float idleTime = 5f;
+
+     private float currrentTime;
+
+    private GameObject player;
+
     public enum EnemyState
     {
         Idle,Walk
@@ -36,16 +47,18 @@ public class EnemyMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player");//player関連
+        playerController = player.GetComponent<PlayerController>();//player関連
+        target = player.transform;//player関連
+
         agent = GetComponent<NavMeshAgent>();
         flashLight = GameObject.Find("FlashLight").GetComponent<FlashLightController>();
 
         animator = GetComponent<Animator>();
 
-        target = GameObject.FindGameObjectWithTag("Player").transform;
-
-        playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();//Playerのスクリプト
-
         isPlayerDead = false;
+
+        currentTargetPos = Vector3.zero;
     }
 
     // Update is called once per frame
@@ -57,18 +70,51 @@ public class EnemyMovement : MonoBehaviour
             return;//playerが死んだら何もしない
         }
 
-        targetDistance = (transform.position - target.position).magnitude;
+        targetDistance = (transform.position - currentTargetPos).magnitude;
+        StateAnimation();
 
-        isActive = flashLight.LightOnFlag;
-        
-        if (isActive && targetDistance < chaceDistance)
+
+        if (targetDistance < 0.7f)//playerとenemyが近づいたら  ↓から
         {
-            agent.SetDestination(target.position);
+            state = EnemyState.Idle;
         }
 
-        if(state == EnemyState.Walk)
+        if(state == EnemyState.Idle)//EnemyState.Idleの間動きを止めてアニメーション
+        {
+            currrentTime += Time.deltaTime;
+            agent.ResetPath();
+            if (currrentTime >= idleTime)//EnemyState.Idleの間動きを止めてアニメーション
+            {
+                state = EnemyState.Walk;
+                currrentTime = 0;
+                currentTargetPos = target.transform.position;//ここがないと敵が変な動きになる
+            }//        
+        }
+
+        isActive = flashLight.LightOnFlag;
+        if (isActive)
+        {
+            currentTargetPos = target.transform.position;
+        }
+
+        targetDistance = (transform.position - currentTargetPos).magnitude;
+
+        if (isActive && targetDistance < chaceDistance &&state == EnemyState.Walk)
+        {
+            agent.SetDestination(currentTargetPos);
+        }
+    }
+
+    private void StateAnimation()
+    {
+
+        if (state == EnemyState.Walk)
         {
             animator.SetBool("IsWalk", true);
+        }
+        else if (state == EnemyState.Idle)
+        {
+            animator.SetBool("IsWalk", false);
         }
     }
 }

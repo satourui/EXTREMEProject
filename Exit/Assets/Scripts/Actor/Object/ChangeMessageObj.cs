@@ -65,7 +65,7 @@ public class ChangeMessageObj : MonoBehaviour
         if (forFlag)
         {
             //フラグがtrueなら
-            if (gameManager.currentStageFlags[flagName])
+            if (gameManager.CurrentStageFlags[flagName])
             {
                 //if (select)
                 //{
@@ -127,7 +127,7 @@ public class ChangeMessageObj : MonoBehaviour
     {
         //if (deleteMessage_Flag)
         {
-            if (gameManager.currentStageFlags[flagName])
+            if (gameManager.CurrentStageFlags[flagName])
             {
                 GetComponent<PlacedObj>().IsSelect = false;
             }
@@ -138,7 +138,7 @@ public class ChangeMessageObj : MonoBehaviour
     {
         if (loopMessageEndless)
         {
-            if (gameManager.currentStageFlags[flagName])
+            if (gameManager.CurrentStageFlags[flagName])
             {
                 //placedObj.Messages = changeLoopMessages;
                 isMessageChange = true;

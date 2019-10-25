@@ -44,7 +44,7 @@ public class TalkText : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        MessageReading();
+
     }
 
     public void ShowSelectMessage()
@@ -73,7 +73,7 @@ public class TalkText : MonoBehaviour
     }
     
 
-    void MessageReading()
+    public void MessageReading()
     {
         if (!IsTalk)
         {
@@ -141,11 +141,16 @@ public class TalkText : MonoBehaviour
                 {
                     selectObj.GetComponent<HiddenObj>().StopHiding();
                 }
-                
+
+                //if (objParameter.GoalObj)
+                //{
+                //    GamePlayManager.instance.GoalCheck();
+                //}
 
                 TextClose();
 
-                GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().State = PlayerController.PlayerState.Normal;
+                //GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().State = PlayerController.PlayerState.Normal;
+                GamePlayManager.instance.State = GamePlayManager.GameState.Play;
             }
             
         }

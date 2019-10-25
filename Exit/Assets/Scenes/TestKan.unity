@@ -2322,6 +2322,11 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 1736290670}
+    - target: {fileID: 6370103445377407756, guid: f483673ed278c854a9873bc3e60f6632,
+        type: 3}
+      propertyPath: idleTime
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 6370103445377407766, guid: f483673ed278c854a9873bc3e60f6632,
         type: 3}
       propertyPath: m_audioClip

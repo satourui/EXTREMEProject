@@ -29,7 +29,8 @@ public class ObjectJudge : MonoBehaviour
 
     void TalkPreparation()
     {
-        if (pc.State == PlayerController.PlayerState.Normal)
+        if (/*pc.State == PlayerController.PlayerState.Normal*/
+            GamePlayManager.instance.State == GamePlayManager.GameState.Play)
         {
             var po = currentObj.GetComponent<PlacedObj>();
             var tt = textObj.GetComponent<TalkText>();
@@ -47,7 +48,8 @@ public class ObjectJudge : MonoBehaviour
 
     void TalkReset()
     {
-        if (pc.State == PlayerController.PlayerState.Normal)
+        if (/*pc.State == PlayerController.PlayerState.Normal*/
+            GamePlayManager.instance.State==GamePlayManager.GameState.Play)
         {
             var tt = textObj.GetComponent<TalkText>();
             tt.TextClose();
