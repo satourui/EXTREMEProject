@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    private Transform player;  //カメラのターゲット
+    private GameObject playerObj;
+    private Transform playerTransform;  //カメラのターゲット
 
     [Header("playerとカメラの位置の差分")]
     public Vector3 offset = Vector3.zero;  //カメラとターゲットの差分
@@ -28,14 +29,36 @@ public class CameraController : MonoBehaviour
     //[SerializeField]
     //public PauseScript pauseScript;
 
+    //カン
+    public float lerpSpeed = 0.1f;
+
+    private Vector3 playerPos;
+    private Vector3 pVec3;
+    private PlayerController playerCont;
+
+    [Header("揺れるスピード")]
+    public float rubSpeed = 15f;
+
+    [Header("揺れ幅")]
+    public float rubHeight = 20f;
+
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform;
-        transform.position = player.transform.position + offset;
+        playerObj = GameObject.FindGameObjectWithTag("Player");
+        playerTransform = playerObj.transform;
+        transform.position = playerTransform.transform.position + offset;
         //angle = transform.localEulerAngles.x;
         roteuler = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, 0f);  //親オブジェクトのオイラー角取得
 
         //pauseScript = gameManager.GetComponent<PauseScript>();
+
+        //かん
+        playerPos = Vector3.zero;
+        pVec3 = Vector3.zero;
+
+        pVec3 = playerTransform.transform.position + offset;
+
+        playerCont = playerObj.GetComponent<PlayerController>();
     }
     
 
@@ -50,7 +73,23 @@ public class CameraController : MonoBehaviour
             CameraMouseRotation();
         }
 
-        transform.position = player.transform.position + offset;
+        //かん↓  慣性かけてる
+        pVec3 = playerTransform.transform.position + offset;
+
+        //縦の動き                                                          ↓スピード↓縦幅(大きくすると縮まる)
+
+        if (playerCont.isWalk)
+        {
+            playerPos = new Vector3(playerTransform.position.x, Mathf.Sin(Time.time * (1f * rubSpeed)) / (1f * rubHeight) + offset.y,
+                    playerTransform.position.z);
+        }
+        else if(!playerCont.isWalk)
+        {
+            playerPos = pVec3;
+        }
+
+        transform.position = playerPos;
+        //かん↑
     }
 
     private void CameraMouseRotation()
