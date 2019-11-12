@@ -6,14 +6,12 @@ public class Door_R : MonoBehaviour
 {
     public bool inDoor;
 
-    private Animator animator;
 
     // Start is called before the first frame update
     void Start()
     {
         inDoor = false;
 
-        animator = GetComponentInParent<Animator>();
     }
 
     // Update is called once per frame
@@ -35,7 +33,6 @@ public class Door_R : MonoBehaviour
         if (c.tag == "Enemy"||c.tag == "Player")
         {
             inDoor = false;
-            animator.SetBool("Open1", false);
         }
     }
 }
