@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8196738503000259355}
   m_Layer: 9
   m_Name: ObjJudge
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -69,7 +69,7 @@ GameObject:
   - component: {fileID: 8196738503548097581}
   m_Layer: 9
   m_Name: PlayerCollider
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -95,13 +95,13 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8196738503548097579}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: e755e5ed854f521419df90be760673dc, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.35
   m_Height: 1.6
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: -0.1, z: 0}
 --- !u!1 &8196738503563156608
 GameObject:
   m_ObjectHideFlags: 0
@@ -1355,7 +1355,7 @@ GameObject:
   - component: {fileID: 8196738503562854608}
   m_Layer: 9
   m_Name: mixamorig:Hips
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1480,7 +1480,7 @@ GameObject:
   - component: {fileID: 8196738503560040952}
   m_Layer: 9
   m_Name: Alpha_Surface
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1612,7 +1612,7 @@ GameObject:
   - component: {fileID: 8196738503560040954}
   m_Layer: 9
   m_Name: Alpha_Joints
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1820,7 +1820,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 3a4ba65ed0815fe4ca65881120b7fbe4, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
@@ -1840,7 +1840,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 116
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!82 &8196738504215149026
 AudioSource:
@@ -2678,7 +2678,7 @@ GameObject:
   - component: {fileID: 9041300537801598664}
   m_Layer: 0
   m_Name: FlashLight
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2706,7 +2706,7 @@ Light:
   m_GameObject: {fileID: 9041300537801598667}
   m_Enabled: 1
   serializedVersion: 8
-  m_Type: 2
+  m_Type: 0
   m_Color: {r: 0.9811321, g: 0.7689148, b: 0.58775365, a: 1}
   m_Intensity: 3
   m_Range: 10.39

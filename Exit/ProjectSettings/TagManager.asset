@@ -7,6 +7,9 @@ TagManager:
   - Enemy
   - FlagManager
   - Door
+  - P_Door
+  - Door_R
+  - Door_L
   layers:
   - Default
   - TransparentFX

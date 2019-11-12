@@ -14,12 +14,14 @@ public class Door : MonoBehaviour
     public AudioClip[] audioClip = new AudioClip[2];
 
     private float time;
+
+    public GameObject[] door = new GameObject[2];
     // Start is called before the first frame update
     void Start()
     {
-        door_R = GetComponentInChildren<Door_R>();
+        door_R = door[0].GetComponent<Door_R>();
 
-        door_L = GetComponentInChildren<Door_L>();
+        door_L = door[1].GetComponent<Door_L>();
 
         animator = GetComponent<Animator>();
 
@@ -38,6 +40,14 @@ public class Door : MonoBehaviour
         {
             animator.SetBool("Open2", true);
         }
+
+        if(!door_R.inDoor&&!door_L.inDoor)
+        {
+            animator.SetBool("Open1", false);
+            animator.SetBool("Open2", false);
+        }
+
+        //Debug.Log(": R :" + door_R.inDoor + ": L :" + door_L.inDoor);
     }
 
     public void ChangeSound()
