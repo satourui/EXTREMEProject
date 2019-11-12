@@ -13,7 +13,7 @@ public class CameraController : MonoBehaviour
     public float sensitivity = 0;  //カメラ感度
 
     public float JHori = 0;     //パッドの速さ調整用
-    public float JVerti = 0;
+    public float JVerti = 0;    
 
     //float angle;
 
@@ -80,7 +80,7 @@ public class CameraController : MonoBehaviour
 
         if (playerCont.isWalk)
         {
-            playerPos = new Vector3(playerTransform.position.x, Mathf.Sin(Time.time * (1f * rubSpeed)) / (1f * rubHeight) + offset.y,
+            playerPos = new Vector3(playerTransform.position.x, Mathf.Sin(Time.time * (1f * rubSpeed)) / (1f * rubHeight) + (playerTransform.position.y + offset.y),
                     playerTransform.position.z);
         }
         else if(!playerCont.isWalk)
