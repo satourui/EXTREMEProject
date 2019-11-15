@@ -50,6 +50,9 @@ MonoBehaviour:
   JVerti: 2
   minRotateX: -60
   maxRotateX: 30
+  lerpSpeed: 0.1
+  rubSpeed: 15
+  rubHeight: 20
 --- !u!1 &6823541276489716020
 GameObject:
   m_ObjectHideFlags: 0

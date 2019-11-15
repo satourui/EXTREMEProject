@@ -5,10 +5,13 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Title.unity
     guid: 1bb044e887d724e429742e145d1e0502
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Stage1.unity
     guid: 352bc943342ec4e40aadf300a5637be8
+  - enabled: 1
+    path: Assets/Scenes/TestNari.unity
+    guid: 3d7e4587db7d6ed4e9c7a0fa363aed45
   m_configObjects: {}
