@@ -2708,9 +2708,9 @@ Light:
   serializedVersion: 8
   m_Type: 0
   m_Color: {r: 0.9811321, g: 0.7689148, b: 0.58775365, a: 1}
-  m_Intensity: 3
-  m_Range: 10.39
-  m_SpotAngle: 48
+  m_Intensity: 2.3
+  m_Range: 30
+  m_SpotAngle: 63
   m_CookieSize: 10
   m_Shadows:
     m_Type: 2
