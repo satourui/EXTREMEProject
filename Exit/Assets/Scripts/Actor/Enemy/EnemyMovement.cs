@@ -47,7 +47,8 @@ public class EnemyMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");//player関連
+        //player = GameObject.FindGameObjectWithTag("Player");//player関連
+        player = GamePlayManager.instance.Player;
         playerController = player.GetComponent<PlayerController>();//player関連
         target = player.transform;//player関連
 

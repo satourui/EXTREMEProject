@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TalkText : MonoBehaviour
+public class TalkTextUI : MonoBehaviour
 {
     string[] mainMessages = new string[0];  //表示する本文字配列
     string selectMessage;  //選択できるときに表示されるメッセージ
@@ -58,12 +58,18 @@ public class TalkText : MonoBehaviour
 
     public void TextActive()
     {
-        text.gameObject.SetActive(true);
+        if (!text.gameObject.activeSelf)
+        {
+            text.gameObject.SetActive(true);
+        }
     }
 
     public void TextClose()
     {
         text.text = "";
+        mainMessages = null;
+        selectMessage = null;
+        selectObj = null;
         text.gameObject.SetActive(false);
     }
 
@@ -80,9 +86,11 @@ public class TalkText : MonoBehaviour
             return;
         }
 
+        TextChange(CurrentMessagePage);
+        TextActive();
         maxMessagePage = mainMessages.Length;
         text.color = textColor;
-        TextChange(CurrentMessagePage);
+        
 
         //まだ文がフェード中
         if (!isMessageFade)
@@ -150,6 +158,7 @@ public class TalkText : MonoBehaviour
                 TextClose();
 
                 //GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().State = PlayerController.PlayerState.Normal;
+                //GamePlayManager.instance.Player.GetComponent<PlayerController>().SelectObj = null;
                 GamePlayManager.instance.State = GamePlayManager.GameState.Play;
             }
             

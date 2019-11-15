@@ -31,16 +31,24 @@ public class ItemObj : MonoBehaviour
 
     private bool isUse; //アイテムが使えるならtrue;
     GamePlayManager gameManager;
-    TalkText talkText;
+    TalkTextUI talkText;
 
     public Texture2D ItemIcon { get => itemIcon; set => itemIcon = value; }
 
     void Start()
     {
+        Initialize();
+        
+    }
+
+    public void Initialize()
+    {
         gameManager = GamePlayManager.instance;
         isUse = false;
-        talkText = GameObject.Find("GamePlayUI").GetComponent<TalkText>();
+        //talkText = GameObject.Find("GamePlayUI").GetComponent<TalkTextUI>();
+        talkText = gameManager.TalkText;
     }
+
 
     // Update is called once per frame
     void Update()
@@ -57,7 +65,6 @@ public class ItemObj : MonoBehaviour
                 isUse = true;
             }
         }
-        
     }
 
     public void ItemGet()
@@ -81,12 +88,12 @@ public class ItemObj : MonoBehaviour
         if (isUse)
         {
             talkText.MainMessages = itemMessages;
+            talkText.SelectObj = this.gameObject;
             var player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-            //player.State = PlayerController.PlayerState.Talk;
             GamePlayManager.instance.State = GamePlayManager.GameState.Talk;
             player.ItemDelete(player.ItemNum);
-            talkText.TextActive();
             talkText.TextInvisible();
+            
             talkText.IsTalk = true;
         }
 
