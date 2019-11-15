@@ -123,4 +123,9 @@ public class CameraController : MonoBehaviour
         roteuler = new Vector3(Mathf.Clamp(roteuler.x - pad_RotateY, minRotateX, maxRotateX), roteuler.y + pad_RotateX, 0f);  //Mathf.Clampで角度制限
         transform.localEulerAngles = roteuler;
     }
+
+    public void RotateInitialize()
+    {
+        roteuler = Vector3.zero;
+    }
 }

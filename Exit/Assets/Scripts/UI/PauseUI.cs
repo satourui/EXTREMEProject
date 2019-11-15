@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PauseScript : MonoBehaviour
+public class PauseUI : MonoBehaviour
 {
     [SerializeField]
-    private GameObject pauseUI = null;
+    private GameObject pauseUIObj = null;
 
-    public GameObject PauseUI { get => pauseUI; set => pauseUI = value; }
+    public GameObject PauseUIObj { get => pauseUIObj; set => pauseUIObj = value; }
 
 
     // Start is called before the first frame update
@@ -33,7 +33,7 @@ public class PauseScript : MonoBehaviour
 
     public void PauseEnd()
     {
-        pauseUI.SetActive(false);
+        pauseUIObj.SetActive(false);
         Cursor.visible = false;
         GamePlayManager.instance.State = GamePlayManager.GameState.Play;
     }

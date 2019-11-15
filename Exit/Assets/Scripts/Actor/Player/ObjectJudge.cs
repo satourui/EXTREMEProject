@@ -33,7 +33,7 @@ public class ObjectJudge : MonoBehaviour
             GamePlayManager.instance.State == GamePlayManager.GameState.Play)
         {
             var po = currentObj.GetComponent<PlacedObj>();
-            var tt = textObj.GetComponent<TalkText>();
+            var tt = textObj.GetComponent<TalkTextUI>();
             tt.SelectMessage = po.SelectMessage;
             tt.ShowSelectMessage();
             tt.SelectObj = currentObj;
@@ -51,7 +51,7 @@ public class ObjectJudge : MonoBehaviour
         if (/*pc.State == PlayerController.PlayerState.Normal*/
             GamePlayManager.instance.State==GamePlayManager.GameState.Play)
         {
-            var tt = textObj.GetComponent<TalkText>();
+            var tt = textObj.GetComponent<TalkTextUI>();
             tt.TextClose();
             currentObj = null;
             pc.SelectObj = currentObj;

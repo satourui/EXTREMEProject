@@ -13,11 +13,12 @@ public class PlayerController : MonoBehaviour
 
     //テキスト処理関連
     //string[] messages = new string[0];  //オブジェクトの文字情報を保存するための配列
-    TalkText text;
+    TalkTextUI text;
     GameObject selectObj;  //プレイヤーが選択しているオブジェクト
 
     //アイテムリスト関連
-    public List<GameObject> itemList = new List<GameObject>();  //持っているアイテムリスト
+    [SerializeField]
+    private List<GameObject> itemList = new List<GameObject>();  //持っているアイテムリスト
     private int itemNum = 0;  //何番目のアイテムか
     private int itemQuantity = 0;  //アイテムの所持数
 
@@ -47,23 +48,40 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
 
-        text = GameObject.Find("GamePlayUI").GetComponent<TalkText>();
+        text = GameObject.Find("GamePlayUI").GetComponent<TalkTextUI>();
         flashLight = GetComponentInChildren<FlashLightController>();
 
-        var m_camera = (GameObject)Resources.Load("Prefabs/Camera");
-        MainCamera = Instantiate(m_camera, transform.position, Quaternion.identity).transform;
-        
+        if (mainCamera == null)
+        {
+            var m_camera = (GameObject)Resources.Load("Prefabs/Camera");
+            MainCamera = Instantiate(m_camera, transform.position, Quaternion.identity).transform;
+        }
 
         //音声ファイルをコンポーネントして変数に格納する
         sound = GetComponent<AudioSource>();
 
         sound.clip = audioClips[0];
         audioSource = GetComponent<AudioSource>();
+
+
+        Initialize();
+
+        //itemNum = 0;
+        //isWalk = false;  //最初は歩いていない
+        //isDead = false;  //死んだかどうか
+        //rigid = GetComponent<Rigidbody>();
+    }
+
+    public void Initialize()
+    {
+        mainCamera.gameObject.GetComponent<CameraController>().RotateInitialize();
+
+        itemNum = 0;
+        
         isWalk = false;  //最初は歩いていない
         isDead = false;  //死んだかどうか
         rigid = GetComponent<Rigidbody>();
     }
-
 
     void Update()
     {
@@ -215,6 +233,7 @@ public class PlayerController : MonoBehaviour
                 GamePlayManager.instance.State = GamePlayManager.GameState.Talk;
                 text.IsTalk = true;
                 text.TextInvisible();
+                selectObj = null;
             }
 
         }
@@ -261,6 +280,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetMouseButtonDown(1))
         {
             itemList[itemNum].GetComponent<ItemObj>().UseItem();
+            itemQuantity = itemList.Count;
         }
     }
 
@@ -289,14 +309,24 @@ public class PlayerController : MonoBehaviour
         }
         itemNum--;
     }
-
     
 
     private void OnCollisionStay(Collision col)
     {
         if (col.transform.tag == "Enemy")
         {
-            isDead = true;
+            //isDead = true;
+            GamePlayManager.instance.State = GamePlayManager.GameState.GameOver;
         }
     }
+
+    //public void DeleteCamera()
+    //{
+    //    if (mainCamera != null)
+    //    {
+    //        Destroy(mainCamera.gameObject);
+    //    }
+    //}
+
+    
 }
