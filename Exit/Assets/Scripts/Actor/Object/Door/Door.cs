@@ -16,6 +16,15 @@ public class Door : MonoBehaviour
     private float time;
 
     public GameObject[] door = new GameObject[2];
+
+
+    //ナリが追加
+    private PlacedObj placedObj;
+    [SerializeField]
+    private bool isLock = false;  //鍵がかかっているならtrue
+    //
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,27 +35,31 @@ public class Door : MonoBehaviour
         animator = GetComponent<Animator>();
 
         audioSource = GetComponent<AudioSource>();
+
+
+        placedObj = GetComponent<PlacedObj>();
     }
 
     // Update is called once per frame
     void Update()
     {
-
-        if (door_R.inDoor&&!door_L.inDoor)
-        {          
-            animator.SetBool("Open1",true);
-        }
-        else if (door_L.inDoor&&!door_R.inDoor)
+        if (!isLock)
         {
-            animator.SetBool("Open2", true);
-        }
+            if (door_R.inDoor && !door_L.inDoor)
+            {
+                animator.SetBool("Open1", true);
+            }
+            else if (door_L.inDoor && !door_R.inDoor)
+            {
+                animator.SetBool("Open2", true);
+            }
 
-        if(!door_R.inDoor&&!door_L.inDoor)
-        {
-            animator.SetBool("Open1", false);
-            animator.SetBool("Open2", false);
+            if (!door_R.inDoor && !door_L.inDoor)
+            {
+                animator.SetBool("Open1", false);
+                animator.SetBool("Open2", false);
+            }
         }
-
         //Debug.Log(": R :" + door_R.inDoor + ": L :" + door_L.inDoor);
     }
 
@@ -65,5 +78,10 @@ public class Door : MonoBehaviour
     public void PlayOnSound()
     {
         audioSource.Play();
+    }
+
+    public void Unlock()
+    {
+        isLock = false;
     }
 }

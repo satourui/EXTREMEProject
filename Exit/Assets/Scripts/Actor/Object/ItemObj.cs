@@ -77,10 +77,17 @@ public class ItemObj : MonoBehaviour
     {
         if (frontObj)
         {
-            if (talkText.SelectObj == targetObj)
+            var selectObj = talkText.SelectObj;
+            if (selectObj == targetObj)
             {
                 isUse = true;
                 targetObj.GetComponent<ChangeMessageObj>().IsMessageChange = true;
+
+                if (targetObj.GetComponent<PlacedObjParameter>().AutomaticDoorObj)
+                {
+                    targetObj.GetComponent<PlacedObj>().SelectMessage = "";
+                    targetObj.GetComponentInChildren<Door>().Unlock();
+                }
             }
         }
 
@@ -95,6 +102,7 @@ public class ItemObj : MonoBehaviour
             talkText.TextInvisible();
             
             talkText.IsTalk = true;
+            
         }
 
         
