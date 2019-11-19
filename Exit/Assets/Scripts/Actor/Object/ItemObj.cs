@@ -28,6 +28,25 @@ public class ItemObj : MonoBehaviour
     [SerializeField, Header("アイテム獲得後オブジェクトを消すならtrue")]
     private bool isDeleteObject = false;
 
+    
+    [SerializeField,Header("アイスオブジェクトならtrue")]
+    private bool iceObj = false;
+
+    private bool isMelt;  //溶けたらtrue
+
+    [SerializeField, Header("溶けるまでの時間")]
+    private float meltTimer = 0.0f;
+
+    [SerializeField, Header("溶けた時に現れるオブジェクト")]
+    private GameObject meltObj = null;
+    
+    private float iceCountDownTimer;
+
+    private bool isTimerStart;
+    
+
+
+
 
     private bool isUse; //アイテムが使えるならtrue;
     GamePlayManager gameManager;
@@ -45,8 +64,11 @@ public class ItemObj : MonoBehaviour
     {
         gameManager = GamePlayManager.instance;
         isUse = false;
-        //talkText = GameObject.Find("GamePlayUI").GetComponent<TalkTextUI>();
         talkText = gameManager.TalkText;
+
+        isMelt = false;
+        isTimerStart = false;
+        iceCountDownTimer = meltTimer;
     }
 
 
@@ -65,28 +87,67 @@ public class ItemObj : MonoBehaviour
                 isUse = true;
             }
         }
+
+        if (isTimerStart)
+        {
+            iceCountDownTimer -= Time.deltaTime;
+        }
+
+        if (iceCountDownTimer < 0 && !isMelt)
+        {
+            isTimerStart = false;
+            isMelt = true;
+            meltObj.SetActive(true);
+            gameObject.SetActive(false);
+            iceObj = false;
+            targetObj.GetComponent<PlacedObj>().IsSelect = true;
+        }
     }
 
     public void ItemGet()
     {
         GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().ItemList.Add(this.gameObject);
-        GetComponent<PlacedObjParameter>().ItemDropObj = false;
+
+        if (iceObj)
+        {
+            targetObj.GetComponent<PlacedObj>().IsSelect = true;
+        }
+        
+        else
+        {
+            GetComponent<PlacedObjParameter>().ItemDropObj = false;
+        }
     }
 
     public void UseItem()
     {
+        var player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+
         if (frontObj)
         {
             var selectObj = talkText.SelectObj;
             if (selectObj == targetObj)
             {
-                isUse = true;
-                targetObj.GetComponent<ChangeMessageObj>().IsMessageChange = true;
 
-                if (targetObj.GetComponent<PlacedObjParameter>().AutomaticDoorObj)
+                if (iceObj)
                 {
-                    targetObj.GetComponent<PlacedObj>().SelectMessage = "";
-                    targetObj.GetComponentInChildren<Door>().Unlock();
+                    gameObject.transform.position = meltObj.transform.position;
+                    gameObject.SetActive(true);
+                    isTimerStart = true;
+                    player.ItemDelete(player.ItemNum);
+                    targetObj.GetComponent<PlacedObj>().IsSelect = false;
+                }
+
+                else
+                {
+                    isUse = true;
+                    targetObj.GetComponent<ChangeMessageObj>().IsMessageChange = true;
+
+                    if (targetObj.GetComponent<PlacedObjParameter>().AutomaticDoorObj)
+                    {
+                        targetObj.GetComponent<PlacedObj>().SelectMessage = "";
+                        targetObj.GetComponentInChildren<Door>().Unlock();
+                    }
                 }
             }
         }
@@ -96,7 +157,7 @@ public class ItemObj : MonoBehaviour
         {
             talkText.MainMessages = itemMessages;
             talkText.SelectObj = this.gameObject;
-            var player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+            
             GamePlayManager.instance.State = GamePlayManager.GameState.Talk;
             player.ItemDelete(player.ItemNum);
             talkText.TextInvisible();
@@ -110,7 +171,7 @@ public class ItemObj : MonoBehaviour
 
     public void DeleteObject()
     {
-        if (isDeleteObject)
+        if (isDeleteObject )
         {
             gameObject.SetActive(false);
         }
