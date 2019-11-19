@@ -26,6 +26,9 @@ public class PlacedObjParameter : MonoBehaviour
     [SerializeField, Header("隠されているオブジェ")]
     private bool hiddenObj;  //隠されているオブジェクトならtrue
 
+    [SerializeField,Header("オブジェクトを生成するオブジェ")]
+    private bool objectSpawnObj;  //オブジェクトを生成するオブジェクトならtrue
+
 
     //public bool OnceObj { get => onceObj; set => onceObj = value; }
     public bool ChangeMessageObj { get => changeMessageObj; set => changeMessageObj = value; }
@@ -35,4 +38,5 @@ public class PlacedObjParameter : MonoBehaviour
     public bool HiddenObj { get => hiddenObj; set => hiddenObj = value; }
     public bool GoalObj { get => goalObj; set => goalObj = value; }
     public bool AutomaticDoorObj { get => automaticDoorObj; set => automaticDoorObj = value; }
+    public bool ObjectSpawnObj { get => objectSpawnObj; set => objectSpawnObj = value; }
 }

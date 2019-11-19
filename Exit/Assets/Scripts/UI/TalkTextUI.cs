@@ -150,7 +150,10 @@ public class TalkTextUI : MonoBehaviour
                     selectObj.GetComponent<HiddenObj>().StopHiding();
                 }
 
-                
+                if (objParameter.ObjectSpawnObj)
+                {
+                    selectObj.GetComponent<ObjectSpawnObj>().SpawnObject();
+                }
 
                 TextClose();
 
