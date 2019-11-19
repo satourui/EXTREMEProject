@@ -126,7 +126,7 @@ MonoBehaviour:
   goalObj: 0
   automaticDoorObj: 0
   changeMessageObj: 1
-  itemDropObj: 0
+  itemObj: 0
   flagChangeObj: 0
   openAndCloseObj: 0
   hiddenObj: 0
@@ -291,7 +291,7 @@ MonoBehaviour:
   goalObj: 0
   automaticDoorObj: 0
   changeMessageObj: 0
-  itemDropObj: 1
+  itemObj: 1
   flagChangeObj: 0
   openAndCloseObj: 0
   hiddenObj: 0
@@ -319,8 +319,10 @@ MonoBehaviour:
   targetObj: {fileID: 1721901342733835514}
   isDeleteObject: 1
   iceObj: 1
-  meltTimer: 10
+  meltTimer: 3
   meltObj: {fileID: 1463442408778239605}
+  doubleTimes: 10
+  iceCountDownTimer: 0
 --- !u!1 &1463442408778239605
 GameObject:
   m_ObjectHideFlags: 0
@@ -447,7 +449,7 @@ MonoBehaviour:
   goalObj: 0
   automaticDoorObj: 0
   changeMessageObj: 0
-  itemDropObj: 1
+  itemObj: 1
   flagChangeObj: 0
   openAndCloseObj: 0
   hiddenObj: 0
@@ -508,6 +510,8 @@ MonoBehaviour:
   iceObj: 0
   meltTimer: 0
   meltObj: {fileID: 0}
+  doubleTimes: 0
+  iceCountDownTimer: 0
 --- !u!1 &1721901342733835514
 GameObject:
   m_ObjectHideFlags: 0
@@ -631,7 +635,7 @@ MonoBehaviour:
   goalObj: 0
   automaticDoorObj: 0
   changeMessageObj: 0
-  itemDropObj: 0
+  itemObj: 0
   flagChangeObj: 0
   openAndCloseObj: 0
   hiddenObj: 0
@@ -762,7 +766,7 @@ MonoBehaviour:
   goalObj: 0
   automaticDoorObj: 0
   changeMessageObj: 1
-  itemDropObj: 0
+  itemObj: 1
   flagChangeObj: 0
   openAndCloseObj: 0
   hiddenObj: 0
@@ -792,6 +796,8 @@ MonoBehaviour:
   iceObj: 0
   meltTimer: 0
   meltObj: {fileID: 0}
+  doubleTimes: 0
+  iceCountDownTimer: 0
 --- !u!114 &2985269036405127162
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1398,7 +1404,7 @@ MonoBehaviour:
   goalObj: 0
   automaticDoorObj: 0
   changeMessageObj: 0
-  itemDropObj: 0
+  itemObj: 0
   flagChangeObj: 1
   openAndCloseObj: 0
   hiddenObj: 0
@@ -1700,7 +1706,7 @@ MonoBehaviour:
   goalObj: 0
   automaticDoorObj: 0
   changeMessageObj: 0
-  itemDropObj: 1
+  itemObj: 1
   flagChangeObj: 0
   openAndCloseObj: 0
   hiddenObj: 0
@@ -1730,6 +1736,8 @@ MonoBehaviour:
   iceObj: 0
   meltTimer: 0
   meltObj: {fileID: 0}
+  doubleTimes: 0
+  iceCountDownTimer: 0
 --- !u!1 &4226055536144624264
 GameObject:
   m_ObjectHideFlags: 0
@@ -2361,7 +2369,7 @@ MonoBehaviour:
   goalObj: 0
   automaticDoorObj: 0
   changeMessageObj: 1
-  itemDropObj: 0
+  itemObj: 0
   flagChangeObj: 0
   openAndCloseObj: 0
   hiddenObj: 0
@@ -3055,7 +3063,7 @@ MonoBehaviour:
   goalObj: 0
   automaticDoorObj: 0
   changeMessageObj: 0
-  itemDropObj: 0
+  itemObj: 0
   flagChangeObj: 0
   openAndCloseObj: 1
   hiddenObj: 0
@@ -3487,7 +3495,7 @@ MonoBehaviour:
   goalObj: 0
   automaticDoorObj: 0
   changeMessageObj: 0
-  itemDropObj: 0
+  itemObj: 0
   flagChangeObj: 0
   openAndCloseObj: 0
   hiddenObj: 1
@@ -3548,6 +3556,8 @@ MonoBehaviour:
   iceObj: 0
   meltTimer: 0
   meltObj: {fileID: 0}
+  doubleTimes: 0
+  iceCountDownTimer: 0
 --- !u!1 &4226055536916183520
 GameObject:
   m_ObjectHideFlags: 0
@@ -4126,7 +4136,7 @@ MonoBehaviour:
   goalObj: 0
   automaticDoorObj: 0
   changeMessageObj: 1
-  itemDropObj: 0
+  itemObj: 0
   flagChangeObj: 0
   openAndCloseObj: 0
   hiddenObj: 0
@@ -5262,7 +5272,7 @@ MonoBehaviour:
   goalObj: 1
   automaticDoorObj: 0
   changeMessageObj: 0
-  itemDropObj: 0
+  itemObj: 0
   flagChangeObj: 0
   openAndCloseObj: 0
   hiddenObj: 0
@@ -5484,7 +5494,7 @@ MonoBehaviour:
   goalObj: 0
   automaticDoorObj: 0
   changeMessageObj: 1
-  itemDropObj: 0
+  itemObj: 0
   flagChangeObj: 0
   openAndCloseObj: 0
   hiddenObj: 0
@@ -6071,7 +6081,7 @@ MonoBehaviour:
   goalObj: 0
   automaticDoorObj: 0
   changeMessageObj: 1
-  itemDropObj: 1
+  itemObj: 1
   flagChangeObj: 0
   openAndCloseObj: 0
   hiddenObj: 0
@@ -6101,6 +6111,8 @@ MonoBehaviour:
   iceObj: 0
   meltTimer: 0
   meltObj: {fileID: 0}
+  doubleTimes: 0
+  iceCountDownTimer: 0
 --- !u!114 &4226055537829920366
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6370,7 +6382,7 @@ MonoBehaviour:
   goalObj: 0
   automaticDoorObj: 0
   changeMessageObj: 1
-  itemDropObj: 0
+  itemObj: 0
   flagChangeObj: 1
   openAndCloseObj: 0
   hiddenObj: 0

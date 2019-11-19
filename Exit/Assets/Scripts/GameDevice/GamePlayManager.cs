@@ -100,7 +100,7 @@ public class GamePlayManager : MonoBehaviour
     public bool IsStageClearFlag { get => isStageClearFlag; set => isStageClearFlag = value; }
     //public GameObject Player { get => player; }
     public TalkTextUI TalkText { get => talkText; set => talkText = value; }
-    //public PlayerController PC { get => pc; set => pc = value; }
+    public PlayerController PC { get => pc; set => pc = value; }
     public GameObject Player { get => player; set => player = value; }
 
     private void Awake()

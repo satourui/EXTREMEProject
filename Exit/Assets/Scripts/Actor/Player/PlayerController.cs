@@ -280,9 +280,24 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetMouseButtonDown(1))
         {
-            itemList[itemNum].GetComponent<ItemObj>().UseItem();
-            itemQuantity = itemList.Count;
+            var item = itemList[itemNum];
+
+            if (item.GetComponent<PlacedObjParameter>().ItemObj)
+            {
+                item.GetComponent<ItemObj>().UseItem();
+                itemQuantity = itemList.Count;
+                return;
+            }
+            
         }
+
+        var currentItem = itemList[itemNum];
+        var io = currentItem.GetComponent<ItemObj>();
+
+        if (io == null)
+            return;
+
+        io.MeltIce_Hand();
     }
 
     public void ItemDelete(int num)

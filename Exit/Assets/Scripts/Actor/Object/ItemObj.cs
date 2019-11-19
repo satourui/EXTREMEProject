@@ -39,18 +39,27 @@ public class ItemObj : MonoBehaviour
 
     [SerializeField, Header("溶けた時に現れるオブジェクト")]
     private GameObject meltObj = null;
-    
+
+
+    [SerializeField, Header("特定のオブジェクトに置いたとき通常の何倍で溶けるか")]
+    private float doubleTimes = 0;
+
+    [SerializeField]
     private float iceCountDownTimer;
 
     private bool isTimerStart;
-    
+
+    private bool ishad;  //道具として持っていれば
 
 
+    private bool isDrop;  //選択したときにアイテムを落とすならtrue
 
 
     private bool isUse; //アイテムが使えるならtrue;
     GamePlayManager gameManager;
-    TalkTextUI talkText;
+    //TalkTextUI talkText;
+    //PlayerController pc;
+
 
     public Texture2D ItemIcon { get => itemIcon; set => itemIcon = value; }
 
@@ -64,11 +73,16 @@ public class ItemObj : MonoBehaviour
     {
         gameManager = GamePlayManager.instance;
         isUse = false;
-        talkText = gameManager.TalkText;
+        //talkText = gameManager.TalkText;
 
         isMelt = false;
         isTimerStart = false;
         iceCountDownTimer = meltTimer;
+
+        ishad = false;
+        isDrop = true;
+
+        //pc = GamePlayManager.instance.PC;
     }
 
 
@@ -88,44 +102,42 @@ public class ItemObj : MonoBehaviour
             }
         }
 
-        if (isTimerStart)
-        {
-            iceCountDownTimer -= Time.deltaTime;
-        }
-
-        if (iceCountDownTimer < 0 && !isMelt)
-        {
-            isTimerStart = false;
-            isMelt = true;
-            meltObj.SetActive(true);
-            gameObject.SetActive(false);
-            iceObj = false;
-            targetObj.GetComponent<PlacedObj>().IsSelect = true;
-        }
+        
+        MeltIce_Hand();
+        MeltIce_Obj();
     }
 
     public void ItemGet()
     {
-        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().ItemList.Add(this.gameObject);
+        if (!isDrop)
+            return;
+
+
+
+        GamePlayManager.instance.PC.ItemList.Add(gameObject);
 
         if (iceObj)
         {
             targetObj.GetComponent<PlacedObj>().IsSelect = true;
+            ishad = true;
         }
         
         else
         {
-            GetComponent<PlacedObjParameter>().ItemDropObj = false;
+            //GetComponent<PlacedObjParameter>().ItemObj = false;
+            isDrop = false;
         }
     }
 
     public void UseItem()
     {
-        var player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        var talkText = GamePlayManager.instance.TalkText;
+        var pc = GamePlayManager.instance.PC;
 
         if (frontObj)
         {
             var selectObj = talkText.SelectObj;
+            
             if (selectObj == targetObj)
             {
 
@@ -134,8 +146,9 @@ public class ItemObj : MonoBehaviour
                     gameObject.transform.position = meltObj.transform.position;
                     gameObject.SetActive(true);
                     isTimerStart = true;
-                    player.ItemDelete(player.ItemNum);
+                    pc.ItemDelete(pc.ItemNum);
                     targetObj.GetComponent<PlacedObj>().IsSelect = false;
+                    ishad = false;
                 }
 
                 else
@@ -159,7 +172,7 @@ public class ItemObj : MonoBehaviour
             talkText.SelectObj = this.gameObject;
             
             GamePlayManager.instance.State = GamePlayManager.GameState.Talk;
-            player.ItemDelete(player.ItemNum);
+            pc.ItemDelete(pc.ItemNum);
             talkText.TextInvisible();
             
             talkText.IsTalk = true;
@@ -175,5 +188,99 @@ public class ItemObj : MonoBehaviour
         {
             gameObject.SetActive(false);
         }
+    }
+
+    public void MeltIce_Obj()
+    {
+        if (iceObj)
+        {
+            if (isTimerStart)
+            {
+                
+                iceCountDownTimer -= Time.deltaTime * doubleTimes;
+                
+            }
+
+            if (iceCountDownTimer < 0 && !isMelt)
+            {
+                isTimerStart = false;
+                isMelt = true;
+                iceObj = false;
+                targetObj.GetComponent<PlacedObj>().IsSelect = true;
+                meltObj.SetActive(true);
+                gameObject.SetActive(false);
+                
+            }
+        }
+    }
+
+
+    public void MeltIce_Hand()
+    {
+        if (!iceObj)
+            return;
+
+        var pc = GamePlayManager.instance.PC;
+
+        if (pc.ItemList.Count == 0)
+            return;
+
+        var currentItem = pc.ItemList[pc.ItemNum];
+
+
+        if (iceObj &&ishad)
+        {
+
+            if (currentItem == gameObject)
+            {
+                isTimerStart = true;
+            }
+
+            else
+            {
+                isTimerStart = false;
+            }
+            
+
+
+            if (isTimerStart)
+            {
+                //if (!ishad)
+                //{
+                //    iceCountDownTimer -= Time.deltaTime * doubleTimes;
+                //}
+
+                //else
+                {
+                    iceCountDownTimer -= Time.deltaTime;
+                }
+            }
+
+            if (iceCountDownTimer < 0 && !isMelt)
+            {
+                isTimerStart = false;
+                isMelt = true;
+                iceObj = false;
+                targetObj.GetComponent<PlacedObj>().IsSelect = true;
+                pc.ItemDelete(pc.ItemNum);
+                pc.ItemList.Insert(0, meltObj);
+                ishad = false;
+
+                //if (ishad)
+                //{
+
+                //    pc.ItemList.Insert(0, targetObj);
+                //    pc.ItemDelete(pc.ItemNum);
+                //}
+
+                //else
+                //{
+                //    meltObj.SetActive(true);
+                //    gameObject.SetActive(false);
+                //}
+            }
+        }
+
+        
     }
 }
