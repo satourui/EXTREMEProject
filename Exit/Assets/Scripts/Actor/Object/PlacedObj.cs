@@ -18,7 +18,7 @@ public class PlacedObj : MonoBehaviour
     //public string[] AfterMessages { get => afterMessages; }
     public bool IsSelect { get => isSelect; set => isSelect = value; }
 
-    private bool isSelect;  //選択できる状態ならtrue
+    private bool isSelect = true;  //選択できる状態ならtrue
 
     void Start()
     {

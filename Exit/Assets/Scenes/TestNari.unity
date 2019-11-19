@@ -435,7 +435,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gamePlayUI: {fileID: 1285870159}
   stagePrefabNameList:
-  - Stage00
+  - StageNari
   stagePrefabPosList:
   - {x: 0, y: 0, z: 0}
   stageObjctArray: []
@@ -1679,80 +1679,6 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
---- !u!1001 &3380732188184863836
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 5058182667044173282, guid: 0c3d73f9b78b55c40a9ad2fcfb646299,
-        type: 3}
-      propertyPath: m_Name
-      value: Stage00
-      objectReference: {fileID: 0}
-    - target: {fileID: 5058182667044173282, guid: 0c3d73f9b78b55c40a9ad2fcfb646299,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5058182667044173283, guid: 0c3d73f9b78b55c40a9ad2fcfb646299,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5058182667044173283, guid: 0c3d73f9b78b55c40a9ad2fcfb646299,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5058182667044173283, guid: 0c3d73f9b78b55c40a9ad2fcfb646299,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5058182667044173283, guid: 0c3d73f9b78b55c40a9ad2fcfb646299,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5058182667044173283, guid: 0c3d73f9b78b55c40a9ad2fcfb646299,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5058182667044173283, guid: 0c3d73f9b78b55c40a9ad2fcfb646299,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5058182667044173283, guid: 0c3d73f9b78b55c40a9ad2fcfb646299,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5058182667044173283, guid: 0c3d73f9b78b55c40a9ad2fcfb646299,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5058182667044173283, guid: 0c3d73f9b78b55c40a9ad2fcfb646299,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5058182667044173283, guid: 0c3d73f9b78b55c40a9ad2fcfb646299,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5058182667044173283, guid: 0c3d73f9b78b55c40a9ad2fcfb646299,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 0c3d73f9b78b55c40a9ad2fcfb646299, type: 3}
 --- !u!224 &3784529213119624526
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1825,6 +1751,80 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
+--- !u!1001 &4226055535831337004
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5944038251315894674, guid: 6a484e85d688c4843b6e928ee7f21175,
+        type: 3}
+      propertyPath: m_Name
+      value: StageNari
+      objectReference: {fileID: 0}
+    - target: {fileID: 5944038251315894674, guid: 6a484e85d688c4843b6e928ee7f21175,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5944038251315894675, guid: 6a484e85d688c4843b6e928ee7f21175,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5944038251315894675, guid: 6a484e85d688c4843b6e928ee7f21175,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5944038251315894675, guid: 6a484e85d688c4843b6e928ee7f21175,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5944038251315894675, guid: 6a484e85d688c4843b6e928ee7f21175,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5944038251315894675, guid: 6a484e85d688c4843b6e928ee7f21175,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5944038251315894675, guid: 6a484e85d688c4843b6e928ee7f21175,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5944038251315894675, guid: 6a484e85d688c4843b6e928ee7f21175,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5944038251315894675, guid: 6a484e85d688c4843b6e928ee7f21175,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5944038251315894675, guid: 6a484e85d688c4843b6e928ee7f21175,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5944038251315894675, guid: 6a484e85d688c4843b6e928ee7f21175,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5944038251315894675, guid: 6a484e85d688c4843b6e928ee7f21175,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6a484e85d688c4843b6e928ee7f21175, type: 3}
 --- !u!222 &4305200201477946392
 CanvasRenderer:
   m_ObjectHideFlags: 0

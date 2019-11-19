@@ -8,6 +8,9 @@ public class PlacedObjParameter : MonoBehaviour
     [SerializeField, Header("ゴール用のオブジェクト(アタッチスクリプトなし)")]
     private bool goalObj = false;
 
+    [SerializeField, Header("自動ドアオブジェ")]
+    private bool automaticDoorObj = false;
+
     [SerializeField, Header("ループするメッセージが変わるオブジェ")]
     private bool changeMessageObj = false;  //メッセージが変わるオブジェ
 
@@ -31,4 +34,5 @@ public class PlacedObjParameter : MonoBehaviour
     public bool OpenAndCloseObj { get => openAndCloseObj; set => openAndCloseObj = value; }
     public bool HiddenObj { get => hiddenObj; set => hiddenObj = value; }
     public bool GoalObj { get => goalObj; set => goalObj = value; }
+    public bool AutomaticDoorObj { get => automaticDoorObj; set => automaticDoorObj = value; }
 }

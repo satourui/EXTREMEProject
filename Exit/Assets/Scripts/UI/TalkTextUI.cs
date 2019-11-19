@@ -150,10 +150,7 @@ public class TalkTextUI : MonoBehaviour
                     selectObj.GetComponent<HiddenObj>().StopHiding();
                 }
 
-                //if (objParameter.GoalObj)
-                //{
-                //    GamePlayManager.instance.GoalCheck();
-                //}
+                
 
                 TextClose();
 
