@@ -81,6 +81,7 @@ public class PlayerController : MonoBehaviour
         isWalk = false;  //最初は歩いていない
         isDead = false;  //死んだかどうか
         rigid = GetComponent<Rigidbody>();
+        flashLight.SwitchOff();
     }
 
     void Update()
@@ -110,6 +111,8 @@ public class PlayerController : MonoBehaviour
 
         else if (state == GamePlayManager.GameState.Talk)
         {
+            PlayerMove();
+            PlayerRotate();
             text.MessageReading();
         }
 
@@ -327,22 +330,20 @@ public class PlayerController : MonoBehaviour
     }
     
 
-    private void OnCollisionStay(Collision col)
+    private void OnCollisionEnter(Collision col)
     {
         if (col.transform.tag == "Enemy")
         {
             //isDead = true;
             GamePlayManager.instance.State = GamePlayManager.GameState.GameOver;
         }
+
+        if (col.gameObject.tag == "GoalZone")
+        {
+            GamePlayManager.instance.State = GamePlayManager.GameState.StageClear;
+        }
     }
 
-    //public void DeleteCamera()
-    //{
-    //    if (mainCamera != null)
-    //    {
-    //        Destroy(mainCamera.gameObject);
-    //    }
-    //}
-
+    
     
 }

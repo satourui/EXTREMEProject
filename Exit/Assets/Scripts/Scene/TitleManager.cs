@@ -167,6 +167,7 @@ public class TitleManager : MonoBehaviour
     {
         //ステージ１にシーン切り替え
         SceneManager.LoadScene("Stage1");
+        //SceneManager.LoadScene("TestNari");
     }
 
     public void GameEnd()

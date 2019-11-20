@@ -403,7 +403,7 @@ GameObject:
   - component: {fileID: 6162891778140493225}
   - component: {fileID: 6162891778140493224}
   - component: {fileID: 6162891778140493230}
-  - component: {fileID: 6162891778140493231}
+  - component: {fileID: 6856143398223235215}
   m_Layer: 0
   m_Name: DoorLocked
   m_TagString: Untagged
@@ -458,10 +458,11 @@ MonoBehaviour:
   goalObj: 0
   automaticDoorObj: 1
   changeMessageObj: 0
-  itemDropObj: 0
+  itemObj: 0
   flagChangeObj: 0
   openAndCloseObj: 0
   hiddenObj: 0
+  objectSpawnObj: 0
 --- !u!65 &6162891778140493230
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -475,7 +476,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 3, z: 0.2}
   m_Center: {x: 1, y: 0, z: 0}
---- !u!114 &6162891778140493231
+--- !u!114 &6856143398223235215
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -487,10 +488,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b6a9c4c54cd8c447900024467696713, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  afterSelect: 1
+  afterSelect: 0
   forFlag: 0
   flagName: 
+  changeOnceMessages: []
   loopMessageEndless: 0
   endlessSwiching: 0
-  changeLoopMessages:
-  - 
+  changeLoopMessages: []
