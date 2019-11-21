@@ -130,8 +130,10 @@ public class PlayerController : MonoBehaviour
         //XとZへの力がどちらも0でないとき
         if (mouse_x != 0 || mouse_z != 0)
         {
-            //移動
-            velocity.Set(mouse_x, -rigid.velocity.y, mouse_z);
+            //移動 //11/15変更
+            //velocity.Set(mouse_x, -rigid.velocity.y, mouse_z);
+            velocity.Set(mouse_x, 0, mouse_z);
+
             velocity = velocity.normalized * speed * Time.deltaTime;
             velocity = transform.rotation * velocity;
             rb.MovePosition(transform.position + velocity);
