@@ -40,7 +40,7 @@ public class InventotyUI : MonoBehaviour
             
 
             //アイテムを持っていなければ
-            if (itemList.Count == 0)
+            if (pc.ItemList.Count == 0)
             {
                 currentItemImage.gameObject.SetActive(false);
                 return;
@@ -48,7 +48,7 @@ public class InventotyUI : MonoBehaviour
             
 
             currentItemImage.gameObject.SetActive(true);
-            Texture2D texture = itemList[pc.ItemNum].GetComponent<ItemObj>().ItemIcon;
+            Texture2D texture = pc.ItemList[pc.ItemNum].GetComponent<ItemObj>().ItemIcon;
             sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
             currentItemImage.sprite = sprite;
         }

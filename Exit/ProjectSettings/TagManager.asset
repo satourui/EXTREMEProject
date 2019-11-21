@@ -10,6 +10,7 @@ TagManager:
   - P_Door
   - Door_R
   - Door_L
+  - GoalZone
   layers:
   - Default
   - TransparentFX

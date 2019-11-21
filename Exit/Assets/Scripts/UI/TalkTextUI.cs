@@ -121,8 +121,8 @@ public class TalkTextUI : MonoBehaviour
 
                 var objParameter = selectObj.GetComponent<PlacedObjParameter>();
 
-                //選んだオブジェクトがアイテムを落とすオブジェクトなら
-                if (objParameter.ItemDropObj)
+                //選んだオブジェクトがアイテムオブジェクトなら
+                if (objParameter.ItemObj)
                 {
                     var io = selectObj.GetComponent<ItemObj>();
                     io.ItemGet();
@@ -150,7 +150,10 @@ public class TalkTextUI : MonoBehaviour
                     selectObj.GetComponent<HiddenObj>().StopHiding();
                 }
 
-                
+                if (objParameter.ObjectSpawnObj)
+                {
+                    selectObj.GetComponent<ObjectSpawnObj>().SpawnObject();
+                }
 
                 TextClose();
 

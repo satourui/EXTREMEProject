@@ -68,7 +68,8 @@ public class CameraController : MonoBehaviour
         //if (target.GetComponent<PlayerController>().State == PlayerController.PlayerState.Normal)
         //if (pauseScript.GetPlayerflag())
 
-        if(GamePlayManager.instance.State==GamePlayManager.GameState.Play)
+        if (GamePlayManager.instance.State == GamePlayManager.GameState.Play ||
+            GamePlayManager.instance.State == GamePlayManager.GameState.Talk)
         {
             CameraMouseRotation();
         }
