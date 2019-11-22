@@ -53,12 +53,14 @@ public class GamePlayManager : MonoBehaviour
     private GameObject[] stageObjctArray;
 
     private string stageFolderName;
-
+    
     private Dictionary<string, bool> currentStageFlags = new Dictionary<string, bool>();  //フラグを管理するためのDictionary
 
     private GameObject currentStageObj;
 
     private Stage currentStageScript;
+
+    private int stageValue;  //ステージ数
 
     //player関連
     private GameObject player;
@@ -100,7 +102,7 @@ public class GamePlayManager : MonoBehaviour
     public bool IsStageClearFlag { get => isStageClearFlag; set => isStageClearFlag = value; }
     //public GameObject Player { get => player; }
     public TalkTextUI TalkText { get => talkText; set => talkText = value; }
-    //public PlayerController PC { get => pc; set => pc = value; }
+    public PlayerController PC { get => pc; set => pc = value; }
     public GameObject Player { get => player; set => player = value; }
 
     private void Awake()
@@ -132,10 +134,17 @@ public class GamePlayManager : MonoBehaviour
             stageObjctArray[i] = Instantiate(stage, stagePrefabPosList[i], Quaternion.identity);
         }
 
+        stageValue = stagePrefabNameList.Count;
+
         playerSpawnPos = Vector3.zero;
 
         PlayerCreate();
+        
         StageInitialize();
+        //PlayerInitialize();
+
+        playerSpawnPos = currentStageScript.PlayerSpawnPos;
+        player.transform.position = playerSpawnPos;
 
         //1番最初の位置のみここで指定
         player.transform.position = playerStartPos;
@@ -184,9 +193,7 @@ public class GamePlayManager : MonoBehaviour
 
         IsStageClearFlag = false;
 
-        playerSpawnPos = currentStageScript.PlayerSpawnPos;
-
-        player.transform.position = playerSpawnPos;
+        
         
         //player.transform.rotation = Quaternion.identity;
     }
@@ -203,15 +210,18 @@ public class GamePlayManager : MonoBehaviour
         pc = player.GetComponent<PlayerController>();
     }
 
-    public void PlayerInitialize()
+    public void PlayerRespawn()
     {
+        playerSpawnPos = currentStageScript.PlayerSpawnPos;
+
+        player.transform.position = playerSpawnPos;
+
         pc.Initialize();
+        
     }
 
     void Update()
     {
-        
-
         if (State == GameState.Play)
         {
             pauseScript.PauseStart();
@@ -261,6 +271,13 @@ public class GamePlayManager : MonoBehaviour
 
         StageNum++;
         //StartCoroutine(LoadNextStage());
+
+        if (StageNum > stageValue - 1)
+        {
+            GameEnd();
+            return;
+        }
+
         StageInitialize();
         State = GameState.Play;
 
@@ -304,5 +321,9 @@ public class GamePlayManager : MonoBehaviour
         NextStage();
     }
 
-    
+    public void GameEnd()
+    {
+        SceneManager.MoveGameObjectToScene(gameObject, SceneManager.GetActiveScene());
+        SceneManager.LoadScene("Title");
+    }
 }

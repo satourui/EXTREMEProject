@@ -12,6 +12,7 @@ TagManager:
   - Door_L
   - BigCamera
   - Block
+  - GoalZone
   layers:
   - Default
   - TransparentFX

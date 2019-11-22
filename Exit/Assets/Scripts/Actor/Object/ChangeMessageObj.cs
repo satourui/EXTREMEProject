@@ -16,8 +16,8 @@ public class ChangeMessageObj : MonoBehaviour
     [SerializeField, Header("このフラグがtrueなら文を変える")]
     private string flagName = "";
 
-    //[SerializeField, Header("フラグがtrueのときに1度だけ表示される本文")]
-    //private string[] changeOnceMessages = new string[0];
+    [SerializeField, Header("フラグ変更時1度だけ表示される本文")]
+    private string[] changeOnceMessages = new string[0];
 
     //[SerializeField, Header("フラグ変更後の文が出たらもう文を表示しない")]
     //private bool deleteMessage_Flag = false;
@@ -32,11 +32,16 @@ public class ChangeMessageObj : MonoBehaviour
     [SerializeField, Header("本文の交換を繰り返すかどうか(例:電源を入れる/切る)")]
     private bool endlessSwiching = false;
 
+
+    
+
     [SerializeField, Header("変更後のループする本文")]
     private string[] changeLoopMessages = new string[0];
 
 
     private bool isMessageChange = false;  //メッセージが変更できるならtrue
+
+    //private bool isOnceMessageChange;  //1度だけ変更するメッセージが変更されたら
     
 
     GamePlayManager gameManager;
@@ -48,6 +53,8 @@ public class ChangeMessageObj : MonoBehaviour
     {
         gameManager = GameObject.Find("GamePlayManager").GetComponent<GamePlayManager>();
         placedObj = GetComponent<PlacedObj>();
+
+        //isOnceMessageChange = false;
     }
 
     // Update is called once per frame
@@ -61,23 +68,38 @@ public class ChangeMessageObj : MonoBehaviour
     /// </summary>
     public void ChangeMessage_Flag()
     {
+        if (forFlag && afterSelect)
+        {
+            if (gameManager.CurrentStageFlags[flagName])
+            {
+
+                placedObj.Messages = changeOnceMessages;
+
+                forFlag = false;
+
+            }
+        }
+
+
         //フラグによって
-        if (forFlag)
+        if (forFlag && !afterSelect)
         {
             //フラグがtrueなら
             if (gameManager.CurrentStageFlags[flagName])
             {
-                //if (select)
+                //if (!isOnceMessageChange)
                 //{
-                //    GetComponent<PlacedObj>().SelectMessage = selectMessage;
+                //    placedObj.Messages = changeOnceMessages;
+                //    isOnceMessageChange = true;
+                //    return;
                 //}
 
-                //if (mainText)
+                //else
                 {
                     placedObj.Messages = changeLoopMessages;
+                    forFlag = false;
                 }
-                forFlag = false;
-                //afterSelect = true;
+                
 
             }
         }
@@ -116,6 +138,14 @@ public class ChangeMessageObj : MonoBehaviour
                 changeLoopMessages = temporaryMessages;
             }
 
+            else if (forFlag)
+            {
+                if (gameManager.CurrentStageFlags[flagName])
+                {
+                    isMessageChange = true;
+                }
+            }
+
             else
             {
                 isMessageChange = true;
@@ -149,6 +179,8 @@ public class ChangeMessageObj : MonoBehaviour
 
     public void MessageChange()
     {
+        
+
         if (isMessageChange)
         {
             placedObj.Messages = changeLoopMessages;

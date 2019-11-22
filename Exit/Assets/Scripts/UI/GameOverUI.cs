@@ -38,13 +38,13 @@ public class GameOverUI : MonoBehaviour
     public void RetryGame()
     {
         //GamePlayManager.instance.PlayerCreate();
-        GamePlayManager.instance.PlayerInitialize();
+        GamePlayManager.instance.PlayerRespawn();
         GamePlayManager.instance.StageInitialize();
         
     }
 
     public void ReturnToTitle()
     {
-        SceneManager.LoadScene("Title");
+        GamePlayManager.instance.GameEnd();
     }
 }
