@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6823541275418372784}
   m_Layer: 0
   m_Name: Camera
-  m_TagString: Untagged
+  m_TagString: BigCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offset: {x: 0, y: 1.5, z: -0.1}
-  sensitivity: 0
+  sensitivity: 20
   JHori: 2
   JVerti: 2
   minRotateX: -60

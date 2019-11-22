@@ -10,6 +10,8 @@ TagManager:
   - P_Door
   - Door_R
   - Door_L
+  - BigCamera
+  - Block
   - GoalZone
   layers:
   - Default
