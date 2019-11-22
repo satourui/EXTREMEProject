@@ -148,7 +148,7 @@ MonoBehaviour:
   flagName: b
   changeOnceMessages:
   - "\u62BC\u3057\u305F"
-  loopMessageEndless: 0
+  loopMessageEndless: 1
   endlessSwiching: 0
   changeLoopMessages:
   - "\u96FB\u6E90\u306F\u5165\u3063\u3066\u3044\u308B"
@@ -2225,7 +2225,8 @@ MonoBehaviour:
   afterSelect: 0
   forFlag: 1
   flagName: GetKey
-  changeOnceMessages: []
+  changeOnceMessages:
+  - "\u9375\u3092\u958B\u3051\u305F"
   loopMessageEndless: 1
   endlessSwiching: 0
   changeLoopMessages:

@@ -19,7 +19,6 @@ public class Door : MonoBehaviour
 
 
     //ナリが追加
-    private PlacedObj placedObj;
     [SerializeField]
     private bool isLock = false;  //鍵がかかっているならtrue
     //
@@ -35,9 +34,7 @@ public class Door : MonoBehaviour
         animator = GetComponent<Animator>();
 
         audioSource = GetComponent<AudioSource>();
-
-
-        placedObj = GetComponent<PlacedObj>();
+        
     }
 
     // Update is called once per frame
