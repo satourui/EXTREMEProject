@@ -55,6 +55,7 @@ public class Door : MonoBehaviour
             {
                 animator.SetBool("Open1", false);
                 animator.SetBool("Open2", false);
+
             }
         }
         //Debug.Log(": R :" + door_R.inDoor + ": L :" + door_L.inDoor);

@@ -2364,10 +2364,11 @@ MonoBehaviour:
   goalObj: 0
   automaticDoorObj: 0
   changeMessageObj: 0
-  itemDropObj: 1
+  itemObj: 1
   flagChangeObj: 0
   openAndCloseObj: 0
   hiddenObj: 0
+  objectSpawnObj: 0
 --- !u!114 &3693386609618305541
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2390,6 +2391,11 @@ MonoBehaviour:
   flagName: 
   targetObj: {fileID: 1039795397867029527}
   isDeleteObject: 1
+  iceObj: 0
+  meltTimer: 0
+  meltObj: {fileID: 0}
+  doubleTimes: 0
+  iceCountDownTimer: 0
 --- !u!114 &3139132494870500791
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3361,16 +3367,16 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 1.35
       objectReference: {fileID: 0}
-    - target: {fileID: 6162891778140493225, guid: 120c5af16934964468c4c35effb014b0,
-        type: 3}
-      propertyPath: messages.Array.data[0]
-      value: "\u9375\u304C\u304B\u304B\u3063\u3066\u3044\u308B"
-      objectReference: {fileID: 0}
     - target: {fileID: 6162891777465503011, guid: 120c5af16934964468c4c35effb014b0,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: dacdb2f82477d9c418df41a34a722868, type: 2}
+    - target: {fileID: 6162891778140493225, guid: 120c5af16934964468c4c35effb014b0,
+        type: 3}
+      propertyPath: messages.Array.data[0]
+      value: "\u9375\u304C\u304B\u304B\u3063\u3066\u3044\u308B"
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 120c5af16934964468c4c35effb014b0, type: 3}
 --- !u!1 &1039795397867029527 stripped
@@ -3452,6 +3458,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Door
       objectReference: {fileID: 0}
+    - target: {fileID: 2313405229868462739, guid: e733a9dea74050446bee5adec3e4136e,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: dacdb2f82477d9c418df41a34a722868, type: 2}
     - target: {fileID: 2313405229868462741, guid: e733a9dea74050446bee5adec3e4136e,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -3467,11 +3478,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 3.4485002
       objectReference: {fileID: 0}
-    - target: {fileID: 2313405229868462739, guid: e733a9dea74050446bee5adec3e4136e,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: dacdb2f82477d9c418df41a34a722868, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e733a9dea74050446bee5adec3e4136e, type: 3}
 --- !u!4 &4702800048195569531 stripped
