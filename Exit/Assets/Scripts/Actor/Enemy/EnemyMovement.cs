@@ -104,6 +104,11 @@ public class EnemyMovement : MonoBehaviour
         {
             agent.SetDestination(currentTargetPos);
         }
+
+        if (isActive && targetDistance < chaceDistance)
+        {
+            state = EnemyState.Walk;
+        }
     }
 
     private void StateAnimation()
