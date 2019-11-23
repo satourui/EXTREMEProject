@@ -60,6 +60,8 @@ public class ItemObj : MonoBehaviour
     //TalkTextUI talkText;
     //PlayerController pc;
 
+    private bool isFlagChange;  //フラグを変更できるならtrue 
+
 
     public Texture2D ItemIcon { get => itemIcon; set => itemIcon = value; }
 
@@ -81,6 +83,11 @@ public class ItemObj : MonoBehaviour
 
         ishad = false;
         isDrop = true;
+
+        if (GetComponent<PlacedObjParameter>().FlagChangeObj)
+        {
+            isFlagChange = true;
+        }
 
         //pc = GamePlayManager.instance.PC;
     }
@@ -127,6 +134,8 @@ public class ItemObj : MonoBehaviour
             //GetComponent<PlacedObjParameter>().ItemObj = false;
             isDrop = false;
         }
+
+        DeleteObject();
     }
 
     public void UseItem()
@@ -154,13 +163,32 @@ public class ItemObj : MonoBehaviour
                 else
                 {
                     isUse = true;
-                    targetObj.GetComponent<ChangeMessageObj>().IsMessageChange = true;
+
+                    if (targetObj.GetComponent<PlacedObjParameter>().ChangeMessageObj)
+                    {
+                        targetObj.GetComponent<ChangeMessageObj>().IsMessageChange = true;
+                    }
+                    
 
                     if (targetObj.GetComponent<PlacedObjParameter>().AutomaticDoorObj)
                     {
                         targetObj.GetComponent<PlacedObj>().SelectMessage = "";
                         targetObj.GetComponentInChildren<Door>().Unlock();
                     }
+
+                    if (targetObj.GetComponent<PlacedObjParameter>().ObjectSpawnObj)
+                    {
+                        var oso = targetObj.GetComponent<ObjectSpawnObj>();
+                        oso.SpawnObject_Item();
+                        oso.IsSpwan = true;
+                        isDrop = true;
+                    }
+
+                    if (isFlagChange)
+                    {
+                        GetComponent<FlagChangeObj>().FlagOn();
+                    }
+
                 }
             }
         }
@@ -169,20 +197,27 @@ public class ItemObj : MonoBehaviour
         if (isUse)
         {
             talkText.MainMessages = itemMessages;
-            talkText.SelectObj = this.gameObject;
+            //talkText.SelectObj = this.gameObject;
             
             GamePlayManager.instance.State = GamePlayManager.GameState.Talk;
             pc.ItemDelete(pc.ItemNum);
             talkText.TextInvisible();
             
             talkText.IsTalk = true;
+
             
+            
+            //ItemGet();
+
+            //DeleteObject();
+            
+        
         }
 
         
     }
 
-    public void DeleteObject()
+    void DeleteObject()
     {
         if (isDeleteObject )
         {
@@ -194,7 +229,7 @@ public class ItemObj : MonoBehaviour
     {
         if (iceObj)
         {
-            if (isTimerStart)
+            if (isTimerStart && !ishad)
             {
                 
                 iceCountDownTimer -= Time.deltaTime * doubleTimes;

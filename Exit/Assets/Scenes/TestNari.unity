@@ -1899,11 +1899,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3055143522843455223, guid: 6a484e85d688c4843b6e928ee7f21175,
-        type: 3}
-      propertyPath: iceCountDownTimer
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6a484e85d688c4843b6e928ee7f21175, type: 3}
 --- !u!222 &4305200201477946392
