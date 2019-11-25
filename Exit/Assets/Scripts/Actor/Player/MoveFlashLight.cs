@@ -20,6 +20,10 @@ public class MoveFlashLight : MonoBehaviour
     private bool inBlock;
 
     private float distance;
+    private float spotMax = 100f;
+
+    private float lightSpot;
+    private float lightSpotAngle;
 
     // Start is called before the first frame update
     void Start()
@@ -37,6 +41,8 @@ public class MoveFlashLight : MonoBehaviour
         inBlock = false;
 
         distance = 0;
+
+        lightSpotAngle = lightObj.spotAngle;
     }
 
     // Update is called once per frame
@@ -107,31 +113,58 @@ public class MoveFlashLight : MonoBehaviour
 
         #endregion
 
-        if (flash.LightOnFlag)
-        {
-            if (inBlock)
-            {
-                float dis = distance;
-                if (dis > lightIntensity)
-                {
-                    dis = lightIntensity;
-                }
-                if (dis < 0.5f)
-                {
-                    dis = 0.5f;
-                }
-                lightObj.intensity = dis;
-            }
-            else if (!inBlock)
-            {
-                lightObj.intensity += 0.05f;
+        //if (flash.LightOnFlag)
+        //{
+        //    if (inBlock)
+        //    {
+        //        float dis = distance;
+        //        if (dis > lightIntensity)
+        //        {
+        //            dis = lightIntensity;
+        //        }
+        //        if (dis < 0.5f)
+        //        {
+        //            dis = 0.5f;
+        //        }
+        //        lightObj.intensity = dis;
 
-                if (lightObj.intensity > lightIntensity)
-                {
-                    lightObj.intensity = lightIntensity;
-                }
-            }
-        }
+
+        //        float spot = spotMax - (distance * 6f);
+        //        if (spot < lightSpotAngle)
+        //        {
+
+
+        //            spot = lightSpotAngle;
+        //        }
+        //        if (spot > spotMax)
+        //        {
+        //            spot = spotMax;
+        //        }
+
+        //        lightObj.spotAngle = spot;
+        //    }
+        //    else if (!inBlock)
+        //    {
+        //        lightObj.intensity += 0.05f;
+
+        //        if (lightObj.intensity > lightIntensity)
+        //        {
+        //            lightObj.intensity = lightIntensity;
+        //        }
+
+
+
+        //        if (lightObj.spotAngle < lightSpotAngle)
+        //        {
+        //            lightObj.spotAngle = spotMax - (distance * 7f);
+        //        }
+
+        //        if (lightObj.spotAngle < lightSpotAngle)
+        //        {
+        //            lightObj.spotAngle = lightSpotAngle;
+        //        }
+        //    }
+        //}
     }
 
     private void OnTriggerStay(Collider col)

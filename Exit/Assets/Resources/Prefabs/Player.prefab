@@ -1,50 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1524998678629302229
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6094524651378547310}
-  - component: {fileID: 3924719073284923465}
-  m_Layer: 0
-  m_Name: LightTarget
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6094524651378547310
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1524998678629302229}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.03, y: 0, z: 0.92}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 9041300537801598666}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3924719073284923465
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1524998678629302229}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6be0df1e725326a44bb152a858fd93e3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gizmoSize: 0.3
-  gizmoColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
 --- !u!1 &8196738503000259354
 GameObject:
   m_ObjectHideFlags: 0
@@ -2722,10 +2677,10 @@ GameObject:
   - component: {fileID: 9041300537801598665}
   - component: {fileID: 9041300537801598664}
   - component: {fileID: 6537127048471156249}
-  - component: {fileID: 734701064392495715}
+  - component: {fileID: 2790025058449506859}
   m_Layer: 0
   m_Name: FlashLight
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2740,8 +2695,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.03, y: 1.19, z: 0.68}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 6094524651378547310}
+  m_Children: []
   m_Father: {fileID: 8196738503562854622}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2807,9 +2761,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5af838a9debfc454ca486adcca7b4abd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lightTarget: {fileID: 1524998678629302229}
---- !u!65 &734701064392495715
-BoxCollider:
+  lightTarget: {fileID: 0}
+--- !u!135 &2790025058449506859
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -2819,5 +2773,5 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.5, y: 1.5, z: 3.5}
-  m_Center: {x: 0, y: 0, z: 1}
+  m_Radius: 5
+  m_Center: {x: 0, y: 0, z: -0.5}

@@ -154,13 +154,22 @@ public class ItemObj : MonoBehaviour
                 else
                 {
                     isUse = true;
-                    targetObj.GetComponent<ChangeMessageObj>().IsMessageChange = true;
+                    if (targetObj.GetComponent<ChangeMessageObj>() != null)
+                    {
+                        targetObj.GetComponent<ChangeMessageObj>().IsMessageChange = true;
+                    }
 
                     if (targetObj.GetComponent<PlacedObjParameter>().AutomaticDoorObj)
                     {
                         targetObj.GetComponent<PlacedObj>().SelectMessage = "";
                         targetObj.GetComponentInChildren<Door>().Unlock();
                     }
+                }
+
+                var oso = selectObj.GetComponent<ObjectSpawnObj>();
+                if (oso != null)
+                {
+                    oso.SpawnObject();
                 }
             }
         }
@@ -176,6 +185,12 @@ public class ItemObj : MonoBehaviour
             talkText.TextInvisible();
             
             talkText.IsTalk = true;
+
+            var fco = GetComponent<FlagChangeObj>();
+            if (fco != null)
+            {
+                fco.FlagOn();
+            }
             
         }
 

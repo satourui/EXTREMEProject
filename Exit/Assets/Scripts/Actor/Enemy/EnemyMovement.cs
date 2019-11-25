@@ -38,9 +38,12 @@ public class EnemyMovement : MonoBehaviour
 
     private GameObject player;
 
+    //2019/11/25
+    private bool isPlayerFound;
+
     public enum EnemyState
     {
-        Idle,Walk
+        Idle,Walk,Found
     }
     public EnemyState state;
 
@@ -60,6 +63,8 @@ public class EnemyMovement : MonoBehaviour
         isPlayerDead = false;
 
         currentTargetPos = Vector3.zero;
+
+        isPlayerFound = false;
     }
 
     // Update is called once per frame
@@ -72,8 +77,6 @@ public class EnemyMovement : MonoBehaviour
         }
 
         targetDistance = (transform.position - currentTargetPos).magnitude;
-        StateAnimation();
-
 
         if (targetDistance < 0.7f)//playerとenemyが近づいたら  ↓から
         {
@@ -100,15 +103,13 @@ public class EnemyMovement : MonoBehaviour
 
         targetDistance = (transform.position - currentTargetPos).magnitude;
 
-        if (isActive && targetDistance < chaceDistance &&state == EnemyState.Walk)
-        {
-            agent.SetDestination(currentTargetPos);
-        }
-
         if (isActive && targetDistance < chaceDistance)
         {
-            state = EnemyState.Walk;
+            agent.SetDestination(currentTargetPos);
+            state = EnemyState.Found;
         }
+
+        StateAnimation();
     }
 
     private void StateAnimation()
@@ -117,10 +118,17 @@ public class EnemyMovement : MonoBehaviour
         if (state == EnemyState.Walk)
         {
             animator.SetBool("IsWalk", true);
+            animator.SetBool("IsFind", false);
         }
         else if (state == EnemyState.Idle)
         {
             animator.SetBool("IsWalk", false);
+            animator.SetBool("IsFind", false);
         }
+        else if(state == EnemyState.Found)
+        {
+            animator.SetBool("IsFind", true);
+        }
+
     }
 }
