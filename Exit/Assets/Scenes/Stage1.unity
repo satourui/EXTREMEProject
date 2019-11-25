@@ -728,6 +728,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GamePlayUI
       objectReference: {fileID: 0}
+    - target: {fileID: 760199480, guid: e00ca138de29f1f4cbf025e3203c4d20, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 462578545005055523, guid: e00ca138de29f1f4cbf025e3203c4d20,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -832,6 +836,37 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 462578545005055521, guid: e00ca138de29f1f4cbf025e3203c4d20,
+        type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 1080
+      objectReference: {fileID: 0}
+    - target: {fileID: 462578545005055521, guid: e00ca138de29f1f4cbf025e3203c4d20,
+        type: 3}
+      propertyPath: m_MatchWidthOrHeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 462578545005055521, guid: e00ca138de29f1f4cbf025e3203c4d20,
+        type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 900
+      objectReference: {fileID: 0}
+    - target: {fileID: 760199481, guid: e00ca138de29f1f4cbf025e3203c4d20, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 303
+      objectReference: {fileID: 0}
+    - target: {fileID: 760199481, guid: e00ca138de29f1f4cbf025e3203c4d20, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -172.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 760199481, guid: e00ca138de29f1f4cbf025e3203c4d20, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 706.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 760199481, guid: e00ca138de29f1f4cbf025e3203c4d20, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 444.7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e00ca138de29f1f4cbf025e3203c4d20, type: 3}

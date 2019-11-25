@@ -3833,7 +3833,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &3085024030766934165
 Transform:
   m_ObjectHideFlags: 0
@@ -7471,6 +7471,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6162891777465503011, guid: 120c5af16934964468c4c35effb014b0,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: dacdb2f82477d9c418df41a34a722868, type: 2}
     - target: {fileID: 6162891777465503013, guid: 120c5af16934964468c4c35effb014b0,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -7481,11 +7486,6 @@ PrefabInstance:
       propertyPath: messages.Array.data[0]
       value: "\u30AB\u30AE\u304C\u304B\u304B\u3063\u3066\u3044\u308B"
       objectReference: {fileID: 0}
-    - target: {fileID: 6162891777465503011, guid: 120c5af16934964468c4c35effb014b0,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: dacdb2f82477d9c418df41a34a722868, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 120c5af16934964468c4c35effb014b0, type: 3}
 --- !u!4 &7704747514921308380 stripped
@@ -7667,11 +7667,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 916347443941347298}
     m_Modifications:
-    - target: {fileID: 5873294090145007585, guid: c68d9db3428465c4195f1553e8f89657,
-        type: 3}
-      propertyPath: m_Name
-      value: DoorUnlocked
-      objectReference: {fileID: 0}
     - target: {fileID: 6445622210174885932, guid: c68d9db3428465c4195f1553e8f89657,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -7726,6 +7721,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5873294090145007585, guid: c68d9db3428465c4195f1553e8f89657,
+        type: 3}
+      propertyPath: m_Name
+      value: DoorUnlocked
       objectReference: {fileID: 0}
     - target: {fileID: 2483625122576382781, guid: c68d9db3428465c4195f1553e8f89657,
         type: 3}
