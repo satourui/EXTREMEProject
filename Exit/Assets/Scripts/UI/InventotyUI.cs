@@ -10,7 +10,7 @@ public class InventotyUI : MonoBehaviour
 
     Image currentItemImage;
     Sprite sprite;
-    PlayerController pc;
+    //PlayerController pc;
     [SerializeField]
     private List<GameObject> itemList;
 
@@ -20,7 +20,7 @@ public class InventotyUI : MonoBehaviour
     {
         currentItemImage = currentItemObj.GetComponent<Image>();
         //pc = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-        pc = GamePlayManager.instance.Player.GetComponent<PlayerController>();
+        //pc = GamePlayManager.instance.Player.GetComponent<PlayerController>();
         //itemList = pc.ItemList;
     }
 
@@ -37,10 +37,11 @@ public class InventotyUI : MonoBehaviour
             {
                 inventoryObj.SetActive(true);
             }
-            
 
+            var pc = GamePlayManager.instance.PC;
+            
             //アイテムを持っていなければ
-            if (pc.ItemList.Count == 0)
+            if (pc.ItemList.Count==0)
             {
                 currentItemImage.gameObject.SetActive(false);
                 return;

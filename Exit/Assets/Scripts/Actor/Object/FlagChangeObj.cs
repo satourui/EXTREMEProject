@@ -24,6 +24,7 @@ public class FlagChangeObj : MonoBehaviour
     private bool isChangeFlag = false;  //フラグが変更できるならtrue
 
     GamePlayManager gameManager;
+    
 
     void Start()
     {
@@ -33,6 +34,7 @@ public class FlagChangeObj : MonoBehaviour
         {
             isChangeFlag = true;
         }
+
     }
 
     // Update is called once per frame
@@ -53,17 +55,21 @@ public class FlagChangeObj : MonoBehaviour
     {
         if (isChangeFlag)
         {
-            gameManager.FlagOn(changeFlagName);
-
-            if (isClearFlagChange)
-            {
-                GamePlayManager.instance.IsStageClearFlag = true;
-            }
-
             if (isDead)
             {
                 Destroy(gameObject);
             }
+
+            if (isClearFlagChange)
+            {
+                GamePlayManager.instance.IsStageClearFlag = true;
+                isClearFlagChange = false;
+                return;
+            }
+
+            gameManager.FlagOn(changeFlagName);
+
+            
         }
     }
 }

@@ -135,6 +135,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8150907556832258049, guid: 83800fd11ea8259428901fc6534a8472,
+        type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8680256513648698815, guid: 83800fd11ea8259428901fc6534a8472,
         type: 3}
       propertyPath: m_LocalPosition.x

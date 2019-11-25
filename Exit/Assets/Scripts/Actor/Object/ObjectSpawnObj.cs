@@ -7,6 +7,12 @@ public class ObjectSpawnObj : MonoBehaviour
     [SerializeField, Header("生成オブジェクト")]
     private GameObject spawnObject = null;
 
+    [SerializeField, Header("生成してそのままゲットするならtrue")]
+    private bool isItemGet = false;
+
+    [SerializeField,Header("このオブジェにアイテムを使用して生成されるならtrue")]
+    private bool isItem = false;  //アイテムを使用して生成されるならtrue
+
     [SerializeField, Header("生成にフラグが必要ならtrue")]
     private bool forFlag = false;
 
@@ -15,11 +21,16 @@ public class ObjectSpawnObj : MonoBehaviour
 
     private bool isSpwan;  //生成したらtrue
 
-
+    public bool IsSpwan { get => isSpwan; set => isSpwan = value; }
 
     void Start()
     {
         isSpwan = false;
+
+        //if (GetComponent<PlacedObjParameter>().ItemObj)
+        //{
+        //    isItem = true;
+        //}
     }
 
     // Update is called once per frame
@@ -30,17 +41,49 @@ public class ObjectSpawnObj : MonoBehaviour
 
     public void SpawnObject()
     {
+        if (isItem ||isItemGet)
+            return;
+
         if (forFlag)
         {
             if (!GamePlayManager.instance.CurrentStageFlags[flagName])
                 return;
         }
 
+        
 
         if (!isSpwan)
         {
             spawnObject.SetActive(true);
             isSpwan = true;
+        }
+    }
+
+    public void SpawnObject_Item()
+    {
+        if (!isItem ||isItemGet)
+            return;
+        
+        if (forFlag)
+        {
+            if (!GamePlayManager.instance.CurrentStageFlags[flagName])
+                return;
+        }
+
+        if (!isSpwan)
+        {
+            spawnObject.SetActive(true);
+            isSpwan = true;
+        }
+    }
+
+    public void GetSpawnItem()
+    {
+        
+        if (isItemGet && isSpwan)
+        {
+            GamePlayManager.instance.PC.ItemList.Add(spawnObject);
+            isItemGet = false;
         }
     }
 }

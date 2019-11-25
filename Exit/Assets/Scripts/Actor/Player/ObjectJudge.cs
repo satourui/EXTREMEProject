@@ -6,6 +6,8 @@ public class ObjectJudge : MonoBehaviour
 {
     GameObject currentObj;
 
+    List<GameObject> currentObjList;
+
     GameObject textObj;
 
     PlayerController pc;
@@ -17,6 +19,7 @@ public class ObjectJudge : MonoBehaviour
         textObj = GameObject.Find("GamePlayUI");
         pc = GetComponentInParent<PlayerController>();
         m_camera = GetComponentInParent<PlayerController>().MainCamera.gameObject;
+        currentObjList = new List<GameObject>();
     }
 
     // Update is called once per frame
@@ -48,8 +51,7 @@ public class ObjectJudge : MonoBehaviour
 
     void TalkReset()
     {
-        if (/*pc.State == PlayerController.PlayerState.Normal*/
-            GamePlayManager.instance.State==GamePlayManager.GameState.Play)
+        if (GamePlayManager.instance.State==GamePlayManager.GameState.Play)
         {
             var tt = textObj.GetComponent<TalkTextUI>();
             tt.TextClose();
@@ -64,13 +66,22 @@ public class ObjectJudge : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
         var obj = other.gameObject;
-        var objParameter = obj.GetComponent<PlacedObjParameter>();
+
+        currentObjList.Insert(0, obj);
+
+        if (currentObjList.Count == 0)
+            return;
+        currentObj = currentObjList[0];
+
+        //var objParameter = obj.GetComponent<PlacedObjParameter>();
+        //if (objParameter == null)
+        //    return;
+
+        var objParameter = currentObj.GetComponent<PlacedObjParameter>();
         if (objParameter == null)
             return;
 
-        currentObj = obj;
-
-        //if (objParameter.TalkObj)
+        ////if (objParameter.TalkObj)
         //選択できる状態かつ隠されていないオブジェなら
         if (obj.GetComponent<PlacedObj>().IsSelect)
         {
@@ -81,6 +92,10 @@ public class ObjectJudge : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         var obj = other.gameObject;
+
+        if (currentObjList.Count == 0)
+            return;
+        currentObjList.Remove(obj);
 
         var objParameter = obj.GetComponent<PlacedObjParameter>();
         if (objParameter == null)

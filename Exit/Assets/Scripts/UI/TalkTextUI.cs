@@ -119,40 +119,49 @@ public class TalkTextUI : MonoBehaviour
             {
                 Start();
 
-                var objParameter = selectObj.GetComponent<PlacedObjParameter>();
+                //var objParameter = selectObj.GetComponent<PlacedObjParameter>();
 
-                //選んだオブジェクトがアイテムオブジェクトなら
-                if (objParameter.ItemObj)
+                if (selectObj!=null)
                 {
-                    var io = selectObj.GetComponent<ItemObj>();
-                    io.ItemGet();
-                    io.DeleteObject();
-                }
+                    var objParameter = selectObj.GetComponent<PlacedObjParameter>();
 
-                //フラグを変更するオブジェクトなら
-                if (objParameter.FlagChangeObj)
-                {
-                    selectObj.GetComponent<FlagChangeObj>().FlagOn();
-                }
+                    //選んだオブジェクトがアイテムオブジェクトなら
+                    if (objParameter.ItemObj)
+                    {
+                        var io = selectObj.GetComponent<ItemObj>();
+                        io.ItemGet();
+                        //io.DeleteObject();
+                    }
 
-                //メッセージを変更するオブジェなら
-                if (objParameter.ChangeMessageObj)
-                {
-                    var cmObj = selectObj.GetComponent<ChangeMessageObj>();
-                    
-                    cmObj.MessageSwicting();
-                    cmObj.ChangeLoopMessage_Flag();
-                }
+                    //フラグを変更するオブジェクトなら
+                    if (objParameter.FlagChangeObj)
+                    {
+                        selectObj.GetComponent<FlagChangeObj>().FlagOn();
+                    }
 
-                //隠されているオブジェクトなら
-                if (objParameter.HiddenObj)
-                {
-                    selectObj.GetComponent<HiddenObj>().StopHiding();
-                }
+                    //メッセージを変更するオブジェなら
+                    if (objParameter.ChangeMessageObj)
+                    {
+                        var cmObj = selectObj.GetComponent<ChangeMessageObj>();
 
-                if (objParameter.ObjectSpawnObj)
-                {
-                    selectObj.GetComponent<ObjectSpawnObj>().SpawnObject();
+                        cmObj.MessageSwicting();
+                        cmObj.ChangeLoopMessage_Flag();
+                    }
+
+                    //隠されているオブジェクトなら
+                    if (objParameter.HiddenObj)
+                    {
+                        selectObj.GetComponent<HiddenObj>().StopHiding();
+                    }
+
+                    if (objParameter.ObjectSpawnObj)
+                    {
+                        var oso = selectObj.GetComponent<ObjectSpawnObj>();
+                        oso.SpawnObject();
+                        oso.GetSpawnItem();
+
+
+                    }
                 }
 
                 TextClose();
