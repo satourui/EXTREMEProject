@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 2218356161809029627}
   - component: {fileID: 2218356161809029626}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: Enemy2
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -117,9 +117,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
-  target: {fileID: 0}
   isActive: 0
   chaceDistance: 0
+  isPlayerDead: 0
+  idleTime: 5
+  state: 0
 --- !u!114 &2218356161809029627
 MonoBehaviour:
   m_ObjectHideFlags: 0
