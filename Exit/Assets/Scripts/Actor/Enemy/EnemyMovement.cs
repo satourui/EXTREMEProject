@@ -41,6 +41,11 @@ public class EnemyMovement : MonoBehaviour
     //2019/11/25
     private bool isPlayerFound;
 
+
+    public Transform gameOverInitPos;
+
+    bool isGameoverFlag;
+
     public enum EnemyState
     {
         Idle,Walk,Found
@@ -65,11 +70,26 @@ public class EnemyMovement : MonoBehaviour
         currentTargetPos = Vector3.zero;
 
         isPlayerFound = false;
+
+        isGameoverFlag = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+        var gameState = GamePlayManager.instance.State;
+        if (isGameoverFlag)
+        {
+            if(gameState == GamePlayManager.GameState.Play)
+            {
+                transform.position = gameOverInitPos.position;
+                transform.rotation = gameOverInitPos.rotation;
+                agent.ResetPath();
+                state = EnemyState.Walk;
+                isGameoverFlag = false;
+            }
+        }
+
         if (playerController.isDead)
         {
             isPlayerDead = true;//enemyのスクリプト用
@@ -110,6 +130,16 @@ public class EnemyMovement : MonoBehaviour
         }
 
         StateAnimation();
+
+        if (gameState == GamePlayManager.GameState.GameOver)
+        {
+            //transform.position = gameOverInitPos.position;
+            //transform.rotation = gameOverInitPos.rotation;
+            //agent.ResetPath();
+            //state = EnemyState.Walk;
+
+            isGameoverFlag = true;
+        }
     }
 
     private void StateAnimation()
