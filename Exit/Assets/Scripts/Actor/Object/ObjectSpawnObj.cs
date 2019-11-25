@@ -19,6 +19,9 @@ public class ObjectSpawnObj : MonoBehaviour
     [SerializeField,Header("そのフラグ名")]
     private string flagName = "";
 
+    [SerializeField, Header("生成した後に消すならチェック")]
+    private bool isDeadflag;
+
     private bool isSpwan;  //生成したらtrue
 
     public bool IsSpwan { get => isSpwan; set => isSpwan = value; }
@@ -73,6 +76,10 @@ public class ObjectSpawnObj : MonoBehaviour
         if (!isSpwan)
         {
             spawnObject.SetActive(true);
+            if (isDeadflag)
+            {
+                gameObject.SetActive(false);
+            }
             isSpwan = true;
         }
     }
