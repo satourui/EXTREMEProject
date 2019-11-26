@@ -379,6 +379,7 @@ GameObject:
   - component: {fileID: 4247333442923855150}
   - component: {fileID: 156155765214506761}
   - component: {fileID: 1126625680694075701}
+  - component: {fileID: 5368196713814911009}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: Untagged
@@ -494,6 +495,24 @@ MonoBehaviour:
   openAndCloseObj: 0
   hiddenObj: 0
   objectSpawnObj: 0
+--- !u!114 &5368196713814911009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1674257075847722854}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cdc304912babe549b9517675cd38380, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  changeFlagName: 
+  none: 0
+  forFlag: 0
+  conditionFlagName: 
+  isDead: 0
+  isClearFlagChange: 0
 --- !u!1 &2958961939853001035
 GameObject:
   m_ObjectHideFlags: 0
@@ -1383,6 +1402,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1629139490122571360}
     m_Modifications:
+    - target: {fileID: 2313405229467150874, guid: e733a9dea74050446bee5adec3e4136e,
+        type: 3}
+      propertyPath: m_Name
+      value: Door
+      objectReference: {fileID: 0}
     - target: {fileID: 2313405229467150875, guid: e733a9dea74050446bee5adec3e4136e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1438,11 +1462,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2313405229467150874, guid: e733a9dea74050446bee5adec3e4136e,
-        type: 3}
-      propertyPath: m_Name
-      value: Door
-      objectReference: {fileID: 0}
     - target: {fileID: 2313405229868462739, guid: e733a9dea74050446bee5adec3e4136e,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -1463,6 +1482,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1629139490122571360}
     m_Modifications:
+    - target: {fileID: 2313405229467150874, guid: e733a9dea74050446bee5adec3e4136e,
+        type: 3}
+      propertyPath: m_Name
+      value: Door (1)
+      objectReference: {fileID: 0}
     - target: {fileID: 2313405229467150875, guid: e733a9dea74050446bee5adec3e4136e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1517,11 +1541,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2313405229467150874, guid: e733a9dea74050446bee5adec3e4136e,
-        type: 3}
-      propertyPath: m_Name
-      value: Door (1)
       objectReference: {fileID: 0}
     - target: {fileID: 2313405229868462739, guid: e733a9dea74050446bee5adec3e4136e,
         type: 3}
