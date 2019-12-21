@@ -18,7 +18,7 @@ public class PauseUI : MonoBehaviour
     void Start()
     {
         sensitivity = 30;
-        playerController = GamePlayManager.instance.Player.GetComponent<PlayerController>();
+        playerController = GamePlayManager.instance.PC;
         //cameraController = playerController.MainCamera.gameObject.GetComponent<CameraController>();
     }
 

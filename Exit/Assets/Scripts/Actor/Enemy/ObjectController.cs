@@ -17,41 +17,41 @@ public class ObjectController : MonoBehaviour
 
     private EnemyMovement enemyMovement;//playerが死んだら用
 
-    private Vector3 CurretTargetPosition
-    {
-        get
-        {
-            if (targets == null || targets.Length <= targetIndex)
-            {
-                return Vector3.zero;
-            }
+    //private Vector3 CurretTargetPosition
+    //{
+    //    get
+    //    {
+    //        if (targets == null || targets.Length <= targetIndex)
+    //        {
+    //            return Vector3.zero;
+    //        }
 
-            return targets[targetIndex].position;
-        }
-    }
+    //        return targets[targetIndex].position;
+    //    }
+    //}
 
     private void Start()
     {
-        navAgent = GetComponent<NavMeshAgent>();
-        navAgent.destination = CurretTargetPosition;
+        //navAgent = GetComponent<NavMeshAgent>();
+        //navAgent.destination = CurretTargetPosition;
 
-        enemyMovement = GetComponent<EnemyMovement>();//playerが死んだら用
+        //enemyMovement = GetComponent<EnemyMovement>();//playerが死んだら用
     }
 
     private void Update()
     {
-        //↓敵の動きを止めたいとき
-        if (enemyMovement.state == EnemyMovement.EnemyState.Idle)
-        {
-            return;
-        }
+        ////↓敵の動きを止めたいとき
+        //if (enemyMovement.state == EnemyMovement.EnemyState.Idle)
+        //{
+        //    return;
+        //}
 
-        if (navAgent.remainingDistance <= destinationThreshold)
-        {
-            targetIndex = (targetIndex + 1) % targets.Length;
+        //if (navAgent.remainingDistance <= destinationThreshold)
+        //{
+        //    targetIndex = (targetIndex + 1) % targets.Length;
 
-            navAgent.destination = CurretTargetPosition;
-        }
+        //    navAgent.destination = CurretTargetPosition;
+        //}
     }
 
 } // class ObjectController

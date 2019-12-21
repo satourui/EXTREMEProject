@@ -10,23 +10,33 @@ public class FootstepSEPlayer : MonoBehaviour
     [SerializeField] float pitchRange = 0.1f;
 
     protected AudioSource source;
-
-    PlayerController playerController;
+    
     
     // Start is called before the first frame update
-    private void Awake()
+    private void Start()
     {
         source = GetComponents<AudioSource>()[0];
-
-        playerController = GetComponent<PlayerController>();
+        
     }
 
     public void PlayFootstepSE()
     {
+        //source = GetComponents<AudioSource>()[0];
+
         if (randomizePitch)
             source.pitch = 1.0f + Random.Range(-pitchRange, pitchRange);
 
         source.PlayOneShot(clips[Random.Range(0, clips.Length)]);
+    }
+
+    public void Walk()
+    {
+        //source = GetComponents<AudioSource>()[1];
+
+        //if (randomizePitch)
+        //    source.pitch = 1.0f + Random.Range(-pitchRange, pitchRange);
+
+        //source.PlayOneShot(clips[Random.Range(0, clips.Length)]);
     }
 
     // Update is called once per frame

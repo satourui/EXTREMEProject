@@ -17,27 +17,27 @@ public class SearchCharacter : MonoBehaviour
     private void OnTriggerStay(Collider col)
     {
 
-        if(col.tag == "Player")
-        {
-            Debug.DrawLine(transform.position +
-                Vector3.up, col.transform.position + Vector3.up,
-                Color.blue);
-            //enemyMovement.isActive = true;
+        //if(col.tag == "Player")
+        //{
+        //    Debug.DrawLine(transform.position +
+        //        Vector3.up, col.transform.position + Vector3.up,
+        //        Color.blue);
+        //    //enemyMovement.isActive = true;
 
-            if (!Physics.Linecast(transform.position + 
-                Vector3.up, col.transform.position +
-                Vector3.up, obstacleLayer))
-            {
-                enemyMovement.isActive = true;//ついてくるようにする
-            }
-        }
+        //    if (!Physics.Linecast(transform.position + 
+        //        Vector3.up, col.transform.position +
+        //        Vector3.up, obstacleLayer))
+        //    {
+        //        enemyMovement.isActive = true;//ついてくるようにする
+        //    }
+        //}
     }
 
     private void OnTriggerExit(Collider col)
     {
-        if(col.tag == "Player")
-        {
-            enemyMovement.isActive = false;//ついてこないようにする
-        }
+        //if(col.tag == "Player")
+        //{
+        //    enemyMovement.isActive = false;//ついてこないようにする
+        //}
     }
 }

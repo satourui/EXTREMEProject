@@ -12,11 +12,14 @@ public class Stage : MonoBehaviour
 
     [SerializeField]
     private Vector3 playerSpawnPos = Vector3.zero;
-    
+
+    [SerializeField]
+    private float playerSpawnRotate = 0;
 
     public List<string> StageFlagsList { get => stageFlagsList; }
     public List<GameObject> InitItemList { get => initItemList; set => initItemList = value; }
     public Vector3 PlayerSpawnPos { get => playerSpawnPos; set => playerSpawnPos = value; }
+    public float PlayerSpawnRotate { get => playerSpawnRotate; set => playerSpawnRotate = value; }
 
     void Start()
     {

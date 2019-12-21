@@ -30,6 +30,50 @@ Transform:
   m_Father: {fileID: 8196738503562854622}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1362878458507432095
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8407725283278997842}
+  - component: {fileID: 7155883198748116699}
+  m_Layer: 13
+  m_Name: FrontCollider
+  m_TagString: PlayerFront
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8407725283278997842
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1362878458507432095}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.934, z: 0.372}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8196738503562854622}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &7155883198748116699
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1362878458507432095}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.5, y: 1.6, z: 0.23}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1524998678629302229
 GameObject:
   m_ObjectHideFlags: 0
@@ -118,7 +162,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.4, y: 0.6, z: 1.3}
+  m_Size: {x: 0.4, y: 0.6, z: 1.7}
   m_Center: {x: 0, y: 0, z: 1.6}
 --- !u!114 &8196738503000259355
 MonoBehaviour:
@@ -1880,6 +1924,7 @@ Transform:
   - {fileID: 8196738503548097580}
   - {fileID: 9041300537801598666}
   - {fileID: 8671057321813298161}
+  - {fileID: 8407725283278997842}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1929,8 +1974,8 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 9bfc1eed7c7ed1149b3130e665deb702, type: 3}
-  m_PlayOnAwake: 1
-  m_Volume: 0.35
+  m_PlayOnAwake: 0
+  m_Volume: 0
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -2059,6 +2104,7 @@ MonoBehaviour:
   - {fileID: 0}
   isWalk: 0
   isDead: 0
+  debugPos: {x: 155, y: 0, z: 17.8}
 --- !u!1 &8196738503563156800
 GameObject:
   m_ObjectHideFlags: 0
@@ -2753,7 +2799,6 @@ GameObject:
   - component: {fileID: 9041300537801598665}
   - component: {fileID: 9041300537801598664}
   - component: {fileID: 6537127048471156249}
-  - component: {fileID: 734701064392495715}
   m_Layer: 0
   m_Name: FlashLight
   m_TagString: Player
@@ -2769,7 +2814,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9041300537801598667}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.03, y: 1.19, z: 0.68}
+  m_LocalPosition: {x: -0.011, y: 1.492, z: -0.069}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6094524651378547310}
@@ -2787,22 +2832,22 @@ Light:
   serializedVersion: 8
   m_Type: 0
   m_Color: {r: 0.9811321, g: 0.7689148, b: 0.58775365, a: 1}
-  m_Intensity: 2.3
-  m_Range: 30
-  m_SpotAngle: 63
+  m_Intensity: 1
+  m_Range: 50
+  m_SpotAngle: 66
   m_CookieSize: 10
   m_Shadows:
     m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
-    m_Strength: 1
+    m_Strength: 0.8
     m_Bias: 0.05
     m_NormalBias: 0.4
     m_NearPlane: 0.2
   m_Cookie: {fileID: 0}
   m_DrawHalo: 0
   m_Flare: {fileID: 0}
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -2839,16 +2884,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lightTarget: {fileID: 1524998678629302229}
---- !u!65 &734701064392495715
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9041300537801598667}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Size: {x: 1.5, y: 1.5, z: 3.5}
-  m_Center: {x: 0, y: 0, z: 1}

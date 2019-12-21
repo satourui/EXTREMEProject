@@ -47,7 +47,7 @@ public class CameraController : MonoBehaviour
 
     void Start()
     {
-        playerObj = GameObject.FindGameObjectWithTag("Player");
+        playerObj = GamePlayManager.instance.Player;
         playerTransform = playerObj.transform;
         transform.position = playerTransform.transform.position + offset;
         //angle = transform.localEulerAngles.x;
@@ -71,29 +71,29 @@ public class CameraController : MonoBehaviour
         //if (target.GetComponent<PlayerController>().State == PlayerController.PlayerState.Normal)
         //if (pauseScript.GetPlayerflag())
 
-        if (GamePlayManager.instance.State == GamePlayManager.GameState.Play ||
-            GamePlayManager.instance.State == GamePlayManager.GameState.Talk)
+        if (GamePlayManager.instance.State == GamePlayManager.GameState.Play)
         {
             CameraMouseRotation();
+
+
+            //かん↓  慣性かけてる
+            pVec3 = playerTransform.transform.position + offset;
+
+            //縦の動き                                                          ↓スピード↓縦幅(大きくすると縮まる)
+
+            if (playerCont.isWalk)
+            {
+                playerPos = new Vector3(playerTransform.position.x, Mathf.Sin(Time.time * (1f * rubSpeed)) / (1f * rubHeight) + (playerTransform.position.y + offset.y),
+                        playerTransform.position.z);
+            }
+            else if (!playerCont.isWalk)
+            {
+                playerPos = pVec3;
+            }
+
+            transform.position = playerPos;
+            //かん↑
         }
-
-        //かん↓  慣性かけてる
-        pVec3 = playerTransform.transform.position + offset;
-
-        //縦の動き                                                          ↓スピード↓縦幅(大きくすると縮まる)
-
-        if (playerCont.isWalk)
-        {
-            playerPos = new Vector3(playerTransform.position.x, Mathf.Sin(Time.time * (1f * rubSpeed)) / (1f * rubHeight) + (playerTransform.position.y + offset.y),
-                    playerTransform.position.z);
-        }
-        else if(!playerCont.isWalk)
-        {
-            playerPos = pVec3;
-        }
-
-        transform.position = playerPos;
-        //かん↑
     }
 
     private void CameraMouseRotation()
@@ -129,8 +129,13 @@ public class CameraController : MonoBehaviour
         
     }
 
-    public void RotateInitialize()
+    public void RotateInitialize(float angle)
     {
-        roteuler = Vector3.zero;
+        //transform.localEulerAngles = Vector3.zero;
+        //roteuler.y = angle;
+        //transform.rotation = Quaternion.Euler(0.0f, angle, 0.0f);
+        //transform.localEulerAngles = new Vector3(0.0f, angle, 0.0f);
+        //transform.rotation = Quaternion.Euler(0.0f, angle, 0.0f);
+        transform.localRotation = Quaternion.Euler(0.0f, angle, 0.0f);
     }
 }

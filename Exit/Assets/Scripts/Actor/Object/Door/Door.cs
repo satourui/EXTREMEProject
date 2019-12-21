@@ -23,6 +23,8 @@ public class Door : MonoBehaviour
     private bool isLock = false;  //鍵がかかっているならtrue
     //
 
+    private PlacedObj placedObj;
+
 
     // Start is called before the first frame update
     void Start()
@@ -34,7 +36,8 @@ public class Door : MonoBehaviour
         animator = GetComponent<Animator>();
 
         audioSource = GetComponent<AudioSource>();
-        
+
+        placedObj = GetComponentInParent<PlacedObj>();
     }
 
     // Update is called once per frame
@@ -42,6 +45,8 @@ public class Door : MonoBehaviour
     {
         if (!isLock)
         {
+            placedObj.IsSelect = false;
+
             if (door_R.inDoor && !door_L.inDoor)
             {
                 animator.SetBool("Open1", true);
@@ -58,6 +63,11 @@ public class Door : MonoBehaviour
 
             }
         }
+
+        else
+            placedObj.IsSelect = true;
+
+
         //Debug.Log(": R :" + door_R.inDoor + ": L :" + door_L.inDoor);
     }
 

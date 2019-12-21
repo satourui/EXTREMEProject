@@ -9,7 +9,6 @@ public class PlayerController : MonoBehaviour
     public float speed = 0.0f;　　//速度
     private Rigidbody rb;         //Rigidbody
     Vector3 velocity = Vector3.zero;  //移動量
-    //PlayerState state;
 
     //テキスト処理関連
     //string[] messages = new string[0];  //オブジェクトの文字情報を保存するための配列
@@ -30,17 +29,17 @@ public class PlayerController : MonoBehaviour
     //↓かんが追加
     private AudioSource audioSource;
     public bool isWalk;
-    private Rigidbody rigid;
 
     public bool isDead;//playerが死んだ
-    //↑
-    
+                       //↑
+
+    [SerializeField]
+    private Vector3 debugPos = Vector3.zero;
     
     
     public GameObject SelectObj { get => selectObj; set => selectObj = value; }
     public List<GameObject> ItemList { get => itemList; set => itemList = value; }
     public int ItemNum { get => itemNum; set => itemNum = value; }
-    public int ItemQuantity { get => itemQuantity; }
     public Transform MainCamera { get => mainCamera; set => mainCamera = value; }
     
 
@@ -62,25 +61,21 @@ public class PlayerController : MonoBehaviour
 
         sound.clip = audioClips[0];
         audioSource = GetComponent<AudioSource>();
-
+        
 
         Initialize();
 
-        //itemNum = 0;
-        //isWalk = false;  //最初は歩いていない
-        //isDead = false;  //死んだかどうか
-        //rigid = GetComponent<Rigidbody>();
     }
 
     public void Initialize()
     {
-        mainCamera.gameObject.GetComponent<CameraController>().RotateInitialize();
+        //mainCamera.gameObject.GetComponent<CameraController>().RotateInitialize();
 
         itemNum = 0;
         
         isWalk = false;  //最初は歩いていない
         isDead = false;  //死んだかどうか
-        rigid = GetComponent<Rigidbody>();
+        
         flashLight.SwitchOff();
     }
 
@@ -90,7 +85,7 @@ public class PlayerController : MonoBehaviour
 
         if (isDead)
         {
-            rigid.angularDrag = 100;  //敵とぶつかったら無理やりとめる
+            rb.angularDrag = 100;  //敵とぶつかったら無理やりとめる
 
             return;
         }
@@ -111,8 +106,6 @@ public class PlayerController : MonoBehaviour
 
         else if (state == GamePlayManager.GameState.Talk)
         {
-            PlayerMove();
-            PlayerRotate();
             text.MessageReading();
         }
 
@@ -120,7 +113,12 @@ public class PlayerController : MonoBehaviour
         {
 
         }
-        
+
+
+        if (Input.GetKey(KeyCode.T) && Input.GetKey(KeyCode.M))
+        {
+            transform.position = debugPos;
+        }
             
     }
 
@@ -207,8 +205,12 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.JoystickButton0) ||
             Input.GetMouseButtonDown(0))
         {
-
+            //選択できるオブジェクトがなかったらreturn
             if (selectObj == null)
+                return;
+
+            //選択できない状態だったらreturn
+            if (!selectObj.GetComponent<PlacedObj>().IsSelect)
                 return;
 
             if (selectObj.GetComponent<PlacedObjParameter>().GoalObj)
@@ -248,7 +250,7 @@ public class PlayerController : MonoBehaviour
 
     void SoundWalk()
     {
-        audioSource.clip = audioClips[1]; 
+        //audioSource.clip = audioClips[1]; 
     }
 
     void ItemChange()

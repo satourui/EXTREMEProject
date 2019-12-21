@@ -49,7 +49,7 @@ MonoBehaviour:
   JHori: 2
   JVerti: 2
   minRotateX: -60
-  maxRotateX: 30
+  maxRotateX: 40
   lerpSpeed: 0.1
   rubSpeed: 15
   rubHeight: 20

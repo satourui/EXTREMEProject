@@ -198,8 +198,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectMessage: 
-  messages:
-  - 
+  messages: []
 --- !u!114 &5763328602770533492
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -215,10 +214,11 @@ MonoBehaviour:
   goalObj: 0
   automaticDoorObj: 1
   changeMessageObj: 0
-  itemDropObj: 0
+  itemObj: 0
   flagChangeObj: 0
   openAndCloseObj: 0
   hiddenObj: 0
+  objectSpawnObj: 0
 --- !u!65 &2476849222758808206
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -375,7 +375,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: d170d6a9a45251346b3a1a2bf4f705e6, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.1
   m_Pitch: 1
   Loop: 0
   Mute: 0

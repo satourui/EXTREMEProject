@@ -23,6 +23,8 @@ public class NextSceneScript : MonoBehaviour
     /// </summary>
     void NextScene()
     {
+        GamePlayManager.instance.GameEndInstant();
         SceneManager.LoadScene("Ending");
+        
     }
 }
