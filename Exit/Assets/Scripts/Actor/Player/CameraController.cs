@@ -14,7 +14,7 @@ public class CameraController : MonoBehaviour
     private float sensitivity = 0;  //カメラ感度
 
     public float JHori = 0;     //パッドの速さ調整用
-    public float JVerti = 0;    
+    public float JVerti = 0;
 
     //float angle;
 
@@ -43,7 +43,16 @@ public class CameraController : MonoBehaviour
     [Header("揺れ幅")]
     public float rubHeight = 20f;
 
+    [SerializeField, Header("ゲームオーバー時の回転速度")]
+    private float roteSpeed = 0;
+
+    [SerializeField, Header("ゲームオーバーUIが出てくるまでの時間")]
+    private float roteTime = 0;
+
+    private float roteCount;
+
     public float Sensitivity { get => sensitivity; set => sensitivity = value; }
+    public float RoteCount { get => roteCount; set => roteCount = value; }
 
     void Start()
     {
@@ -62,8 +71,10 @@ public class CameraController : MonoBehaviour
         pVec3 = playerTransform.transform.position + offset;
 
         playerCont = playerObj.GetComponent<PlayerController>();
+
+        roteCount = 0;
     }
-    
+
 
     void Update()
     {
@@ -74,26 +85,26 @@ public class CameraController : MonoBehaviour
         if (GamePlayManager.instance.State == GamePlayManager.GameState.Play)
         {
             CameraMouseRotation();
-
-
-            //かん↓  慣性かけてる
-            pVec3 = playerTransform.transform.position + offset;
-
-            //縦の動き                                                          ↓スピード↓縦幅(大きくすると縮まる)
-
-            if (playerCont.isWalk)
-            {
-                playerPos = new Vector3(playerTransform.position.x, Mathf.Sin(Time.time * (1f * rubSpeed)) / (1f * rubHeight) + (playerTransform.position.y + offset.y),
-                        playerTransform.position.z);
-            }
-            else if (!playerCont.isWalk)
-            {
-                playerPos = pVec3;
-            }
-
-            transform.position = playerPos;
-            //かん↑
         }
+
+        //かん↓  慣性かけてる
+        pVec3 = playerTransform.transform.position + offset;
+
+        //縦の動き                                                          ↓スピード↓縦幅(大きくすると縮まる)
+
+        if (playerCont.isWalk)
+        {
+            playerPos = new Vector3(playerTransform.position.x, Mathf.Sin(Time.time * (1f * rubSpeed)) / (1f * rubHeight) + (playerTransform.position.y + offset.y),
+                    playerTransform.position.z);
+        }
+        else if (!playerCont.isWalk)
+        {
+            playerPos = pVec3;
+        }
+
+        transform.position = playerPos;
+        //かん↑
+
     }
 
     private void CameraMouseRotation()
@@ -116,8 +127,8 @@ public class CameraController : MonoBehaviour
 
 
         //パッド処理
-        float pad_RotateX = Input.GetAxis("R_Stick_Hori")*sensitivity/100;
-        float pad_RotateY = Input.GetAxis("R_Stick_Verti")*sensitivity/100;
+        float pad_RotateX = Input.GetAxis("R_Stick_Hori") * sensitivity / 100;
+        float pad_RotateY = Input.GetAxis("R_Stick_Verti") * sensitivity / 100;
         //速度変更の仕方が不明なので仮仕様
         pad_RotateX = pad_RotateX * JHori;
         pad_RotateY = pad_RotateY * JVerti;
@@ -126,7 +137,7 @@ public class CameraController : MonoBehaviour
         //transform.RotateAround(transform.position, Vector3.up, angle.x);
         roteuler = new Vector3(Mathf.Clamp(roteuler.x - pad_RotateY, minRotateX, maxRotateX), (roteuler.y + pad_RotateX), 0f);  //Mathf.Clampで角度制限
         transform.localEulerAngles = roteuler;
-        
+
     }
 
     public void RotateInitialize(float angle)
@@ -137,5 +148,29 @@ public class CameraController : MonoBehaviour
         //transform.localEulerAngles = new Vector3(0.0f, angle, 0.0f);
         //transform.rotation = Quaternion.Euler(0.0f, angle, 0.0f);
         transform.localRotation = Quaternion.Euler(0.0f, angle, 0.0f);
+    }
+
+    //public void DeadRotate(Vector3 dir)
+    //{
+    //    transform.rotation = Quaternion.LookRotation(dir);
+    //}
+
+    //public void DeadRotate(Quaternion dir)
+    //{
+
+    //    transform.localRotation = dir;
+    //}
+
+    public void DeadRotate(Quaternion dir)
+    {
+        roteCount += Time.deltaTime;
+
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, dir, roteSpeed);
+
+        if (roteCount > roteTime)
+        {
+            //GamePlayManager.instance.State = GamePlayManager.GameState.GameOver;
+            GamePlayManager.instance.GameOver();
+        }
     }
 }

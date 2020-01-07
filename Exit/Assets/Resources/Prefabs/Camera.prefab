@@ -53,6 +53,8 @@ MonoBehaviour:
   lerpSpeed: 0.1
   rubSpeed: 15
   rubHeight: 20
+  roteSpeed: 2
+  roteTime: 1
 --- !u!1 &6823541276489716020
 GameObject:
   m_ObjectHideFlags: 0

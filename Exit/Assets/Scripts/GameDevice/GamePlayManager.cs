@@ -23,7 +23,7 @@ public class GamePlayManager : MonoBehaviour
     private TalkTextUI talkText;
     private PauseUI pauseScript;
     private GameObject pauseUIObj;
-    
+
 
     //ステージ関連
     [SerializeField]
@@ -36,7 +36,7 @@ public class GamePlayManager : MonoBehaviour
     private GameObject[] stageObjctArray;
 
     private string stageFolderName;
-    
+
     private Dictionary<string, bool> currentStageFlags = new Dictionary<string, bool>();  //フラグを管理するためのDictionary
 
     private GameObject currentStageObj;
@@ -50,14 +50,14 @@ public class GamePlayManager : MonoBehaviour
     private GameObject player;
     private PlayerController pc;
 
-    [SerializeField,Header("一番最初のスタート位置")]
+    [SerializeField, Header("一番最初のスタート位置")]
     private Vector3 playerStartPos = Vector3.zero;
-    
-    private Vector3 playerSpawnPos ;
+
+    private Vector3 playerSpawnPos;
 
     private float playerSpawnRote;
 
-    [SerializeField,Header("ゲーム開始時のメッセージ")]
+    [SerializeField, Header("ゲーム開始時のメッセージ")]
     private string[] startMessage = new string[0];
 
     private bool isStartMessage; //スタートメッセージが読まれたらtrue
@@ -95,7 +95,7 @@ public class GamePlayManager : MonoBehaviour
         //マウスカーソルの削除
         Cursor.visible = false;
 
-        talkText=gamePlayUI.GetComponent<TalkTextUI>();
+        talkText = gamePlayUI.GetComponent<TalkTextUI>();
         pauseScript = gamePlayUI.GetComponent<PauseUI>();
         pauseUIObj = pauseScript.PauseUIObj;
 
@@ -115,7 +115,7 @@ public class GamePlayManager : MonoBehaviour
         playerSpawnRote = 0;
 
         PlayerCreate();
-        
+
         StageInitialize();
         //PlayerInitialize();
 
@@ -127,7 +127,7 @@ public class GamePlayManager : MonoBehaviour
 
         state = GameState.Talk;
         isStartMessage = false;
-        
+
     }
 
 
@@ -160,7 +160,7 @@ public class GamePlayManager : MonoBehaviour
 
         //アイテムリストの初期化
         pc.ItemList.Clear();
-        
+
         for (int i = 0; i < currentStageScript.InitItemList.Count; i++)
         {
             var itemObj = currentStageScript.InitItemList[i];
@@ -173,8 +173,8 @@ public class GamePlayManager : MonoBehaviour
 
         IsStageClearFlag = false;
 
-        
-        
+
+
         //player.transform.rotation = Quaternion.identity;
     }
 
@@ -203,7 +203,7 @@ public class GamePlayManager : MonoBehaviour
         pc.Initialize();
 
         pc.MainCamera.GetComponent<CameraController>().RotateInitialize(playerSpawnRote);
-        
+
     }
 
     void Update()
@@ -239,7 +239,7 @@ public class GamePlayManager : MonoBehaviour
         {
             StageClear();
         }
-        
+
     }
 
     public void FlagOn(string flagName)
@@ -292,12 +292,13 @@ public class GamePlayManager : MonoBehaviour
         }
     }
 
-    void GameOver()
+    public void GameOver()
     {
-
+        var gameoverScript = gamePlayUI.GetComponent<GameOverUI>();
+        gameoverScript.GameOver();
     }
 
-    
+
 
     public void GoalCheck()
     {
