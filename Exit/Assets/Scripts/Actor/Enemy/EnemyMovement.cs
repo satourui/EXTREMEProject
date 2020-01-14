@@ -57,6 +57,8 @@ public class EnemyMovement : MonoBehaviour
 
     private int routeTargetNum;  //現在の巡回ターゲット番号
 
+    private GameObject nextRouteObj;  //次に巡るターゲットオブジェクト
+
     [SerializeField]
     private float chaseDistance = 0;  //playerとの直線距離がこれより短かったら追いかける
 
@@ -69,7 +71,8 @@ public class EnemyMovement : MonoBehaviour
 
     private Animator animator;
 
-    private bool isTouch;
+    private GameObject beforeTouchTarget;
+    
 
     //public enum EnemyState
     //{
@@ -110,7 +113,6 @@ public class EnemyMovement : MonoBehaviour
         isLightOn = false;
         flashLight = GamePlayManager.instance.PC.GetComponentInChildren<FlashLightController>();
         animator = GetComponent<Animator>();
-        isTouch = false;
     }
 
     // Update is called once per frame
@@ -216,13 +218,14 @@ public class EnemyMovement : MonoBehaviour
 
     private void Chase()
     {
-        if (isTouch)
-            return;
+        //ライトの状態を取得
+        isLightOn = flashLight.LightOnFlag;
+
+        nextRouteObj = routeTargetArray[routeTargetNum];
 
         //敵とplayerの直線距離計算
         targetDistance = (target.transform.position - transform.position).magnitude;
-
-        isLightOn = flashLight.LightOnFlag;
+        
 
         //playerとの距離が設定したチェイス距離より短いかつライトが点いていたら
         if (targetDistance < chaseDistance && isLightOn)
@@ -239,7 +242,7 @@ public class EnemyMovement : MonoBehaviour
             //エージェントの目的地をplayerのポジションに
             agent.destination = target.transform.position;
 
-            //playerとの距離がチェイス距離より遠くなったら(見失ったら)
+            //playerとの距離が設定した距離より遠くなったら(見失ったら)
             if (targetDistance > chaseDistance || !isLightOn)
             {
                 isChase = false;
@@ -278,7 +281,7 @@ public class EnemyMovement : MonoBehaviour
 
         else
         {
-            agent.destination = routeTargetArray[routeTargetNum].transform.position;
+            agent.destination = nextRouteObj.transform.position;
         }
     }
 
@@ -288,6 +291,16 @@ public class EnemyMovement : MonoBehaviour
 
         if (obj.tag == "EnemyRoute")
         {
+            ////前に触ったターゲットと現在のオブジェクトが同じならreturn
+            //if (beforeTouchTarget == obj)
+            //    return;
+
+            //次のターゲットと今触れているオブジェクトが違ったらreturn
+            if (nextRouteObj != obj)
+                return;
+
+            //beforeTouchTarget = obj;
+
             if (routeTargetNum == routeTargetArray.Length - 1)
             {
                 routeTargetNum = 0;
@@ -296,10 +309,6 @@ public class EnemyMovement : MonoBehaviour
 
             routeTargetNum++;
         }
-
-        if (obj.tag == "Player")
-        {
-            isTouch = true;
-        }
+        
     }
 }

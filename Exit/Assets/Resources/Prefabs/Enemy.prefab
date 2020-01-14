@@ -1019,7 +1019,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 84
   m_CollisionDetection: 0
 --- !u!82 &909651473670750505
 AudioSource:
@@ -1162,13 +1162,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fba04f05ce24c34db02a7bc894be74c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
-  isActive: 1
-  chaceDistance: 15
-  isPlayerDead: 0
-  idleTime: 5
-  gameOverInitPos: {fileID: 0}
-  state: 1
+  routeTargetArray: []
+  chaseDistance: 0
 --- !u!195 &909651473670750514
 NavMeshAgent:
   m_ObjectHideFlags: 0

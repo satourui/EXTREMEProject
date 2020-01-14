@@ -10,18 +10,42 @@ public class FootstepSEPlayer : MonoBehaviour
     [SerializeField] float pitchRange = 0.1f;
 
     protected AudioSource source;
+
+    float volume;
+
+    float soundRange;
     
     
     // Start is called before the first frame update
     private void Start()
     {
         source = GetComponents<AudioSource>()[0];
-        
+
+        volume = source.volume;
+
+        soundRange = source.maxDistance;
+
+        source.volume = 0;
     }
 
     public void PlayFootstepSE()
     {
         //source = GetComponents<AudioSource>()[0];
+
+        var player = GamePlayManager.instance.Player;
+
+        var playerDistance = (player.transform.position - transform.position).magnitude;
+
+        if (playerDistance <= soundRange)
+        {
+            source.volume = volume;
+        }
+
+        else
+        {
+            source.volume = 0;
+        }
+
 
         if (randomizePitch)
             source.pitch = 1.0f + Random.Range(-pitchRange, pitchRange);

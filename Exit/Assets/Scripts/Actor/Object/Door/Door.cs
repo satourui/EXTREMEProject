@@ -25,6 +25,10 @@ public class Door : MonoBehaviour
 
     private PlacedObj placedObj;
 
+    private float maxDistance_Sound;
+
+    private float playerDistance;
+
 
     // Start is called before the first frame update
     void Start()
@@ -38,11 +42,36 @@ public class Door : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
 
         placedObj = GetComponentInParent<PlacedObj>();
+
+        maxDistance_Sound = audioSource.maxDistance;
     }
 
     // Update is called once per frame
     void Update()
     {
+        //var player = GamePlayManager.instance.Player;
+
+        //var playerPos = player.transform.position;
+
+        //playerDistance = (playerPos - transform.position).magnitude;
+
+        //if (playerDistance < maxDistance_Sound)
+        //{
+        //    audioSource.spatialBlend = 0;
+
+        //    float x = playerPos.x - transform.position.x;
+
+        //    //Debug.Log(Mathf.Acos(Vector3.Dot(player.transform.forward , (transform.position - playerPos).normalized)));
+
+        //    //Debug.Log((transform.position - playerPos).normalized - player.transform.forward);
+        //}
+
+        //else
+        //{
+        //    audioSource.spatialBlend = 1;
+        //}
+
+
         if (!isLock)
         {
             placedObj.IsSelect = false;
