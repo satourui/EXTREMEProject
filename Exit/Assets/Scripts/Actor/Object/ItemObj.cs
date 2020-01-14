@@ -188,7 +188,6 @@ public class ItemObj : MonoBehaviour
                     {
                         GetComponent<FlagChangeObj>().FlagOn();
                     }
-
                 }
             }
         }

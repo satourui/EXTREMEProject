@@ -102,6 +102,7 @@ public class TalkTextUI : MonoBehaviour
                 Input.GetMouseButtonDown(0))
             {
                 isMessageFade = true;
+                textColor.a = 1;
             }
 
             
