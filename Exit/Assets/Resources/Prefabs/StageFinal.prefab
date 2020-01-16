@@ -9544,6 +9544,16 @@ PrefabInstance:
       propertyPath: m_audioClip
       value: 
       objectReference: {fileID: 8300000, guid: 941fa2020afba574aab4fb62f3c88567, type: 3}
+    - target: {fileID: 909651473670750504, guid: fd6c713267b8f004a9983b45d7ac1bc3,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 909651473670750513, guid: fd6c713267b8f004a9983b45d7ac1bc3,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 909651473670750514, guid: fd6c713267b8f004a9983b45d7ac1bc3,
         type: 3}
       propertyPath: m_Speed
@@ -9598,16 +9608,6 @@ PrefabInstance:
         type: 3}
       propertyPath: chaseDistance
       value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 909651473670750513, guid: fd6c713267b8f004a9983b45d7ac1bc3,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 909651473670750504, guid: fd6c713267b8f004a9983b45d7ac1bc3,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fd6c713267b8f004a9983b45d7ac1bc3, type: 3}

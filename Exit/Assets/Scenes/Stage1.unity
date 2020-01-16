@@ -168,6 +168,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: StageFinal
       objectReference: {fileID: 0}
+    - target: {fileID: 8150907556832258049, guid: 83800fd11ea8259428901fc6534a8472,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8680256513648698815, guid: 83800fd11ea8259428901fc6534a8472,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1858,7 +1863,7 @@ PrefabInstance:
     - target: {fileID: 4592081923315511356, guid: 8b904681adb2cba45b97233ac6d9d5c9,
         type: 3}
       propertyPath: flagChangeObj
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 658130188920234007, guid: 8b904681adb2cba45b97233ac6d9d5c9,
         type: 3}
@@ -1873,12 +1878,21 @@ PrefabInstance:
     - target: {fileID: 1372321189273469908, guid: 8b904681adb2cba45b97233ac6d9d5c9,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1372321189273469908, guid: 8b904681adb2cba45b97233ac6d9d5c9,
         type: 3}
       propertyPath: changeFlagName
       value: unLock01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1372321189273469908, guid: 8b904681adb2cba45b97233ac6d9d5c9,
+        type: 3}
+      propertyPath: isDead
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1074119392, guid: 8b904681adb2cba45b97233ac6d9d5c9, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5038254065199142064, guid: 8b904681adb2cba45b97233ac6d9d5c9,
         type: 3}
@@ -2302,7 +2316,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.03
   m_Pitch: 1
   Loop: 0
   Mute: 0

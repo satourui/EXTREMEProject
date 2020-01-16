@@ -135,7 +135,7 @@ public class TalkTextUI : MonoBehaviour
                     }
 
                     //フラグを変更するオブジェクトなら
-                    if (objParameter.FlagChangeObj)
+                    if (objParameter.FlagChangeObj &&!objParameter.ItemObj)
                     {
                         selectObj.GetComponent<FlagChangeObj>().FlagOn();
                     }

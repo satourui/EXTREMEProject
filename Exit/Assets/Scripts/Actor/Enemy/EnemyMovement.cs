@@ -59,12 +59,20 @@ public class EnemyMovement : MonoBehaviour
 
     private GameObject nextRouteObj;  //次に巡るターゲットオブジェクト
 
+    private Vector3 destinationPos;  //目的地座標
+
+    private const float COMPLEMENT_DISTANCE = 0.3f;
+
     [SerializeField]
     private float chaseDistance = 0;  //playerとの直線距離がこれより短かったら追いかける
 
     private float targetDistance;  //playerとの直線距離
 
     private bool isChase;
+
+    private bool isChaceEnd;  //チェイス中にチェイスが終了したらtrue
+
+    private float lightOffTimer;  //ライトが消えて何秒か
 
     private bool isLightOn;  //ライトが点いていたらtrue
     private FlashLightController flashLight;
@@ -110,6 +118,8 @@ public class EnemyMovement : MonoBehaviour
         routeTargetNum = 0;
         targetDistance = 0;
         isChase = false;
+        isChaceEnd = false;
+        lightOffTimer = 0.0f;
         isLightOn = false;
         flashLight = GamePlayManager.instance.PC.GetComponentInChildren<FlashLightController>();
         animator = GetComponent<Animator>();
@@ -231,6 +241,7 @@ public class EnemyMovement : MonoBehaviour
         if (targetDistance < chaseDistance && isLightOn)
         {
             isChase = true;
+            destinationPos = target.transform.position;
         }
 
 
@@ -240,12 +251,21 @@ public class EnemyMovement : MonoBehaviour
             animator.SetBool("isFound", true);
 
             //エージェントの目的地をplayerのポジションに
-            agent.destination = target.transform.position;
+            //agent.destination = target.transform.position;
+            //destinationPos = target.transform.position;
 
-            //playerとの距離が設定した距離より遠くなったら(見失ったら)
-            if (targetDistance > chaseDistance || !isLightOn)
+            if (!isLightOn)
+            {
+                lightOffTimer += Time.deltaTime;
+            }
+
+            //playerとの距離が設定した距離より遠くなるもしくは目標地点に到達したら
+            if (targetDistance > chaseDistance || 
+               (destinationPos-transform.position).magnitude<COMPLEMENT_DISTANCE ||
+               lightOffTimer>5.0f)
             {
                 isChase = false;
+                lightOffTimer = 0.0f;
                 animator.SetBool("isFound", false);
 
                 float nextRouteDistance = 0;  //次のルートまでの距離
@@ -281,8 +301,12 @@ public class EnemyMovement : MonoBehaviour
 
         else
         {
-            agent.destination = nextRouteObj.transform.position;
+            //agent.destination = nextRouteObj.transform.position;
+            destinationPos = nextRouteObj.transform.position;
         }
+
+        //目的座標設定
+        agent.destination = destinationPos;
     }
 
     private void OnTriggerEnter(Collider other)

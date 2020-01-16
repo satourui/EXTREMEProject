@@ -19,6 +19,7 @@ public class FlagSound : MonoBehaviour
         source = GetComponent<AudioSource>();
         source.clip = clip;
         isStart = false;
+        //source.Play();
     }
 
     // Update is called once per frame
