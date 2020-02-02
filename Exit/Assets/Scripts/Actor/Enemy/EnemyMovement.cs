@@ -61,7 +61,7 @@ public class EnemyMovement : MonoBehaviour
 
     private Vector3 destinationPos;  //目的地座標
 
-    private const float COMPLEMENT_DISTANCE = 0.3f;
+    private const float COMPLEMENT_DISTANCE = 0.3f; //誤差分
 
     [SerializeField]
     private float chaseDistance = 0;  //playerとの直線距離がこれより短かったら追いかける
@@ -259,10 +259,12 @@ public class EnemyMovement : MonoBehaviour
                 lightOffTimer += Time.deltaTime;
             }
 
-            //playerとの距離が設定した距離より遠くなるもしくは目標地点に到達したら
-            if (targetDistance > chaseDistance || 
-               (destinationPos-transform.position).magnitude<COMPLEMENT_DISTANCE ||
-               lightOffTimer>5.0f)
+            //playerとの距離が設定した距離より遠くなる
+            //もしくは目標地点に到達する
+            //もしくはライトの消えている時間が一定時間を超えたら
+            if (targetDistance > chaseDistance ||
+               (destinationPos - transform.position).magnitude < COMPLEMENT_DISTANCE ||
+               lightOffTimer > 5.0f)
             {
                 isChase = false;
                 lightOffTimer = 0.0f;

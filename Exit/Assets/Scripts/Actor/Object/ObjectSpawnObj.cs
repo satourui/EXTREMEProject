@@ -20,7 +20,7 @@ public class ObjectSpawnObj : MonoBehaviour
     private string flagName = "";
 
     [SerializeField, Header("生成した後に消すならチェック")]
-    private bool isDeadflag;
+    private bool isDeadflag = false;
 
     private bool isSpwan;  //生成したらtrue
 
@@ -91,6 +91,10 @@ public class ObjectSpawnObj : MonoBehaviour
         {
             GamePlayManager.instance.PC.ItemList.Add(spawnObject);
             isItemGet = false;
+            if (isDeadflag)
+            {
+                gameObject.SetActive(false);
+            }
         }
     }
 }

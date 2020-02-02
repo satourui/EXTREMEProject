@@ -47,6 +47,7 @@ public class GameOverUI : MonoBehaviour
     public void RetryGame()
     {
         //GamePlayManager.instance.PlayerCreate();
+        Cursor.visible = false;
         GamePlayManager.instance.PlayerRespawn();
         GamePlayManager.instance.StageInitialize();
         GamePlayManager.instance.PC.MainCamera.GetComponent<CameraController>().RoteCount = 0;
