@@ -38,6 +38,8 @@ public class PlayerController : MonoBehaviour
 
     private GameObject deadObj;
 
+    private Quaternion deadRote;
+
 
     public GameObject SelectObj { get => selectObj; set => selectObj = value; }
     public List<GameObject> ItemList { get => itemList; set => itemList = value; }
@@ -118,7 +120,7 @@ public class PlayerController : MonoBehaviour
 
         else if (state == GamePlayManager.GameState.GameOver)
         {
-            GameOverRote(deadObj);
+            GameOverRote();
         }
 
         if (Input.GetKey(KeyCode.T) && Input.GetKey(KeyCode.M))
@@ -337,15 +339,23 @@ public class PlayerController : MonoBehaviour
         itemNum--;
     }
 
-    public void GameOverRote(GameObject enemy)
+    public void GameOverRote()
     {
-        flashLight.SwitchOn();
-        var enemyPos = enemy.transform.position;
-        var dir = new Vector3(enemyPos.x, enemyPos.y, enemyPos.z) - MainCamera.transform.position;
-        dir.y -= enemyPos.y - MainCamera.transform.position.y;
-        var rote = Quaternion.LookRotation(dir);
-        MainCamera.GetComponent<CameraController>().DeadRotate(rote);
+        //if (!isDead)
+        //    return;
 
+        //flashLight.SwitchOn();
+        //var enemyPos = enemy.transform.position;
+        //var dir = new Vector3(enemyPos.x, enemyPos.y, enemyPos.z) - MainCamera.transform.position;
+        //dir.y -= enemyPos.y - MainCamera.transform.position.y;
+        //var rote = Quaternion.LookRotation(dir);
+
+        MainCamera.GetComponent<CameraController>().DeadRotate(deadRote);
+        
+
+        //isDead = false;
+
+        //GamePlayManager.instance.GameOver();
 
     }
 
@@ -354,9 +364,15 @@ public class PlayerController : MonoBehaviour
     {
         if (col.transform.tag == "Enemy")
         {
-            //isDead = true;
+            isDead = true;
             GamePlayManager.instance.State = GamePlayManager.GameState.GameOver;
             deadObj = col.gameObject;
+
+            var enemyPos = deadObj.transform.position;
+            var dir = new Vector3(enemyPos.x, enemyPos.y, enemyPos.z) - MainCamera.transform.position;
+            dir.y -= enemyPos.y - MainCamera.transform.position.y;
+            var rote = Quaternion.LookRotation(dir);
+            deadRote = rote;
 
         }
 
