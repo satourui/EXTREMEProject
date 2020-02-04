@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PauseUI : MonoBehaviour
 {
@@ -85,10 +86,7 @@ public class PauseUI : MonoBehaviour
     /// </summary>
     public void Quit()
     {
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-#elif UNITY_STANDALONE 
-        UnityEngine.Application.Quit();   
-#endif  
+        SceneManager.MoveGameObjectToScene(GamePlayManager.instance.gameObject, SceneManager.GetActiveScene());
+        SceneManager.LoadScene("Title");
     }
 }
