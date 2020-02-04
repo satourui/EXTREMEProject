@@ -716,7 +716,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &758088868
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1228,7 +1228,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9edc79c35ea9a244acc93bfd7f9b630, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectUI: {fileID: 490546302}
   selectButtons:
   - {fileID: 1396118350}
   - {fileID: 758088867}
@@ -1399,7 +1398,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 84.00008, y: 219.5}
+  m_AnchoredPosition: {x: 84.00008, y: 140}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: -0.00000009685755, y: 0.49999937}
 --- !u!114 &1396118352
@@ -1593,7 +1592,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1765423099
 MonoBehaviour:
   m_ObjectHideFlags: 0

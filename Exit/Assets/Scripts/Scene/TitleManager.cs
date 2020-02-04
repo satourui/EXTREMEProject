@@ -7,8 +7,8 @@ public class TitleManager : MonoBehaviour
 {
     //「▷」←のUI画像(今はチェック画像)
     [SerializeField]
-    public GameObject selectUI;
-    RectTransform selectUIRect;
+    //public GameObject selectUI;
+    //RectTransform selectUIRect;
     
 
     public GameObject[] selectButtons = new GameObject[0];  //選択ボタンを入れる配列
@@ -23,17 +23,17 @@ public class TitleManager : MonoBehaviour
 
 
     private bool isGameStart;  //ゲームが始まるならtrue
-    private bool isTutorial;  //チュートリアルならtrue
+    //private bool isTutorial;  //チュートリアルならtrue
     private bool isGameEnd;  //ゲームをやめるならtrue
 
 
     // Start is called before the first frame update
     void Start()
     {
-        Cursor.visible = false;
+        Cursor.visible = true;
 
         //選択ボタン関連の初期化
-        selectUIRect = selectUI.GetComponent<RectTransform>();
+        //selectUIRect = selectUI.GetComponent<RectTransform>();
 
         selectButtonsValue = selectButtons.Length;
 
@@ -49,7 +49,7 @@ public class TitleManager : MonoBehaviour
         beforeTrigger = 0;
 
         isGameStart = false;
-        isTutorial = false;
+        //isTutorial = false;
         isGameEnd = false;
     }
 
@@ -60,19 +60,19 @@ public class TitleManager : MonoBehaviour
     {
         #region カーソルオンオフに関する処理(死ぬほどコードが汚く見辛いので訂正できるならよろしくお願いします)
 
-        //マウスカーソルのオン キーボードを押したときにオフにする
-        if (Input.GetAxis("Mouse X") > 0.1f || Input.GetAxis("Mouse X") < -0.1f
-            || Input.GetAxis("Mouse Y") > 0.1f || Input.GetAxis("Mouse Y") < -0.1f)
-        {
-            Cursor.visible = true;
-            selectUI.SetActive(false);
-        }
-        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.S) ||
-            Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            Cursor.visible = false;
-            selectUI.SetActive(true);
-        }
+        ////マウスカーソルのオン キーボードを押したときにオフにする
+        //if (Input.GetAxis("Mouse X") > 0.1f || Input.GetAxis("Mouse X") < -0.1f
+        //    || Input.GetAxis("Mouse Y") > 0.1f || Input.GetAxis("Mouse Y") < -0.1f)
+        //{
+        //    Cursor.visible = true;
+        //    //selectUI.SetActive(false);
+        //}
+        //if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.S) ||
+        //    Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow))
+        //{
+        //    Cursor.visible = false;
+        //    //selectUI.SetActive(true);
+        //}
 
 
         ////上キーとWを押したときにポジションを変えようとした跡地
@@ -87,18 +87,18 @@ public class TitleManager : MonoBehaviour
         #endregion
 
 
-        ChangeSelectUIPos();
-        SelectNextScene();
+        //ChangeSelectUIPos();
+        //SelectNextScene();
 
         if (isGameStart)
         {
             GameStart();
         }
 
-        if (isTutorial)
-        {
+        //if (isTutorial)
+        //{
 
-        }
+        //}
 
         if (isGameEnd)
         {
@@ -138,29 +138,29 @@ public class TitleManager : MonoBehaviour
         
         beforeTrigger = currentTrigger;
 
-        selectUIRect.position = selectButtonsRectPositions[currentSelectButtonNum] - new Vector3(30, 0, 0);
+        //selectUIRect.position = selectButtonsRectPositions[currentSelectButtonNum] - new Vector3(30, 0, 0);
     }
 
     void SelectNextScene()
     {
-        if (!isTutorial &&
-            (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.JoystickButton0)))
-        {
-            if (currentSelectButtonNum == 0)
-            {
-                isGameStart = true;
-            }
+        //if (!isTutorial &&
+        //    (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.JoystickButton0)))
+        //{
+        //    if (currentSelectButtonNum == 0)
+        //    {
+        //        isGameStart = true;
+        //    }
 
-            else if (currentSelectButtonNum == 1)
-            {
-                //isTutorial = true;
-            }
+        //    else if (currentSelectButtonNum == 1)
+        //    {
+        //        //isTutorial = true;
+        //    }
 
-            else
-            {
-                isGameEnd = true;
-            }
-        }
+        //    else
+        //    {
+        //        isGameEnd = true;
+        //    }
+        //}
     }
 
     public void GameStart()
