@@ -10,6 +10,8 @@ public class ObjectJudge : MonoBehaviour
 
     GameObject textObj;
 
+    TalkTextUI talkUI;
+
     PlayerController pc;
 
     private GameObject m_camera;
@@ -17,6 +19,7 @@ public class ObjectJudge : MonoBehaviour
     void Start()
     {
         textObj = GameObject.Find("GamePlayUI");
+        talkUI = textObj.GetComponent<TalkTextUI>();
         pc = GetComponentInParent<PlayerController>();
         m_camera = GetComponentInParent<PlayerController>().MainCamera.gameObject;
         currentObjList = new List<GameObject>();
@@ -36,10 +39,10 @@ public class ObjectJudge : MonoBehaviour
             GamePlayManager.instance.State == GamePlayManager.GameState.Play)
         {
             var po = currentObj.GetComponent<PlacedObj>();
-            var tt = textObj.GetComponent<TalkTextUI>();
-            tt.SelectMessage = po.SelectMessage;
-            tt.ShowSelectMessage();
-            tt.SelectObj = currentObj;
+            //var tt = textObj.GetComponent<TalkTextUI>();
+            talkUI.SelectMessage = po.SelectMessage;
+            talkUI.ShowSelectMessage();
+            talkUI.SelectObj = currentObj;
             pc.SelectObj = currentObj;
 
             if (po.GetComponent<PlacedObjParameter>().ChangeMessageObj)
@@ -53,11 +56,11 @@ public class ObjectJudge : MonoBehaviour
     {
         if (GamePlayManager.instance.State==GamePlayManager.GameState.Play)
         {
-            var tt = textObj.GetComponent<TalkTextUI>();
-            tt.TextClose();
+            //var tt = textObj.GetComponent<TalkTextUI>();
+            talkUI.TextClose();
             currentObj = null;
             pc.SelectObj = currentObj;
-            tt.CurrentMessagePage = 0;
+            talkUI.CurrentMessagePage = 0;
         }
 
     }

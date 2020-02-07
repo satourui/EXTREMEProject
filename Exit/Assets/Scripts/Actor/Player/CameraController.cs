@@ -85,25 +85,26 @@ public class CameraController : MonoBehaviour
         if (GamePlayManager.instance.State == GamePlayManager.GameState.Play)
         {
             CameraMouseRotation();
+
+
+            //かん↓  慣性かけてる
+            pVec3 = playerTransform.transform.position + offset;
+
+            //縦の動き                                                          ↓スピード↓縦幅(大きくすると縮まる)
+
+            if (playerCont.isWalk)
+            {
+                playerPos = new Vector3(playerTransform.position.x, Mathf.Sin(Time.time * (1f * rubSpeed)) / (1f * rubHeight) + (playerTransform.position.y + offset.y),
+                        playerTransform.position.z);
+            }
+            else if (!playerCont.isWalk)
+            {
+                playerPos = pVec3;
+            }
+
+            transform.position = playerPos;
+            //かん↑
         }
-
-        //かん↓  慣性かけてる
-        pVec3 = playerTransform.transform.position + offset;
-
-        //縦の動き                                                          ↓スピード↓縦幅(大きくすると縮まる)
-
-        if (playerCont.isWalk)
-        {
-            playerPos = new Vector3(playerTransform.position.x, Mathf.Sin(Time.time * (1f * rubSpeed)) / (1f * rubHeight) + (playerTransform.position.y + offset.y),
-                    playerTransform.position.z);
-        }
-        else if (!playerCont.isWalk)
-        {
-            playerPos = pVec3;
-        }
-
-        transform.position = playerPos;
-        //かん↑
 
     }
 

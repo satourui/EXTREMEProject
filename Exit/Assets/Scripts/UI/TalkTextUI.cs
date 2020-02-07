@@ -70,6 +70,7 @@ public class TalkTextUI : MonoBehaviour
         mainMessages = null;
         selectMessage = null;
         selectObj = null;
+        GamePlayManager.instance.PC.SelectObj = null;
         text.gameObject.SetActive(false);
     }
 
