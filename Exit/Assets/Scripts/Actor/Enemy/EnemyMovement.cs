@@ -198,7 +198,8 @@ public class EnemyMovement : MonoBehaviour
 
         var gameState = GamePlayManager.instance.State;
 
-        if (gameState == GamePlayManager.GameState.Play)
+        if (gameState == GamePlayManager.GameState.Play ||
+            gameState == GamePlayManager.GameState.Event)
         {
             Chase();
         }

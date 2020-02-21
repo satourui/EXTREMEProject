@@ -7,8 +7,8 @@ public class CameraController : MonoBehaviour
     private GameObject playerObj;
     private Transform playerTransform;  //カメラのターゲット
 
-    [Header("playerとカメラの位置の差分")]
-    public Vector3 offset = Vector3.zero;  //カメラとターゲットの差分
+    [SerializeField, Header("playerとカメラの位置の差分")]
+    private Vector3 offset = Vector3.zero;  //カメラとターゲットの差分
 
     [SerializeField]
     private float sensitivity = 0;  //カメラ感度
@@ -18,7 +18,7 @@ public class CameraController : MonoBehaviour
 
     //float angle;
 
-    Vector3 roteuler;  //オイラー角
+    private Vector3 roteuler;  //オイラー角
 
     public float minRotateX = 0;
     public float maxRotateX = 0;
@@ -53,6 +53,8 @@ public class CameraController : MonoBehaviour
 
     public float Sensitivity { get => sensitivity; set => sensitivity = value; }
     public float RoteCount { get => roteCount; set => roteCount = value; }
+    public Vector3 Roteuler { get => roteuler; set => roteuler = value; }
+    public Vector3 Offset { get => offset; set => offset = value; }
 
     void Start()
     {
@@ -105,6 +107,7 @@ public class CameraController : MonoBehaviour
             transform.position = playerPos;
             //かん↑
         }
+        
 
     }
 
@@ -128,16 +131,16 @@ public class CameraController : MonoBehaviour
 
 
         //パッド処理
-        float pad_RotateX = Input.GetAxis("R_Stick_Hori") * sensitivity / 100;
-        float pad_RotateY = Input.GetAxis("R_Stick_Verti") * sensitivity / 100;
+        //float pad_RotateX = Input.GetAxis("R_Stick_Hori") * sensitivity / 100;
+        //float pad_RotateY = Input.GetAxis("R_Stick_Verti") * sensitivity / 100;
         //速度変更の仕方が不明なので仮仕様
-        pad_RotateX = pad_RotateX * JHori;
-        pad_RotateY = pad_RotateY * JVerti;
+        //pad_RotateX = pad_RotateX * JHori;
+        //pad_RotateY = pad_RotateY * JVerti;
         //Vector3 angle = new Vector3(rotateX * sensitivity, -rotateY * sensitivity, 0);
         //transform.RotateAround(transform.position, transform.right, angle.y);
         //transform.RotateAround(transform.position, Vector3.up, angle.x);
-        roteuler = new Vector3(Mathf.Clamp(roteuler.x - pad_RotateY, minRotateX, maxRotateX), (roteuler.y + pad_RotateX), 0f);  //Mathf.Clampで角度制限
-        transform.localEulerAngles = roteuler;
+        //roteuler = new Vector3(Mathf.Clamp(roteuler.x - pad_RotateY, minRotateX, maxRotateX), (roteuler.y + pad_RotateX), 0f);  //Mathf.Clampで角度制限
+        //transform.localEulerAngles = roteuler;
 
     }
 

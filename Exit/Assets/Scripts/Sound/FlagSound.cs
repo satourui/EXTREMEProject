@@ -7,10 +7,10 @@ public class FlagSound : MonoBehaviour
     AudioSource source;
 
     [SerializeField]
-    private AudioClip clip;
+    private AudioClip clip = null;
 
-    [SerializeField,Header("音楽がかかるフラグ名")]
-    private string flagName;
+    [SerializeField, Header("音楽がかかるフラグ名")]
+    private string flagName = null;
 
     bool isStart;
 

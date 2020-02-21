@@ -8014,6 +8014,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stageFlagsList:
   - unLock01
+  - EnemyApp
   initItemList: []
   playerSpawnPos: {x: 155, y: 0, z: 17.8}
   playerSpawnRotate: -180

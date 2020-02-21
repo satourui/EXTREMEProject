@@ -15,6 +15,7 @@ public class GamePlayManager : MonoBehaviour
         Pause,
         GameOver,
         StageClear,
+        Event,
     }
 
 

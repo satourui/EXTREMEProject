@@ -127,6 +127,7 @@ public class PlayerController : MonoBehaviour
         {
             transform.position = debugPos;
         }
+        
 
     }
 
@@ -173,6 +174,9 @@ public class PlayerController : MonoBehaviour
     void PlayerRotate()
     {
         transform.rotation = Quaternion.Euler(0.0f, MainCamera.transform.localEulerAngles.y, 0.0f);
+
+        
+        //transform.eulerAngles = new Vector3(0, 90, 0);
     }
 
     void FlashLightSwicthing()
@@ -379,6 +383,17 @@ public class PlayerController : MonoBehaviour
         if (col.gameObject.tag == "GoalZone")
         {
             GamePlayManager.instance.State = GamePlayManager.GameState.StageClear;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        var obj = other.gameObject;
+
+        if (obj.GetComponent<TouchEventObj>())
+        {
+            var teo = obj.GetComponent<TouchEventObj>();
+            teo.FlagOn();
         }
     }
 
