@@ -18,8 +18,9 @@ public class ObjectJudge : MonoBehaviour
 
     void Start()
     {
-        textObj = GameObject.Find("GamePlayUI");
-        talkUI = textObj.GetComponent<TalkTextUI>();
+        //textObj = GameObject.Find("GamePlayUI");
+        //talkUI = textObj.GetComponent<TalkTextUI>();
+        talkUI = GamePlayManager.instance.TalkText;
         pc = GetComponentInParent<PlayerController>();
         m_camera = GetComponentInParent<PlayerController>().MainCamera.gameObject;
         currentObjList = new List<GameObject>();

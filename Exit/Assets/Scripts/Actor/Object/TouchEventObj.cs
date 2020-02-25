@@ -15,6 +15,8 @@ public class TouchEventObj : MonoBehaviour
 
     private bool isEnemyEvent;
 
+    private bool isSoundEvent;
+
     void Start()
     {
         eventFlag = false;
@@ -25,6 +27,9 @@ public class TouchEventObj : MonoBehaviour
 
         if (GetComponent<EnemyEvent>())
             isEnemyEvent = true;
+
+        if (GetComponent<SoundEvent>())
+            isSoundEvent = true;
     }
 
     // Update is called once per frame
@@ -50,6 +55,11 @@ public class TouchEventObj : MonoBehaviour
         if (isEnemyEvent)
         {
             GetComponent<EnemyEvent>().EventStart();
+        }
+
+        if (isSoundEvent)
+        {
+            GetComponent<SoundEvent>().EventStart();
         }
 
 

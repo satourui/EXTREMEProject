@@ -9612,6 +9612,16 @@ PrefabInstance:
       propertyPath: chaseDistance
       value: 12
       objectReference: {fileID: 0}
+    - target: {fileID: 5198383707591298994, guid: fd6c713267b8f004a9983b45d7ac1bc3,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5198383707591298994, guid: fd6c713267b8f004a9983b45d7ac1bc3,
+        type: 3}
+      propertyPath: m_Radius
+      value: 0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fd6c713267b8f004a9983b45d7ac1bc3, type: 3}
 --- !u!4 &2204221966961433311 stripped

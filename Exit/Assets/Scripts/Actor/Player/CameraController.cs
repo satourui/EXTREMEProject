@@ -169,12 +169,18 @@ public class CameraController : MonoBehaviour
     {
         roteCount += Time.deltaTime;
 
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, dir, roteSpeed);
+        //transform.rotation = Quaternion.RotateTowards(transform.rotation, dir, roteSpeed);
+        CameraRotate(dir, roteSpeed);
 
         if (roteCount > roteTime)
         {
             //GamePlayManager.instance.State = GamePlayManager.GameState.GameOver;
             GamePlayManager.instance.GameOver();
         }
+    }
+
+    public void CameraRotate(Quaternion dir,float speed)
+    {
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, dir, speed);
     }
 }

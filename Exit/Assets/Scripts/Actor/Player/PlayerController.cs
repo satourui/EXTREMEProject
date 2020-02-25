@@ -51,7 +51,8 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
 
-        text = GameObject.Find("GamePlayUI").GetComponent<TalkTextUI>();
+        //text = GameObject.Find("GamePlayUI").GetComponent<TalkTextUI>();
+        text = GamePlayManager.instance.TalkText;
         flashLight = GetComponentInChildren<FlashLightController>();
 
         if (mainCamera == null)
